@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bs-border-radius: 1.375rem;
+  --sort-of-purple: #4e4a91;
+  --general-blue: rgb(0, 39, 118);
+  --sort-of-grey: #f4f4f4;
+  --dark-grey: #495057;
+  --grey: #8b98a4;
+  --grey-halfOpacity: rgba(139, 152, 164, 0.5);
+  --sort-of-blue: #0d6efd;
+  --card-process: #ffd940;
+  --card-processed: #01c76a;
+  --card-rejected: #ff1d1d;
+  --link-active: #0d6efd;
+  --card-blue: #002776;
+  --indigo: #6c63ff;
+  --light-peach: #f8f8fb;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Poppins", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.font-18 {
+  font-size: 18px !important;
+}
+
+.font-12 {
+  font-size: 12px !important;
+}
+.font-14 {
+  font-size: 14px !important;
+}
+
+.font-16 {
+  font-size: 16px !important;
+}
+
+html {
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: var(--indigo);
+}
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+th {
+  color: var(--dark-grey) !important;
+  font-size: 14px !important;
+}
+
+td {
+  color: var(--dark-grey) !important;
+  font-size: 14px !important;
+}
+
+.table-responsive {
+  width: 100% !important;
+}
+
+.section--name {
+  color: var(--dark-grey);
+  font-weight: bold;
+}
+
+input {
+  font-size: 0.85rem !important;
+}
+.card--icon {
+  color: white;
+  border-radius: 50%;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+}
