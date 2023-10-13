@@ -1,0 +1,155 @@
+@import "../../index.css";
+
+.login--main {
+  height: 100vh;
+  width: 100vw;
+  background-size: 100% 100%;
+  display: flex;
+}
+
+/* .login--main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
+
+.first--half {
+  flex-basis: 65% !important;
+  background-color: var(--light-peach);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rememberBox {
+  display: flex;
+  align-items: center;
+}
+
+.login--card {
+  border-radius: 6%;
+  padding: 1%;
+  flex-basis: 35% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-header {
+  font-size: 30px;
+  color: #002776;
+  font-weight: 700;
+}
+
+hr {
+  color: #5c636a;
+}
+
+.input-group-text {
+  border: none !important;
+  padding: 0 6px 0 0 !important;
+  background-color: inherit !important;
+}
+
+.form-check-input {
+  border-radius: 50% !important;
+  margin-top: 0 !important;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.btn-bg {
+  background-color: var(--sort-of-purple);
+  min-height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
+.font-25 {
+  font-size: 25px !important;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid var(--sort-of-purple);
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 9px solid var(--sort-of-purple);
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.customerAgreement {
+  height: 21rem;
+  overflow-y: scroll;
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .login--card {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 50;
+    left: 50;
+  }
+
+  .login_details_card {
+    background-color: rgba(255, 255, 255, 0.726);
+    box-shadow: 0px 25px 50px 5px rgba(128, 128, 128, 0.747);
+    padding: 40px;
+    margin: 20px;
+  }
+
+  .rememberBox > div:nth-child(2),
+  .options > a {
+    font-size: 15px;
+  }
+  .first--half {
+    width: 100%;
+    display: none;
+  }
+
+  .background_mob {
+    position: relative;
+    top: 50;
+    left: 50;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .rememberBox > div:nth-child(2) {
+    font-size: 8px;
+  }
+
+  .options > a {
+    font-size: 10px;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+  .options > a {
+    padding-bottom: 30px;
+  }
+}

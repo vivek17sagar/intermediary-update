@@ -1,0 +1,8 @@
+.arrow_sidebar {
+  transition: all 0.1s;
+  border-radius: 50%;
+}
+
+.arrow_sidebar:hover {
+  transform: scale(1.07);
+}

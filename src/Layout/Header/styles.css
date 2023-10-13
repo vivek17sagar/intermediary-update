@@ -1,0 +1,150 @@
+@import "../../index.css";
+
+.app_header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  padding: 1rem 3rem;
+  background-color: white;
+}
+
+.pages-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pages-nav > ul {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+  font-weight: 600;
+}
+
+.pages-nav > ul > a {
+  text-decoration: none;
+  color: var(--general-blue);
+}
+
+.pages-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.notification-popup {
+  /* left: calc(100vw - 32rem);
+    z-index: 1;
+    bottom: calc(100vh - 8rem); */
+  position: fixed;
+  top: 50px;
+  z-index: 1;
+  right: 130px;
+  background: #fff;
+  max-width: 40rem;
+  box-shadow: 5px 5px 5px var(--grey);
+  border-radius: 2rem;
+}
+
+.user-dropdown-popup {
+  /* left: calc(100vw - 26rem); */
+  /* bottom: calc(100vh - 23rem); */
+  z-index: 1;
+  position: fixed;
+  top: 45px;
+  right: 70px;
+  background: #fff;
+  max-width: 40rem;
+  box-shadow: 5px 5px 5px var(--grey);
+  border-radius: 2rem;
+}
+
+.notificationHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 10rem;
+}
+
+.notificationHeader:first-child {
+  color: var(--sort-of-blue);
+}
+
+.mark-all {
+  color: var(--general-blue);
+}
+
+.user-head {
+  display: flex;
+  gap: 1rem;
+}
+
+hr {
+  color: var(--grey);
+  margin: 0 0 12px 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  color: var(--general-blue);
+}
+
+.uluser {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.uluser > li {
+  cursor: pointer;
+}
+
+[data-active="home"] {
+  color: var(--link-active) !important;
+}
+[data-active="claims"] {
+  color: var(--link-active) !important;
+}
+[data-active="policy"] {
+  color: var(--link-active) !important;
+}
+[data-active="providers"] {
+  color: var(--link-active) !important;
+}
+[data-active="fitness"] {
+  color: var(--link-active) !important;
+}
+
+[data-active="gamezone"] {
+  color: var(--link-active) !important;
+}
+
+@media screen and (max-width: 600px) {
+  .card-body {
+    width: 300px;
+  }
+
+  .user-details {
+    font-size: 10px;
+  }
+
+  .user-head > img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .notificationHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card-body {
+    width: 250px;
+  }
+
+  .user-details {
+    font-size: 5px;
+  }
+}

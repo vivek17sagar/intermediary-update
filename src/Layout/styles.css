@@ -1,0 +1,14 @@
+@import "../index.css";
+
+.background {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--sort-of-grey);
+  background-size: 100% 100%;
+  display: flex;
+}
+
+.second--section {
+  width: 100%;
+  background-color: #f8f8fb;
+}

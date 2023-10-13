@@ -1,0 +1,22 @@
+@import "../../index.css";
+
+.card--icon {
+  color: white;
+  border-radius: 50%;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+}
+
+.graph {
+  width: 100%;
+  overflow: scroll;
+  /* padding-left: 30%; */
+  /* margin-left: 50px; */
+}
+
+.graph::-webkit-scrollbar {
+  display: none;
+}
