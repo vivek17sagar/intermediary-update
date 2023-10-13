@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import "./styles.css";
 import { useState, useRef, useEffect, MouseEvent } from "react";
 import { Settings } from "../../assets/Settings.jsx";
@@ -26,6 +25,8 @@ const Header = () => {
   const profileRef = useRef(null);
   const { logout } = useAuth();
   const location = useLocation();
+
+  // const isBrowser = typeof window !== "undefined";
 
   useEffect(() => {
     setActive(location.pathname.slice(1));
@@ -74,6 +75,7 @@ const Header = () => {
       initial={{ scale: 0.994 }}
       animate={{ scale: 1 }}
       id="app-header"
+      style={{ backgroundColor: "white", padding: "20px" }}
     >
       <section className="pages-header">
         <i role="button" onClick={handleFullScreen}>

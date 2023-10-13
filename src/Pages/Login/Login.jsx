@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Checkbox,
@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 
 const login = () => {
+  console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiii");
   const {
     register,
     handleSubmit,
@@ -85,7 +86,7 @@ const login = () => {
             className=" flex flex-col gap-3 mt-4"
           >
             <div>
-              <div className="mb-2 block" style={{ marginLeft: "-350px" }}>
+              <div className="mb-2 block">
                 <Label value="USERID / MOBILE / EMAIL" />
               </div>
               <TextInput
@@ -103,14 +104,14 @@ const login = () => {
               />
             </div>
             <div>
-              <div className=" block" style={{ marginLeft: "-410px" }}>
+              <div className=" block">
                 <Label value="PASSWORD" className="mt-4" />
               </div>
             </div>
             <TextInput
               name="password"
               type="password"
-              className="rounded rounded-lg"
+              className="rounded "
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSubmit();
