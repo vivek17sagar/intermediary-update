@@ -1,22 +1,24 @@
-import { Table } from "flowbite-react";
+import Table from "react-bootstrap/Table";
 
 export const CustomisedTable = ({ count }) => {
   return (
     <Table striped bordered responsive hover>
-      <Table.Head>
-        <Table.HeadCell>First Name</Table.HeadCell>
-        <Table.HeadCell>Last Name</Table.HeadCell>
-        <Table.HeadCell>Username</Table.HeadCell>
-      </Table.Head>
-      <Table.Body className="divide-y">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
         {[...Array(count).keys()].map((data) => (
-          <Table.Row key={data}>
-            <Table.Cell>Mark</Table.Cell>
-            <Table.Cell>Otto</Table.Cell>
-            <Table.Cell>@mdo</Table.Cell>
-          </Table.Row>
+          <tr key={data}>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
         ))}
-      </Table.Body>
+      </tbody>
     </Table>
   );
 };
