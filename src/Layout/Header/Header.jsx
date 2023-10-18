@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../../hooks/useAuth";
 import { Card } from "react-bootstrap";
 // import { UseAuthType } from "Types/types";
-// import { isBrowser } from "../../../decideENV";
+import { isBrowser } from "../../../decideENV.js";
 
 /** make sure to put svg in userMenu */
 
