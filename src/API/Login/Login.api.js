@@ -35,14 +35,17 @@ export const Forgotpassword = async (payLoad) => {
   } catch (error) {
     return { ok: false, data: null, error };
   }
-};
+};*/
 
 export const verifyWithOTP = async (payLoad) => {
   let result;
   try {
-    result = await ServiceInstance.post("/validatecustomerloginotp", payLoad);
+    result = await ServiceInstance.post(
+      "/validateintermediateloginotp",
+      payLoad
+    );
     return { ok: true, data: result, error: null };
   } catch (error) {
     return { ok: false, data: null, error };
   }
-};*/
+};

@@ -1,24 +1,32 @@
-import { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Label,
-  TextInput,
-  Card,
-  Spinner,
-} from "flowbite-react";
+import { useRef, useState } from "react";
+// import {
+//   Button,
+//   Checkbox,
+//   Label,
+//   TextInput,
+//   Card,
+//   Spinner,
+// } from "flowbite-react";
+import { Button, Card, Form, InputGroup } from "react-bootstrap";
 import { EoxegenLogoColour } from "../../assets/eOxegenLogoColour";
 import { LoginBackground } from "../../assets/loginbackground";
 import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
-import { LoginAPI, ValidateLogin } from "../../API/Login/Login.api";
+import { ValidateLogin, verifyWithOTP } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
-import { getPayload } from "../../Payload";
-import { useQueries } from "@tanstack/react-query";
+// import { getPayload } from "../../Payload";
+import { useQuery } from "@tanstack/react-query";
+import Base64 from "crypto-js/enc-base64";
+import Utf8 from "crypto-js/enc-utf8";
+import AES from "crypto-js/aes";
+import CryptoJSCore from "crypto-js/core";
+import Pkcs7 from "crypto-js/pad-pkcs7";
+import { toast } from "../../Components/Toaster/Toaster";
+import cogoToast from "cogo-toast";
+import { getResultFromData } from "../../Utils/Utils";
 
 const login = () => {
-  console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiii");
   const {
     register,
     handleSubmit,
@@ -30,104 +38,98 @@ const login = () => {
       password: "",
     },
   });
-  //   const [openLicense, setOpenLicense] = useState(false);
+
+  const [openLicense, setOpenLicense] = useState(false);
+  const [OTP, setOTP] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const emailRef = useRef(null);
-  // const passwordRef = useRef(null);
+  const modalRef = useRef(null);
+
   const { login, user } = useAuth();
 
-  const [
-    { refetch: ValidateLogin, data: LoginData },
-    { refetch: verifyOtpFetch, data: verifiableOTP },
-  ] = useQueries({
-    queries: [
-      {
-        queryKey: ["validateintermediatelogin"],
-        queryFn: () =>
-          ValidateLogin(
-            getPayload("validateintermediatelogin", {
-              // memberContactNo: phoneNumber,
-            })
-          ),
-        enabled: false,
-        // onSuccess(data) {
-        //   const result = getResultFromData(data);
-
-        //   if (result) {
-        //     toast.success(result.message);
-        //     setTimeout(() => {
-        //       modalRef?.current?.showModal();
-        //     }, 2000);
-        //     // .then(() => modalRef?.current?.showModal());
-        //   } else {
-        //     toast.error(data?.data?.message);
-        //   }
-        // },
-      },
-      {
-        queryKey: ["validatememberloginotp"],
-        queryFn: () =>
-          verifyOtp(
-            getPayload("validatememberloginotp", {
-              OTP,
-              memberContactNo: phoneNumber,
-            })
-          ),
-        onError(data) {
-          toast.error(data.response.data.message.slice(0, 29));
-        },
-        enabled: false,
-        cacheTime: 0,
-        staleTime: 0,
-
-        // onSuccess(data) {
-        //   const loginData = getResultFromData(data);
-
-        //   if (loginData) {
-        //     login(loginData);
-        //   } else {
-        //     toast.error(data?.data?.message);
-        //   }
-        // },
-      },
-    ],
+  const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
 
   if (user) {
     return <Navigate to="/home" />;
   }
 
-  const handleFormValues = async () => {
+  async function handleFormValues() {
     const values = getValues();
     console.log(values);
-    const details = {
-      email: values?.email,
-      password: values?.password,
-    };
-    // login api to be called and the result should be saved in login context
-    setIsLoggedIn(false);
-    if (!details.email || !details.password) {
-      console.log("Fill all the fields");
-      setIsLoggedIn(false);
+    if (!values) {
+      setIsLoggedIn(undefined);
 
       return;
     }
 
-    const timeout = setTimeout(async () => {
-      const LoginDetails = await LoginAPI(details);
-      if (LoginDetails.loggedIn) {
-        if (login) {
-          login(LoginDetails);
-          setIsLoggedIn(true);
-        }
-      } else {
-        console.log(LoginDetails.error);
-        setIsLoggedIn(false);
-      }
+    const payLoad = {
+      searchvalue: values.email,
+      password: encryptPassword(values.password),
+      sendType: "M",
+    };
 
-      clearTimeout(timeout);
-    }, 0);
+    const validateFirstStep = await ValidateLogin(payLoad);
+
+    if (validateFirstStep.ok) {
+      cogoToast
+        .success(getResultFromData(validateFirstStep).message)
+        .then(() => modalRef.current?.showModal());
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   *
+   * @param {*} password => User input password
+   * @returns Hashed password
+   */
+  const encryptPassword = (password) => {
+    const publickey = Base64.parse(import.meta.env.VITE_hd_publicKey);
+    const algoKey = Base64.parse(import.meta.env.VITE_hd_algoKey);
+    const utfStringified = Utf8.parse(password).toString();
+    const aesEncrypted = AES.encrypt(utfStringified, publickey, {
+      mode: CryptoJSCore.mode.CBC,
+      padding: Pkcs7,
+      iv: algoKey,
+    });
+    return aesEncrypted?.ciphertext?.toString(Base64);
   };
+
+  /**
+   *
+   * @performs Validates the OTP and logs in the user
+   */
+  const handleOTP = async () => {
+    const values = getValues();
+    console.log("reaching");
+    if (String(OTP).length !== 6) {
+      cogoToast.error("must be 6 digits");
+      return;
+    }
+
+    const payLoad = {
+      searchvalue: values?.email,
+      OTP,
+    };
+
+    // OTPref.current.disabled = true;
+    const validatewithotp = await verifyWithOTP(payLoad);
+
+    if (validatewithotp.ok) {
+      if (login) {
+        login(getResultFromData(validatewithotp));
+        // OTPref.current.disabled = false;
+        modalRef.current?.close();
+      }
+    } else {
+      cogoToast.error("something went wrong");
+      // OTPref.current.disabled = false;
+    }
+  };
+
   return (
     <main className="login--main">
       <section className="first--half">
@@ -135,27 +137,27 @@ const login = () => {
       </section>
       <section className="login--card border-0">
         <Card className="login_details_card" style={{ width: "35rem" }}>
-          <div>
-            <strong className="sign-in-header flex justify-center gap-4">
+          <Card.Title className="text-center">
+            <strong className="sign-in-header">
               Welcome to <EoxegenLogoColour />
             </strong>
-          </div>
-          <form
+          </Card.Title>
+          <Form
             onSubmit={handleSubmit(handleFormValues)}
             className=" flex flex-col gap-3 mt-4"
           >
             <div>
               <div className="mb-2 block">
-                <Label value="USERID / MOBILE / EMAIL" />
+                <Form.Label>USERID / MOBILE / EMAIL</Form.Label>
               </div>
-              <TextInput
+              <Form.Control
                 name="email"
                 sizing="md"
                 type="text"
                 className="rounded-full"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleSubmit();
+                    refetch();
                   }
                 }}
                 {...register("email")}
@@ -164,29 +166,29 @@ const login = () => {
             </div>
             <div>
               <div className=" block">
-                <Label value="PASSWORD" className="mt-4" />
+                <Form.Label className="mt-4">PASSWORD</Form.Label>
               </div>
             </div>
-            <TextInput
+            <Form.Control
               name="password"
               type="password"
               className="rounded "
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handleSubmit();
+                  refetch();
                 }
               }}
               {...register("password")}
               required
             />
-            <section className="options mt-5">
-              <div className="flex flex-row gap-1">
-                <Checkbox />
-                <Label className="mb-1">
-                  <p>Remember Me</p>
-                </Label>
-              </div>
-              <a href="/" onClick={(e) => e.preventDefault()}>
+            <section className="options">
+              <Form.Label className="mt-4">
+                <InputGroup>
+                  <InputGroup.Checkbox />
+                  Remember Me
+                </InputGroup>
+              </Form.Label>
+              <a href="/forgotpassword" onClick={(e) => e.preventDefault()}>
                 Forgot Password
               </a>
             </section>
@@ -202,7 +204,34 @@ const login = () => {
               ) : null}
             </Button>
             <hr />
-          </form>
+          </Form>
+          <dialog ref={modalRef} className="dialog__modal">
+            <section>
+              <label>
+                Enter OTP
+                <input
+                  id="otp"
+                  name="otp"
+                  type="number"
+                  value={OTP}
+                  className="input"
+                  onChange={(e) => setOTP(e.target.valueAsNumber)}
+                  // onKeyDown={(e) => (e.key === "Enter" ? handleOTP() : void 0)}
+                />
+              </label>
+              <button
+                type="button"
+                onClick={handleOTP}
+                // eslint-disable-next-line no-void
+                // ref={OTPref}
+                data-otp="OTP"
+                className="btn btn-primary"
+                tabIndex={0}
+              >
+                Submit
+              </button>
+            </section>
+          </dialog>
         </Card>
       </section>
     </main>

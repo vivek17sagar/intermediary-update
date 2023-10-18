@@ -2,7 +2,7 @@ import { toast } from "./Components/Toaster/Toaster";
 
 export const getPayload = (endpoint, extraValues = undefined) => {
   switch (endpoint) {
-    case "validatememberLogin": {
+    case "validateintermediatelogin": {
       return {
         memberContactNo: extraValues?.memberContactNo,
       };
