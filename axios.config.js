@@ -25,6 +25,5 @@ export const SubmitServiceInstance = axios.create({
   headers: {
     "eO2-Secret-Code": import.meta.env.VITE_EO2_SECRET_CODE,
     "Content-Type": "application/json",
-    // 'Access-Control-Allow-Origin': '*',
   },
 });
