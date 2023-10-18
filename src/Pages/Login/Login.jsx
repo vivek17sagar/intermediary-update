@@ -11,9 +11,11 @@ import { EoxegenLogoColour } from "../../assets/eOxegenLogoColour";
 import { LoginBackground } from "../../assets/loginbackground";
 import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
-import { LoginAPI } from "../../API/Login/Login.api";
+import { LoginAPI, ValidateLogin } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
+import { getPayload } from "../../Payload";
+import { useQueries } from "@tanstack/react-query";
 
 const login = () => {
   console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiii");
@@ -33,6 +35,63 @@ const login = () => {
   // const emailRef = useRef(null);
   // const passwordRef = useRef(null);
   const { login, user } = useAuth();
+
+  const [
+    { refetch: ValidateLogin, data: LoginData },
+    { refetch: verifyOtpFetch, data: verifiableOTP },
+  ] = useQueries({
+    queries: [
+      {
+        queryKey: ["validateintermediatelogin"],
+        queryFn: () =>
+          ValidateLogin(
+            getPayload("validateintermediatelogin", {
+              // memberContactNo: phoneNumber,
+            })
+          ),
+        enabled: false,
+        // onSuccess(data) {
+        //   const result = getResultFromData(data);
+
+        //   if (result) {
+        //     toast.success(result.message);
+        //     setTimeout(() => {
+        //       modalRef?.current?.showModal();
+        //     }, 2000);
+        //     // .then(() => modalRef?.current?.showModal());
+        //   } else {
+        //     toast.error(data?.data?.message);
+        //   }
+        // },
+      },
+      {
+        queryKey: ["validatememberloginotp"],
+        queryFn: () =>
+          verifyOtp(
+            getPayload("validatememberloginotp", {
+              OTP,
+              memberContactNo: phoneNumber,
+            })
+          ),
+        onError(data) {
+          toast.error(data.response.data.message.slice(0, 29));
+        },
+        enabled: false,
+        cacheTime: 0,
+        staleTime: 0,
+
+        // onSuccess(data) {
+        //   const loginData = getResultFromData(data);
+
+        //   if (loginData) {
+        //     login(loginData);
+        //   } else {
+        //     toast.error(data?.data?.message);
+        //   }
+        // },
+      },
+    ],
+  });
 
   if (user) {
     return <Navigate to="/home" />;
