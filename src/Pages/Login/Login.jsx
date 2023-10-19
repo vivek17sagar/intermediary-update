@@ -25,6 +25,7 @@ import Pkcs7 from "crypto-js/pad-pkcs7";
 import { toast } from "../../Components/Toaster/Toaster";
 import cogoToast from "cogo-toast";
 import { getResultFromData } from "../../Utils/Utils";
+import { useStore } from "../../Store/store";
 
 const login = () => {
   const {
@@ -43,8 +44,11 @@ const login = () => {
   const [OTP, setOTP] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const modalRef = useRef(null);
-
   const { login, user } = useAuth();
+
+  const { setUserDetails } = useStore((store) => ({
+    setUserDetails: store.setUserDetails,
+  }));
 
   const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
     refetchOnWindowFocus: false,
@@ -121,6 +125,7 @@ const login = () => {
     if (validatewithotp.ok) {
       if (login) {
         login(getResultFromData(validatewithotp));
+        setUserDetails(getResultFromData(validatewithotp));
         // OTPref.current.disabled = false;
         modalRef.current?.close();
       }
