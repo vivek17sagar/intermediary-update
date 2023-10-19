@@ -1,7 +1,12 @@
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import { Card, Row, Col, Container, Form } from "react-bootstrap";
+import { useStore } from "../../Store/store";
 
 const Customer = () => {
+  const { userDetails } = useStore((store) => ({
+    userDetails: store.userDetails,
+  }));
+
   return (
     <Container fluid>
       <p className="font-16 section--name">CUSTOMER</p>
