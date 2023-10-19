@@ -1,5 +1,6 @@
 import { Pie, Area } from "../../Components/Charts/Charts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useStore } from "../../Store/store";
 import {
   faIndianRupeeSign,
   faPenToSquare,
@@ -8,55 +9,130 @@ import {
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { pieProps, MonthlyWiseChartProps } from "./props";
-
+import { getPayload } from "../../Payload";
 import "./styles.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { useQueries } from "@tanstack/react-query";
+import {
+  intermediatecustomersinfo,
+  intermediatepolicycount,
+} from "../../API/Home.api";
+import { getResultFromData } from "../../Utils/Utils";
 
 const Home = () => {
-  const cardData = [
-    { name: "Total customers", count: "20", image: faUser, color: "#556ee6" },
-    {
-      name: "Total Policies Count",
-      count: "20",
-      image: faIndianRupeeSign,
-      color: "#34c38f",
-    },
-    {
-      name: "Claim In-Process",
-      count: "20",
-      image: faPenToSquare,
-      color: "#f46a6a",
-    },
-    {
-      name: "Endorsement Request",
-      count: "20",
-      image: faBars,
-      color: "#f1b44c",
-    },
-  ];
+  const { userDetails } = useStore((store) => ({
+    userDetails: store.userDetails,
+  }));
+
+  const [{ data: policyCount }] = useQueries({
+    queries: [
+      {
+        queryKey: ["intermediatepolicycount"],
+        queryFn: () =>
+          intermediatepolicycount(
+            getPayload("intermediatepolicycount", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+            })
+          ),
+        select(data) {
+          // console.log(data);
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatecustomersinfo"],
+        queryFn: () =>
+          intermediatecustomersinfo(
+            getPayload("intermediatecustomersinfo", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: 0,
+              pageSize: 10,
+            })
+          ),
+        select(data) {
+          // console.log(data);
+          return getResultFromData(data);
+        },
+      },
+    ],
+  });
+
   return (
     <main>
       <Container fluid>
         <p className="font-16 section--name">DASHBOARD</p>
         <Row>
-          {cardData.map((item) => (
-            <Col md={3} key={item.name}>
-              <Card className="border-0">
-                <Card.Body className="d-flex">
-                  <section className="flex-grow-1">
-                    <p className="text-muted fw-medium">{item.name}</p>
-                    <h5 className="font-14 fw-bold">{item.count}</h5>
-                  </section>
-                  <section
-                    className="card--icon"
-                    style={{ backgroundColor: item.color }}
-                  >
-                    <FontAwesomeIcon icon={item.image} size="xl" />
-                  </section>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+          <Col md={3}>
+            <Card className="border-0">
+              <Card.Body className="d-flex">
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Total customers</p>
+                  <h5 className="font-14 fw-bold">count</h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#556ee6" }}
+                >
+                  <FontAwesomeIcon icon={faUser} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col md={3}>
+            <Card className="border-0">
+              <Card.Body className="d-flex">
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Total Policies Count</p>
+                  <h5 className="font-14 fw-bold">
+                    {policyCount?.totalPolicyCount}
+                  </h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#34c38f" }}
+                >
+                  <FontAwesomeIcon icon={faIndianRupeeSign} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col md={3}>
+            <Card className="border-0">
+              <Card.Body className="d-flex">
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Claim In-Process</p>
+                  <h5 className="font-14 fw-bold">count</h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#f46a6a" }}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col md={3}>
+            <Card className="border-0">
+              <Card.Body className="d-flex">
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Endorsement Request</p>
+                  <h5 className="font-14 fw-bold">count</h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#f1b44c" }}
+                >
+                  <FontAwesomeIcon icon={faBars} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
         </Row>
         <Row className="mt-4">
           <Col md={7}>

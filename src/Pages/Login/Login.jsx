@@ -81,7 +81,7 @@ const login = () => {
 
     if (validateFirstStep.ok) {
       cogoToast
-        .success(getResultFromData(validateFirstStep).message)
+        .success(getResultFromData(validateFirstStep)?.message)
         .then(() => modalRef.current?.showModal());
       return true;
     }
@@ -111,7 +111,6 @@ const login = () => {
    */
   const handleOTP = async () => {
     const values = getValues();
-    console.log("reaching");
     if (String(OTP).length !== 6) {
       cogoToast.error("must be 6 digits");
       return;
@@ -124,10 +123,14 @@ const login = () => {
 
     // OTPref.current.disabled = true;
     const validatewithotp = await verifyWithOTP(payLoad);
-
+    console.log(getResultFromData(validatewithotp));
     if (validatewithotp.ok) {
       if (login) {
         login(getResultFromData(validatewithotp));
+        sessionStorage.setItem(
+          "tokenID",
+          getResultFromData(validatewithotp).tokenID
+        );
         setUserDetails(getResultFromData(validatewithotp));
         // OTPref.current.disabled = false;
         modalRef.current?.close();
