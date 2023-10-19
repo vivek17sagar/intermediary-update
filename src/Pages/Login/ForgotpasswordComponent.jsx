@@ -7,12 +7,17 @@ import { useRef, useState } from "react";
 //   Card,
 //   Spinner,
 // } from "flowbite-react";
-import { Button, Card, Form, InputGroup } from "react-bootstrap";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { EoxegenLogoColour } from "../../assets/eOxegenLogoColour";
 import { LoginBackground } from "../../assets/loginbackground";
 import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
-import { ValidateLogin, verifyWithOTP } from "../../API/Login/Login.api";
+import {
+  ForgotOtp,
+  Forgotpassword,
+  ValidateLogin,
+  verifyWithOTP,
+} from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 // import { getPayload } from "../../Payload";
@@ -24,10 +29,9 @@ import CryptoJSCore from "crypto-js/core";
 import Pkcs7 from "crypto-js/pad-pkcs7";
 import cogoToast from "cogo-toast";
 import { getResultFromData } from "../../Utils/Utils";
-import { useStore } from "../../Store/store";
 import Spinner from "../../Components/Spinner/Spinner";
 
-const login = () => {
+const ForgotpasswordComponent = () => {
   const {
     register,
     handleSubmit,
@@ -37,21 +41,17 @@ const login = () => {
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
+      enterOtp: "",
     },
   });
 
-  // const [openLicense, setOpenLicense] = useState(false);
+  const [openLicense, setOpenLicense] = useState(false);
   const [OTP, setOTP] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const modalRef = useRef(null);
+
   const { login, user } = useAuth();
-
-  const { setUserDetails, userDetails } = useStore((store) => ({
-    setUserDetails: store.setUserDetails,
-    userDetails: store.userDetails,
-  }));
-
-  console.log(userDetails);
 
   const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
     refetchOnWindowFocus: false,
@@ -61,6 +61,22 @@ const login = () => {
   if (user) {
     return <Navigate to="/home" />;
   }
+
+  const handleForwardOtp = async () => {
+    const values = getValues();
+
+    const payload = {
+      searchvalue: values.email,
+    };
+
+    const getOtp = await ForgotOtp(payload);
+
+    if (getOtp.ok) {
+      cogoToast.success(getResultFromData(getOtp).message);
+      return true;
+    }
+    return false;
+  };
 
   async function handleFormValues() {
     const values = getValues();
@@ -74,10 +90,11 @@ const login = () => {
     const payLoad = {
       searchvalue: values.email,
       password: encryptPassword(values.password),
-      sendType: "M",
+      confirmpassword: encryptPassword(values.confirmPassword),
+      OTP: values.enterOtp,
     };
 
-    const validateFirstStep = await ValidateLogin(payLoad);
+    const validateFirstStep = await Forgotpassword(payLoad);
 
     if (validateFirstStep.ok) {
       cogoToast
@@ -128,7 +145,6 @@ const login = () => {
     if (validatewithotp.ok) {
       if (login) {
         login(getResultFromData(validatewithotp));
-        setUserDetails(getResultFromData(validatewithotp));
         // OTPref.current.disabled = false;
         modalRef.current?.close();
       }
@@ -138,30 +154,31 @@ const login = () => {
     }
   };
 
-  const hadleForgot = () => {
-    return <Navigate to="/forgotpassword" />;
-  };
+  // const hadleForgot = () => {
+  //   return <Navigate to="/forgotpassword" />;
+  // };
 
   return (
     <main className="login--main">
-      <section className="first--half">
+      {/* <section className="first--half">
         <LoginBackground />
-      </section>
+      </section> */}
       <section className="login--card border-0">
-        <Card className="login_details_card" style={{ width: "35rem" }}>
-          <Card.Title className="text-center">
+        <Card
+          className="login_details_card border-0 shadow-lg justify-cente items-center p-9"
+          style={{ width: "35rem" }}
+        >
+          {/* <Card.Title className="text-center">
             <strong className="sign-in-header">
               Welcome to <EoxegenLogoColour />
             </strong>
-          </Card.Title>
+          </Card.Title> */}
           <Form
             onSubmit={handleSubmit(handleFormValues)}
-            className=" flex flex-col gap-3 mt-4"
+            className=" flex flex-col gap-3 mt-2 w-96 "
           >
             <div>
-              <div className="mb-2 block">
-                <Form.Label>USERID / MOBILE / EMAIL</Form.Label>
-              </div>
+              <Form.Label>USERID / MOBILE / EMAIL</Form.Label>
               <Form.Control
                 name="email"
                 sizing="md"
@@ -177,23 +194,51 @@ const login = () => {
               />
             </div>
             <div>
-              <div className=" block">
-                <Form.Label className="mt-4">PASSWORD</Form.Label>
-              </div>
+              <Form.Label className="mt-2">PASSWORD</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                className="rounded "
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    refetch();
+                  }
+                }}
+                {...register("password")}
+                required
+              />
             </div>
-            <Form.Control
-              name="password"
-              type="password"
-              className="rounded "
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  refetch();
-                }
-              }}
-              {...register("password")}
-              required
-            />
-            <section className="options">
+            <div>
+              <Form.Label className="mt-2">CONFIRM PASSWORD</Form.Label>
+              <Form.Control
+                name="confirmPassword"
+                type="password"
+                className="rounded "
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    refetch();
+                  }
+                }}
+                {...register("confirmPassword")}
+                required
+              />
+            </div>
+            <div>
+              <Form.Label className="mt-2">ENTER OTP</Form.Label>
+              <Form.Control
+                name="enterOtp"
+                type="password"
+                className="rounded "
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    refetch();
+                  }
+                }}
+                {...register("enterOtp")}
+                required
+              />
+            </div>
+            {/* <section className="options">
               <Form.Label className="mt-4">
                 <InputGroup>
                   <InputGroup.Checkbox />
@@ -203,17 +248,37 @@ const login = () => {
               <a href="/forgotpassword" onClick={hadleForgot}>
                 Forgot Password
               </a>
-            </section>
-            <Button
-              disabled={isLoggedIn === true}
-              className="mt-2 w-100 btn-bg"
-              onClick={handleSubmit(handleFormValues)}
-            >
-              {isFetching ? <Spinner suspense={false} /> : "Sign In"}
-            </Button>
-            <hr />
+            </section> */}
+            <Row>
+              <Col>
+                <Button
+                  // disabled={isLoggedIn === true}
+
+                  className="mt-2 w-100 btn-bg"
+                  onClick={handleForwardOtp}
+                >
+                  Get OTP
+                </Button>
+              </Col>
+
+              <Col>
+                <Button
+                  disabled={isLoggedIn === true}
+                  className="mt-2 w-100 btn-bg"
+                  onClick={handleSubmit(handleFormValues)}
+                >
+                  {/* {isFetching ? (
+                    <Spinner suspense={false} />
+                  ) : (
+                    "Change Password"
+                  )} */}
+                  Change Password
+                </Button>
+              </Col>
+            </Row>
+            {/* <hr /> */}
           </Form>
-          <dialog ref={modalRef} className="dialog__modal">
+          {/* <dialog ref={modalRef} className="dialog__modal">
             <section>
               <label>
                 Enter OTP
@@ -239,11 +304,11 @@ const login = () => {
                 Submit
               </button>
             </section>
-          </dialog>
+          </dialog> */}
         </Card>
       </section>
     </main>
   );
 };
 
-export default login;
+export default ForgotpasswordComponent;

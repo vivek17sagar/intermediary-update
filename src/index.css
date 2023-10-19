@@ -68,6 +68,39 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid var(--scrollbarBG);
 }
 
+.dialog__modal {
+  border: none;
+  border-radius: 5px;
+}
+
+.dialog__modal > section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1em;
+  font-weight: bold;
+  color: grey;
+}
+.input {
+  display: block;
+  width: 30rem;
+  padding: 0.47rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+.text-app-primary {
+  color: var(--card-blue);
+}
 th {
   color: var(--dark-grey) !important;
   font-size: 14px !important;
