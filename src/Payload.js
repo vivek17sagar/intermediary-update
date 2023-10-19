@@ -13,6 +13,22 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         OTP: extraValues?.OTP,
       };
     }
+    case "intermediatepolicycount": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+      };
+    }
+    case "intermediatecustomersinfo": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize
+      };
+    }
     default: {
       toast.error("Payload.ts : Wrong endpoint, please check payload");
     }
