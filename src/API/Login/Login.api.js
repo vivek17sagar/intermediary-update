@@ -23,19 +23,28 @@ export const ValidateLogin = async (payLoad) => {
   }
 };
 
-/*
-export const Forgotpassword = async (payLoad) => {
+export const ForgotOtp = async (payLoad) => {
   let result;
   try {
-    result = await ServiceInstance.post("/changeCustomerPassword", {
-      OTP: "123456",
-      ...payLoad,
-    });
+    result = await ServiceInstance.post(
+      "/forwardIntermediatePassword",
+      payLoad
+    );
     return { ok: true, data: result, error: null };
   } catch (error) {
     return { ok: false, data: null, error };
   }
-};*/
+};
+
+export const Forgotpassword = async (payLoad) => {
+  let result;
+  try {
+    result = await ServiceInstance.post("/changeintermediatePassword", payLoad);
+    return { ok: true, data: result, error: null };
+  } catch (error) {
+    return { ok: false, data: null, error };
+  }
+};
 
 export const verifyWithOTP = async (payLoad) => {
   let result;
@@ -49,3 +58,5 @@ export const verifyWithOTP = async (payLoad) => {
     return { ok: false, data: null, error };
   }
 };
+
+// forwardIntermediatePassword

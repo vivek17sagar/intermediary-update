@@ -9,6 +9,9 @@ const Customer = lazy(() => import("../Pages/Customer/Customer"));
 const Endorsement = lazy(() => import("../Pages/Endorsement/Endorsement"));
 const Claims = lazy(() => import("../Pages/Claims/Claims"));
 const Policies = lazy(() => import("../Pages/Policies/Policies"));
+const ForgotpasswordComponent = lazy(() =>
+  import("../Pages/Login/ForgotpasswordComponent")
+);
 const ComissionStatement = lazy(() =>
   import("../Pages/ComissionStatement/ComissionStatement")
 );
@@ -16,14 +19,25 @@ const ComissionStatement = lazy(() =>
 const Router = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Suspense>
-            <Login />
-          </Suspense>
-        }
-      />
+      <Route>
+        <Route
+          path="/"
+          element={
+            <Suspense>
+              <Login />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/forgotpassword"
+          element={
+            <Suspense>
+              <ForgotpasswordComponent />
+            </Suspense>
+          }
+        />
+      </Route>
+
       <Route
         path="/home"
         element={
