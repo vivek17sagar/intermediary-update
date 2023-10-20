@@ -20,6 +20,7 @@ import {
 } from "../../API/Home.api";
 import { getResultFromData } from "../../Utils/Utils";
 import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
+import Claims from "../Claims/Claims";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
@@ -28,7 +29,6 @@ const Home = () => {
 
   const [
     { data: policyCount },
-    { data: customersInfo },
     { data: totalClaimInProcessCount },
     { data: renewalCount },
   ] = useQueries({
@@ -40,22 +40,6 @@ const Home = () => {
             getPayload("intermediatepolicycount", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
-            })
-          ),
-        select(data) {
-          // console.log(data);
-          return getResultFromData(data);
-        },
-      },
-      {
-        queryKey: ["intermediatecustomersinfo"],
-        queryFn: () =>
-          intermediatecustomersinfo(
-            getPayload("intermediatecustomersinfo", {
-              agencyID: userDetails?.userID,
-              agencyCode: userDetails?.userCode,
-              pageNo: 0,
-              pageSize: 10,
             })
           ),
         select(data) {
@@ -209,7 +193,7 @@ const Home = () => {
             <Card className="border-0 p-3">
               <p className="font-16 section--name">List of claims in process</p>
               <Card.Body className="d-flex justify-content-center">
-                <CustomisedTable count={3} />
+                <Claims dashboard="true" />
               </Card.Body>
             </Card>
           </Col>

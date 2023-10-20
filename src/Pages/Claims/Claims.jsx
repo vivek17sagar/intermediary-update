@@ -7,7 +7,7 @@ import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
 import { PaginationBasic } from "./PaginationComponenet";
 import { useState } from "react";
-const Claims = () => {
+const Claims = ({ dashboard }) => {
   const [page, setPage] = useState(1);
 
   const { userDetails } = useStore((store) => ({
@@ -40,9 +40,10 @@ const Claims = () => {
     setTimeout(() => refetch(), 0);
   };
 
-  return (
+  return !dashboard ? (
     <Container fluid>
       <p className="font-16 section--name">CLAIMS</p>
+
       <Row>
         <Card className="border-0 p-3">
           <Card.Body style={{ padding: "0" }}>
@@ -87,7 +88,20 @@ const Claims = () => {
               </Row>
             </Card.Body>
           </Card>
-          <CustomisedTable claimProcessData={claimProcessData} />
+          <CustomisedTable Data={claimProcessData} table="claim" />
+        </Card>
+        <div className="flex justify-end mt-3 mr-5">
+          <PaginationBasic
+            handlePaginationBehaviour={handlePaginationBehaviour}
+          />
+        </div>
+      </Row>
+    </Container>
+  ) : (
+    <Container fluid>
+      <Row className="mt-4">
+        <Card className="border-0 p-3">
+          <CustomisedTable Data={claimProcessData} table="claim" />
         </Card>
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
