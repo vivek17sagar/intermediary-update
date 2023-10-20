@@ -11,8 +11,10 @@ export const PaginationBasic = ({ handlePaginationBehaviour }) => {
           if (activePage === 1) {
             return;
           }
-          setActivePage((prevValue) => prevValue - 1);
-          setTimeout(() => handlePaginationBehaviour(activePage), 0);
+          setActivePage((prevValue) => {
+            handlePaginationBehaviour(prevValue - 1);
+            return prevValue - 1;
+          });
         }}
       />
 
@@ -21,8 +23,10 @@ export const PaginationBasic = ({ handlePaginationBehaviour }) => {
       </Pagination.Item>
       <Pagination.Next
         onClick={() => {
-          setActivePage((prevValue) => prevValue + 1);
-          setTimeout(() => handlePaginationBehaviour(activePage), 0);
+          setActivePage((prevValue) => {
+            handlePaginationBehaviour(prevValue + 1);
+            return prevValue + 1;
+          });
         }}
       />
     </Pagination>
