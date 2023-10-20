@@ -23,7 +23,13 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: extraValues?.tokenID,
       };
     }
-
+    case "intermediatepolicycount": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+      }
+    }
     case "intermediatetotalclaiminprocesscount": {
       return {
         agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
@@ -50,11 +56,11 @@ export const getPayload = (endpoint, extraValues = undefined) => {
     }
     case "intermediatecustomersinfo": {
       return {
-        agencyID: extraValues?.agencyID,
-        agencyCode: extraValues?.agencyCode,
-        tokenID: sessionStorage.getItem("tokenID"),
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
-        pageSize: extraValues?.pageSize,
+        pageSize: extraValues?.pageSize
       };
     }
     case "intermediatetotalrenewlCoutnonth": {
