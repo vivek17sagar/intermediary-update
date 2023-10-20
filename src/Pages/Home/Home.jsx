@@ -14,17 +14,24 @@ import "./styles.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import {
+  intermediateTotalRenewlCoutnonth,
   intermediatecustomersinfo,
   intermediatepolicycount,
 } from "../../API/Home.api";
 import { getResultFromData } from "../../Utils/Utils";
+import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
   }));
 
-  const [{ data: policyCount }] = useQueries({
+  const [
+    { data: policyCount },
+    { data: customersInfo },
+    { data: totalClaimInProcessCount },
+    { data: renewalCount },
+  ] = useQueries({
     queries: [
       {
         queryKey: ["intermediatepolicycount"],
@@ -53,6 +60,33 @@ const Home = () => {
           ),
         select(data) {
           // console.log(data);
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatetotalclaiminprocesscount"],
+        queryFn: () =>
+          intermediateTotalClaimInProcessCount(
+            getPayload("intermediatetotalclaiminprocesscount")
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
+
+      {
+        queryKey: ["intermediatetotalrenewlCoutnonth"],
+        queryFn: () =>
+          intermediateTotalRenewlCoutnonth(
+            getPayload("intermediatetotalrenewlCoutnonth", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: 0,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
           return getResultFromData(data);
         },
       },
@@ -105,7 +139,9 @@ const Home = () => {
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Claim In-Process</p>
-                  <h5 className="font-14 fw-bold">count</h5>
+                  <h5 className="font-14 fw-bold">
+                    {totalClaimInProcessCount?.totalClaimInProcessCount}
+                  </h5>
                 </section>
                 <section
                   className="card--icon"
@@ -121,8 +157,8 @@ const Home = () => {
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Endorsement Request</p>
-                  <h5 className="font-14 fw-bold">count</h5>
+                  <p className="text-muted fw-medium">Renewal Count</p>
+                  <h5 className="font-14 fw-bold">{renewalCount?.length}</h5>
                 </section>
                 <section
                   className="card--icon"
