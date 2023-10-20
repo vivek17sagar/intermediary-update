@@ -37,6 +37,13 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: sessionStorage.getItem("tokenID"),
       };
     }
+    case "intermediatepolicycount": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+      }
+    }
     case "intermediatetotalclaiminprocesscount": {
       return {
         agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
