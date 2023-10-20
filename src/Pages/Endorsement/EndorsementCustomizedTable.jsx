@@ -41,15 +41,3 @@ export const EndorsementCustomizedTable = ({ tableData }) => {
     </Table>
   );
 };
-
-// basicPremium: "-1,044.00";
-// invoiceDate: "06 Jun 2022";
-// invoiceNo: "GAIKE/06/22/INV-1000072";
-// periodFrom: "01 Jan 2022";
-// periodTo: "31 Dec 2022";
-// policyCode: "KEA1B/PC527/22/000002/01";
-// policyType: "NEW";
-// premiumAmount: "-1,049.00";
-// proposerName: "DHP GROUP";
-// refNo: "KEA1B/PC527/22/000001/01/221000075";
-// status: "AWAITING APPROVAL";
