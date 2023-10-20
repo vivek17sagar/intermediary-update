@@ -3,17 +3,27 @@ import { toast } from "./Components/Toaster/Toaster";
 
 export const getPayload = (endpoint, extraValues = undefined) => {
   switch (endpoint) {
-    case "validateintermediatelogin": {
+    // case "validateintermediatelogin": {
+    //   return {
+    //     memberContactNo: extraValues?.memberContactNo,
+    //   };
+    // }
+    // case "validatememberloginotp": {
+    //   return {
+    //     memberContactNo: extraValues?.memberContactNo,
+    //     OTP: extraValues?.OTP,
+    //   };
+    // }
+    case "endorsementInvoicesList": {
       return {
-        memberContactNo: extraValues?.memberContactNo,
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
       };
     }
-    case "validatememberloginotp": {
-      return {
-        memberContactNo: extraValues?.memberContactNo,
-        OTP: extraValues?.OTP,
-      };
-    }
+
     case "intermediatetotalclaiminprocesscount": {
       return {
         agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,

@@ -1,4 +1,4 @@
-import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
+// import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import {
   faUser,
   faIndianRupeeSign,
@@ -10,8 +10,52 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
 import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { useQueries } from "@tanstack/react-query";
+import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
+import { getPayload } from "../../Payload";
+import { useStore } from "../../Store/store";
+import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
+import { getResultFromData } from "../../Utils/Utils";
 
 const Endorsement = () => {
+  const { userDetails } = useStore((store) => ({
+    // setUserDetails: store.setUserDetails,
+    userDetails: store.userDetails,
+  }));
+
+  console.log(userDetails);
+
+  const [
+    {
+      data: endorsementInvoiceData,
+      refetch: endorsementRefetch,
+      isFetching: isEndorsementFetching,
+    },
+  ] = useQueries({
+    queries: [
+      {
+        queryKey: ["endorsementInvoicesList"],
+        queryFn: () =>
+          endorsementInvoicesList(
+            getPayload("endorsementInvoicesList", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: 0,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+        // enabled: false,
+        // refetchOnWindowFocus: false,
+      },
+    ],
+  });
+
+  console.log(endorsementInvoiceData);
+
   const cardData = [
     { name: "Total customers", count: "20", image: faUser, color: "#556ee6" },
     {
@@ -57,7 +101,7 @@ const Endorsement = () => {
         ))}
       </Row>
       <Row className="mt-4">
-        <Col md={6}>
+        {/* <Col md={6}>
           <Card className="border-0 p-3">
             <p className="font-16 section--name">
               Month wise analytics on consumer acquisition
@@ -66,8 +110,8 @@ const Endorsement = () => {
               <Area {...MonthlyWiseChartProps} />
             </Card.Body>
           </Card>
-        </Col>
-        <Col md={6}>
+        </Col> */}
+        {/* <Col md={6}>
           <Card className="border-0 p-3">
             <p className="font-16 section--name">
               Product wise customer segregation
@@ -76,7 +120,7 @@ const Endorsement = () => {
               <Pie {...pieProps} />
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
       <Row className="mt-4">
         <Card className="border-0 p-3">
@@ -122,7 +166,7 @@ const Endorsement = () => {
               </Row>
             </Card.Body>
           </Card>
-          <CustomisedTable count={1} />
+          <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
         </Card>
       </Row>
     </Container>

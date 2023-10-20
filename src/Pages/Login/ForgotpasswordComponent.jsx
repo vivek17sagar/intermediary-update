@@ -7,21 +7,21 @@ import { useRef, useState } from "react";
 //   Card,
 //   Spinner,
 // } from "flowbite-react";
-import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
-import { EoxegenLogoColour } from "../../assets/eOxegenLogoColour";
-import { LoginBackground } from "../../assets/loginbackground";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
+// import { EoxegenLogoColour } from "../../assets/eOxegenLogoColour";
+// import { LoginBackground } from "../../assets/loginbackground";
 import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
 import {
   ForgotOtp,
   Forgotpassword,
-  ValidateLogin,
+  // ValidateLogin,
   verifyWithOTP,
 } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 // import { getPayload } from "../../Payload";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import Base64 from "crypto-js/enc-base64";
 import Utf8 from "crypto-js/enc-utf8";
 import AES from "crypto-js/aes";
@@ -29,7 +29,7 @@ import CryptoJSCore from "crypto-js/core";
 import Pkcs7 from "crypto-js/pad-pkcs7";
 import cogoToast from "cogo-toast";
 import { getResultFromData } from "../../Utils/Utils";
-import Spinner from "../../Components/Spinner/Spinner";
+// import Spinner from "../../Components/Spinner/Spinner";
 
 const ForgotpasswordComponent = () => {
   const {
@@ -46,16 +46,40 @@ const ForgotpasswordComponent = () => {
     },
   });
 
-  const [openLicense, setOpenLicense] = useState(false);
+  // const [openLicense, setOpenLicense] = useState(false);
   const [OTP, setOTP] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const modalRef = useRef(null);
 
   const { login, user } = useAuth();
 
-  const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
-    refetchOnWindowFocus: false,
-    enabled: false,
+  // const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: false,
+  // });
+
+  const [
+    {
+      data: forgotPasswordData,
+      refetch: forgotpassword,
+      isFetching: forgotPasswordFetching,
+    },
+    { data: otpData, refetch: getOtpData, isFetching: getOtpFetching },
+  ] = useQueries({
+    queries: [
+      {
+        queryKey: ["changeintermediatePassword"],
+        queryFn: () => handleFormValues,
+        enabled: false,
+        refetchOnWindowFocus: false,
+      },
+      {
+        queryKey: ["forwardIntermediatePassword"],
+        queryFn: () => handleForwardOtp,
+        enabled: false,
+        refetchOnWindowFocus: false,
+      },
+    ],
   });
 
   if (user) {
@@ -126,7 +150,7 @@ const ForgotpasswordComponent = () => {
    *
    * @performs Validates the OTP and logs in the user
    */
-  const handleOTP = async () => {
+  /*const handleOTP = async () => {
     const values = getValues();
     console.log("reaching");
     if (String(OTP).length !== 6) {
@@ -152,14 +176,10 @@ const ForgotpasswordComponent = () => {
       cogoToast.error("something went wrong");
       // OTPref.current.disabled = false;
     }
-  };
-
-  // const hadleForgot = () => {
-  //   return <Navigate to="/forgotpassword" />;
-  // };
+  };*/
 
   return (
-    <main className="login--main">
+    <main className="login--main-forgot">
       {/* <section className="first--half">
         <LoginBackground />
       </section> */}
@@ -168,6 +188,11 @@ const ForgotpasswordComponent = () => {
           className="login_details_card border-0 shadow-lg justify-cente items-center p-9"
           style={{ width: "35rem" }}
         >
+          <Col className="ml-80 underline">
+            <a href="/" style={{ color: "navy" }}>
+              Sign In
+            </a>
+          </Col>
           {/* <Card.Title className="text-center">
             <strong className="sign-in-header">
               Welcome to <EoxegenLogoColour />
@@ -264,6 +289,7 @@ const ForgotpasswordComponent = () => {
               <Col>
                 <Button
                   disabled={isLoggedIn === true}
+                  style={{ fontSize: "15px" }}
                   className="mt-2 w-100 btn-bg"
                   onClick={handleSubmit(handleFormValues)}
                 >
@@ -276,6 +302,7 @@ const ForgotpasswordComponent = () => {
                 </Button>
               </Col>
             </Row>
+
             {/* <hr /> */}
           </Form>
           {/* <dialog ref={modalRef} className="dialog__modal">

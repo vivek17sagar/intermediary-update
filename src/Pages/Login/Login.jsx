@@ -14,9 +14,9 @@ import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
 import { ValidateLogin, verifyWithOTP } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 // import { getPayload } from "../../Payload";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import Base64 from "crypto-js/enc-base64";
 import Utf8 from "crypto-js/enc-utf8";
 import AES from "crypto-js/aes";
@@ -25,9 +25,11 @@ import Pkcs7 from "crypto-js/pad-pkcs7";
 import cogoToast from "cogo-toast";
 import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
-import Spinner from "../../Components/Spinner/Spinner";
+import Spinner from "../../Components/Spinner/SpinnerLoader";
+import ReactSpinner from "react-bootstrap-spinner";
+import { useEffect } from "react";
 
-const login = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -53,10 +55,34 @@ const login = () => {
 
   console.log(userDetails);
 
-  const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+  // const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: false,
+  // });
+
+  // const [
+  //   {
+  //     data: loginValidatedData,
+  //     refetch: validatingRefetch,
+  //     isFetching: isValidating,
+  //   },
+  //   { data: otpData, refetch: otpRefetching, isFetching: isOtpFetching },
+  // ] = useQueries({
+  //   queries: [
+  //     {
+  //       queryKey: ["validateintermediatelogin"],
+  //       queryFn: () => handleFormValues,
+  //       enabled: false,
+  //       refetchOnWindowFocus: false,
+  //     },
+  //     {
+  //       queryKey: ["validateintermediateloginotp"],
+  //       queryFn: () => handleOTP,
+  //       // enabled: false,
+  //       // refetchOnWindowFocus: false,
+  //     },
+  //   ],
+  // });
 
   if (user) {
     return <Navigate to="/home" />;
@@ -132,6 +158,8 @@ const login = () => {
           getResultFromData(validatewithotp).tokenID
         );
         setUserDetails(getResultFromData(validatewithotp));
+        const data = getResultFromData(validatewithotp);
+        localStorage.setItem("useDetails", JSON.stringify(data));
         // OTPref.current.disabled = false;
         modalRef.current?.close();
       }
@@ -145,15 +173,24 @@ const login = () => {
     return <Navigate to="/forgotpassword" />;
   };
 
+  //   useEffect(()=>{
+  // localStorage.setItem("userData", JSON.stringify())
+  //   })
+
+  // console.log(loginValidatedData);
+
   return (
     <main className="login--main">
       <section className="first--half">
         <LoginBackground />
       </section>
       <section className="login--card border-0">
-        <Card className="login_details_card" style={{ width: "35rem" }}>
+        <Card
+          className="login_details_card border-0"
+          style={{ width: "35rem" }}
+        >
           <Card.Title className="text-center">
-            <strong className="sign-in-header">
+            <strong className="sign-in-header d-flex gap-3 justify-center">
               Welcome to <EoxegenLogoColour />
             </strong>
           </Card.Title>
@@ -208,40 +245,45 @@ const login = () => {
               </a>
             </section>
             <Button
-              disabled={isLoggedIn === true}
+              // disabled={isLoggedIn === true}
               className="mt-2 w-100 btn-bg"
               onClick={handleSubmit(handleFormValues)}
             >
-              {isFetching ? <Spinner suspense={false} /> : "Sign In"}
+              {/* {isValidating ? (
+                <ReactSpinner type="border" color="primary" size="5" />
+              ) : ( */}
+              Sign In
+              {/* )} */}
             </Button>
             <hr />
           </Form>
           <dialog ref={modalRef} className="dialog__modal">
-            <section>
-              <label>
-                Enter OTP
-                <input
+            <Card className="p-3 w-96 border-0">
+              <Card.Body>
+                <Form.Label>Enter OTP</Form.Label>
+                <Form.Control
                   id="otp"
                   name="otp"
                   type="number"
                   value={OTP}
-                  className="input"
+                  className="inputOtp rounded"
                   onChange={(e) => setOTP(e.target.valueAsNumber)}
                   onKeyDown={(e) => (e.key === "Enter" ? handleOTP() : void 0)}
                 />
-              </label>
-              <button
-                type="button"
-                onClick={handleOTP}
-                // eslint-disable-next-line no-void
-                // ref={OTPref}
-                data-otp="OTP"
-                className="btn btn-primary"
-                tabIndex={0}
-              >
-                Submit
-              </button>
-            </section>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={handleOTP}
+                  // eslint-disable-next-line no-void
+                  // ref={OTPref}
+                  data-otp="OTP"
+                  className="mt-4 bg-blue-700 justify-end"
+                  tabIndex={0}
+                >
+                  Submit
+                </Button>
+              </Card.Body>
+            </Card>
           </dialog>
         </Card>
       </section>
@@ -249,4 +291,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
