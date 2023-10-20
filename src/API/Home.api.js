@@ -12,3 +12,7 @@ export const intermediatecustomersinfo = (payLoad) => {
 export const intermediateTotalRenewlCoutnonth = (payload) => {
   return ServiceInstance.post("/intermediatetotalrenewlCoutnonth", payload);
 };
+
+export const intermediateTotalProposer = (payload) => {
+  return ServiceInstance.post("/intermediatetotalproposer", payload);
+};

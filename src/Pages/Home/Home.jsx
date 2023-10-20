@@ -14,6 +14,7 @@ import "./styles.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import {
+  intermediateTotalProposer,
   intermediateTotalRenewlCoutnonth,
   intermediatecustomersinfo,
   intermediatepolicycount,
@@ -31,6 +32,7 @@ const Home = () => {
     { data: policyCount },
     { data: totalClaimInProcessCount },
     { data: renewalCount },
+    { data: totalProposerCount },
   ] = useQueries({
     queries: [
       {
@@ -74,20 +76,40 @@ const Home = () => {
           return getResultFromData(data);
         },
       },
+      {
+        queryKey: ["intermediatetotalproposer"],
+        queryFn: () =>
+          intermediateTotalProposer(
+            getPayload("intermediatetotalproposer", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
     ],
   });
-
+  console.log("policyCount => ", policyCount);
+  console.log("totalClaimInProcessCount => ", totalClaimInProcessCount);
+  console.log("renewalCount => ", renewalCount);
+  console.log("totalProposalCount ==> ", totalProposerCount);
   return (
     <main>
       <Container fluid>
         <p className="font-16 section--name">DASHBOARD</p>
-        <Row>
+        <Row className="flex justify-center">
           <Col md={3}>
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Total customers</p>
-                  <h5 className="font-14 fw-bold">count</h5>
+                  <h5 className="font-14 fw-bold">
+                    {" "}
+                    {totalProposerCount?.totalClaimInProcessCount}
+                  </h5>
                 </section>
                 <section
                   className="card--icon"

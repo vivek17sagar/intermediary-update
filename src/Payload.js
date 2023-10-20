@@ -25,17 +25,17 @@ export const getPayload = (endpoint, extraValues = undefined) => {
     }
     case "intermediatepolicycount": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
-      }
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
+      };
     }
     case "intermediatepolicycount": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
-      }
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
+      };
     }
     case "intermediatetotalclaiminprocesscount": {
       return {
@@ -61,11 +61,28 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: sessionStorage.getItem("tokenID"),
       };
     }
+    case "intermediatetotalclaiminprocesscount": {
+      return {
+        agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
+        agencyCode: JSON.parse(sessionStorage.getItem("user"))?.userCode,
+        tokenID: JSON.parse(sessionStorage.getItem("user"))?.tokenID,
+      };
+    }
+    case "intermediateclaiminprocess": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
+
     case "intermediatecustomersinfo": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
         memberName: extraValues?.memberName,
@@ -80,6 +97,22 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         agencyCode: extraValues?.agencyCode,
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
+    case "intermediatetotalrenewlCoutnonth": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
+    case "intermediatetotalproposer": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
         tokenID: extraValues?.tokenID,
       };
     }
