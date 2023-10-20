@@ -78,6 +78,21 @@ const Sidebar = () => {
       name: "Comission Statement",
       route: "/comissionstatement",
     },
+    {
+      icon: FaCommision,
+      name: "Quotation",
+      route: "/quotation",
+    },
+    {
+      icon: FaCommision,
+      name: "Invoice",
+      route: "/invoice",
+    },
+    {
+      icon: FaCommision,
+      name: "Receipt",
+      route: "/receipt",
+    },
   ];
 
   const getSectionActive = () => {
