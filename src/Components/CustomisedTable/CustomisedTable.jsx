@@ -1,8 +1,6 @@
 import Table from "react-bootstrap/Table";
 
 export const CustomisedTable = ({ Data, table }) => {
-  console.log(Data);
-  console.log(table);
   return (
     <>
       {table === "claim" ? (
@@ -26,6 +24,64 @@ export const CustomisedTable = ({ Data, table }) => {
                 <td>{data?.displayMemberShipNo}</td>
                 <td>{data?.entryTime}</td>
                 <td>{data?.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : table === "invoice" ? (
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr>
+              <th>invoiceNo</th>
+              <th>invoiceDate</th>
+              <th>proposerName</th>
+              <th>basicPremium</th>
+              <th>premiumAmount</th>
+              <th>policyCode</th>
+              <th>periodFrom</th>
+              <th>periodTo</th>
+              <th>refNo</th>
+              <th>status</th>
+              <th>policyType</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Data?.map((data) => (
+              <tr key={data?.invoiceNo}>
+                <td>{data?.invoiceNo}</td>
+                <td>{data?.invoiceDate}</td>
+                <td>{data?.proposerName}</td>
+                <td>{data?.basicPremium}</td>
+                <td>{data?.premiumAmount}</td>
+                <td>{data?.policyCode}</td>
+                <td>{data?.periodFrom}</td>
+                <td>{data?.periodTo}</td>
+                <td>{data?.refNo}</td>
+                <td>{data?.status}</td>
+                <td>{data?.policyType}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : table === "receipt" ? (
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr>
+              <th>invoiceNo</th>
+              <th>basicPremium</th>
+              <th>premium</th>
+              <th>printAmount</th>
+              <th>premiumConcat</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Data?.map((data) => (
+              <tr key={data?.invoiceNo}>
+                <td>{data?.invoiceNo}</td>
+                <td>{data?.basicPremium}</td>
+                <td>{data?.premium}</td>
+                <td>{data?.printAmount}</td>
+                <td>{data?.premiumConcat}</td>
               </tr>
             ))}
           </tbody>

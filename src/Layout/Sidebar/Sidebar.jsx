@@ -85,7 +85,7 @@ const Sidebar = () => {
     },
     {
       icon: FaCommision,
-      name: "Invoice",
+      name: "invoice",
       route: "/invoice",
     },
     {

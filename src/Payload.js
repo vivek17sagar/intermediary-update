@@ -162,6 +162,43 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: sessionStorage.getItem("tokenID"),
       };
     }
+    case "intermediatepolicycount": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
+      };
+    }
+    case "intermediatepolicycount": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+      }
+    }
+    case "intermediatepolicycount": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+      }
+    }
+    case "intermediatetotalclaiminprocesscount": {
+      return {
+        agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
+        agencyCode: JSON.parse(sessionStorage.getItem("user"))?.userCode,
+        tokenID: JSON.parse(sessionStorage.getItem("user"))?.tokenID,
+      };
+    }
+    case "intermediateclaiminprocess": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
 
     case "intermediatetotalclaiminprocesscount": {
       return {
@@ -205,12 +242,21 @@ export const getPayload = (endpoint, extraValues = undefined) => {
 
     case "intermediateinvoicesreceipts": {
       return {
-        agencyID: extraValues?.agencyID,
-        agencyCode: extraValues?.agencyCode,
-        tokenID: sessionStorage.getItem("tokenID"),
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
-      };
+      }
+    }
+    case "intermediateendrosmentinvoices": {
+      return {
+        agencyID : extraValues?.agencyID,
+        agencyCode : extraValues?.agencyCode,
+        tokenID : sessionStorage.getItem("tokenID"),
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+      }
     }
     case "intermediatetotalproposer": {
       return {

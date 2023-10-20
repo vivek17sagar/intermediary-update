@@ -15,6 +15,12 @@ import { Container, Row, Card, Col, Form } from "react-bootstrap";
 // import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { getResultFromData } from "../../Utils/Utils";
+import { intermediateendrosmentinvoices } from "../../API/Invoice/Invoice.api";
+import { getPayload } from "../../Payload";
+import { useState } from "react";
+import { useQueries } from "@tanstack/react-query";
+import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
+import PaginationCustomer from "../Customer/PaginationCustomer";
 
 const Invoice = () => {
   const { userDetails } = useStore((store) => ({
@@ -22,6 +28,37 @@ const Invoice = () => {
     userDetails: store.userDetails,
   }));
 
+  const [page, setPage] = useState(1);
+
+  const [{ data: invoiceData, refetch }] = useQueries({
+    queries: [
+      {
+        queryKey: ["intermediateendrosmentinvoices"],
+        queryFn: () =>
+          intermediateendrosmentinvoices(
+            getPayload("intermediateendrosmentinvoices", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: page - 1,
+              pageSize: 10,
+            })
+          ),
+        select(data) {
+          console.log(data);
+          return getResultFromData(data);
+        },
+      },
+    ],
+  });
+
+  const selectPage = (param) => {
+    console.log(param);
+    setPage(param);
+
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
   console.log(userDetails);
 
   //   const [
@@ -93,9 +130,10 @@ const Invoice = () => {
   //   });
 
   return (
-    <Container fluid>
-      <p className="font-16 section--name">Invoice</p>
-      {/*
+    <>
+      <Container fluid>
+        <p className="font-16 section--name">Invoice</p>
+        {/*
           <Row>
             <Col md={3}>
               <Card className="border-0">
@@ -166,7 +204,7 @@ const Invoice = () => {
               </Card>
             </Col>
           </Row>*/}
-      {/* <Row className="mt-4">
+        {/* <Row className="mt-4">
          <Col md={6}>
                 <Card className="border-0 p-3">
                   <p className="font-16 section--name">
@@ -177,7 +215,7 @@ const Invoice = () => {
                   </Card.Body>
                 </Card>
               </Col> */}
-      {/* <Col md={6}>
+        {/* <Col md={6}>
                 <Card className="border-0 p-3">
                   <p className="font-16 section--name">
                     Product wise customer segregation
@@ -190,46 +228,56 @@ const Invoice = () => {
         </Row>
         */}
 
-      <Row className="mt-4">
-        <Card className="border-0 p-3">
-          <p className="font-16 section--name">List of Invoices made</p>
-          <Card className="border-0">
-            <p className="font-16 section--name">Search Filter</p>
-            <Card.Body style={{ padding: "0 0 1rem 0" }}>
-              <Row>
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
-                  </Form.Label>
+        <Row className="mt-4">
+          <Card className="border-0 p-3">
+            <p className="font-16 section--name">List of Invoices made</p>
+            <Card className="border-0">
+              <p className="font-16 section--name">Search Filter</p>
+              <Card.Body style={{ padding: "0 0 1rem 0" }}>
+                <Row>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Customer Name
+                    </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
-                </Col>
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
-                  </Form.Label>
+                    <Form.Control type="text" placeholder="Choose..." />
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Customer Name
+                    </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
-                </Col>
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
-                  </Form.Label>
+                    <Form.Control type="text" placeholder="Choose..." />
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Customer Name
+                    </Form.Label>
 
-                  <Form.Select>
-                    <option>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </Form.Select>
-                </Col>
-              </Row>
-            </Card.Body>
+                    <Form.Select>
+                      <option>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </Form.Select>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+            {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           </Card>
-          {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
-        </Card>
-      </Row>
-    </Container>
+        </Row>
+        <Row className="mt-4">
+          <Card className="border-0 p-3">
+            <p className="font-16 section--name">List of customers</p>
+            <CustomisedTable Data={invoiceData} table="invoice" />
+          </Card>
+        </Row>
+      </Container>
+      <div className="flex justify-end mt-3 mr-5 opacity-80">
+        <PaginationCustomer pageSelect={selectPage} />
+      </div>
+    </>
   );
 };
 
