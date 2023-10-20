@@ -1,7 +1,43 @@
-import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { PoliciesTable } from "./PoliciesTable";
+import { getResultFromData } from "../../Utils/Utils";
+import { useQueries } from "@tanstack/react-query";
+import { useStore } from "../../Store/store";
+import { getPayload } from "../../Payload";
+import { getPoliciesData } from "../../API/Policies/policies.api";
 
 const Policies = () => {
+  const { userDetails } = useStore((store) => ({
+    // setUserDetails: store.setUserDetails,
+    userDetails: store.userDetails,
+  }));
+
+  console.log(userDetails);
+
+  const [{ data: policiesData }] = useQueries({
+    queries: [
+      {
+        queryKey: ["intermediatepolicies"],
+        queryFn: () =>
+          getPoliciesData(
+            getPayload("intermediatepolicies", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: 0,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+        // enabled: false,
+        // refetchOnWindowFocus: false,
+      },
+    ],
+  });
+
+  console.log(policiesData);
   return (
     <Container fluid>
       <p className="font-16 section--name">POLICIES</p>
@@ -10,7 +46,7 @@ const Policies = () => {
           <p className="font-16 section--name">Search Filter</p>
           <Card.Body>
             <Row>
-              <Col md={4}>
+              {/* <Col md={4}>
                 <Form.Label className="font-14 fw-bold text-muted">
                   Customer Name
                 </Form.Label>
@@ -23,7 +59,7 @@ const Policies = () => {
                 </Form.Label>
 
                 <Form.Control type="text" placeholder="Choose..." />
-              </Col>
+              </Col> */}
               <Col md={4}>
                 <Form.Label className="font-14 fw-bold text-muted">
                   Customer Name
@@ -43,7 +79,7 @@ const Policies = () => {
       <Row className="mt-4">
         <Card className="border-0 p-3">
           <p className="font-16 section--name">List of Policies sold</p>
-          <CustomisedTable count={10} />
+          <PoliciesTable tableData={policiesData} />
         </Card>
       </Row>
     </Container>

@@ -36,9 +36,9 @@ const Endorsement = () => {
       // refetch: endorsementRefetch,
       // isFetching: isEndorsementFetching,
     },
-    { data: renewalCount },
-    { data: policyCount },
-    { data: totalClaimInProcessCount },
+    // { data: renewalCount },
+    // { data: policyCount },
+    // { data: totalClaimInProcessCount },
   ] = useQueries({
     queries: [
       {
@@ -59,61 +59,59 @@ const Endorsement = () => {
         // enabled: false,
         // refetchOnWindowFocus: false,
       },
-      {
-        queryKey: ["intermediatetotalrenewlCoutnonth"],
-        queryFn: () =>
-          intermediateTotalRenewlCoutnonth(
-            getPayload("intermediatetotalrenewlCoutnonth", {
-              agencyID: userDetails?.userID,
-              agencyCode: userDetails?.userCode,
-              pageNo: 0,
-              pageSize: 10,
-              tokenID: userDetails?.tokenID,
-            })
-          ),
-        select(data) {
-          return getResultFromData(data);
-        },
-      },
-      {
-        queryKey: ["intermediatepolicycount"],
-        queryFn: () =>
-          intermediatepolicycount(
-            getPayload("intermediatepolicycount", {
-              agencyID: userDetails?.userID,
-              agencyCode: userDetails?.userCode,
-            })
-          ),
-        select(data) {
-          // console.log(data);
-          return getResultFromData(data);
-        },
-      },
-      {
-        queryKey: ["intermediatetotalclaiminprocesscount"],
-        queryFn: () =>
-          intermediateTotalClaimInProcessCount(
-            getPayload("intermediatetotalclaiminprocesscount")
-          ),
-        select(data) {
-          return getResultFromData(data);
-        },
-      },
+      // {
+      //   queryKey: ["intermediatetotalrenewlCoutnonth"],
+      //   queryFn: () =>
+      //     intermediateTotalRenewlCoutnonth(
+      //       getPayload("intermediatetotalrenewlCoutnonth", {
+      //         agencyID: userDetails?.userID,
+      //         agencyCode: userDetails?.userCode,
+      //         pageNo: 0,
+      //         pageSize: 10,
+      //         tokenID: userDetails?.tokenID,
+      //       })
+      //     ),
+      //   select(data) {
+      //     return getResultFromData(data);
+      //   },
+      // },
+      // {
+      //   queryKey: ["intermediatepolicycount"],
+      //   queryFn: () =>
+      //     intermediatepolicycount(
+      //       getPayload("intermediatepolicycount", {
+      //         agencyID: userDetails?.userID,
+      //         agencyCode: userDetails?.userCode,
+      //       })
+      //     ),
+      //   select(data) {
+      //     // console.log(data);
+      //     return getResultFromData(data);
+      //   },
+      // },
+      // {
+      //   queryKey: ["intermediatetotalclaiminprocesscount"],
+      //   queryFn: () =>
+      //     intermediateTotalClaimInProcessCount(
+      //       getPayload("intermediatetotalclaiminprocesscount")
+      //     ),
+      //   select(data) {
+      //     return getResultFromData(data);
+      //   },
+      // },
     ],
   });
 
   return (
     <Container fluid>
       <p className="font-16 section--name">Endorsements</p>
-      <Row>
+      {/* <Row>
         <Col md={3}>
           <Card className="border-0">
             <Card.Body className="d-flex">
               <section className="flex-grow-1">
                 <p className="text-muted fw-medium">Total Customers</p>
-                <h5 className="font-14 fw-bold">
-                  {/* {policyCount?.totalPolicyCount} */}
-                </h5>
+                <h5 className="font-14 fw-bold"></h5>
               </section>
               <section
                 className="card--icon"
@@ -176,7 +174,7 @@ const Endorsement = () => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
       <Row className="mt-4">
         {/* <Col md={6}>
           <Card className="border-0 p-3">
@@ -199,14 +197,14 @@ const Endorsement = () => {
           </Card>
         </Col> */}
       </Row>
-      <Row className="mt-4">
+      {/* <Row className="mt-4">
         <Card className="border-0 p-3">
           <Card.Body style={{ padding: "0" }}>
             <p className="font-16 section--name">Check Endorsement Status</p>
             <Form.Control type="text" placeholder="Enter Claim Number" />
           </Card.Body>
         </Card>
-      </Row>
+      </Row> */}
       <Row className="mt-4">
         <Card className="border-0 p-3">
           <p className="font-16 section--name">List of endorsements made</p>
@@ -214,7 +212,7 @@ const Endorsement = () => {
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row>
-                <Col md={4}>
+                {/* <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
                   </Form.Label>
@@ -227,7 +225,7 @@ const Endorsement = () => {
                   </Form.Label>
 
                   <Form.Control type="text" placeholder="Choose..." />
-                </Col>
+                </Col> */}
                 <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
