@@ -265,6 +265,15 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: extraValues?.tokenID,
       };
     }
+    case "intermediatepolicies": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
 
     default: {
       toast.error("Payload.ts : Wrong endpoint, please check payload");
