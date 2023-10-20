@@ -16,6 +16,11 @@ import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
 import { getResultFromData } from "../../Utils/Utils";
+import {
+  intermediateTotalRenewlCoutnonth,
+  intermediatepolicycount,
+} from "../../API/Home.api";
+import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
 
 const Endorsement = () => {
   const { userDetails } = useStore((store) => ({
@@ -31,6 +36,9 @@ const Endorsement = () => {
       refetch: endorsementRefetch,
       isFetching: isEndorsementFetching,
     },
+    { data: renewalCount },
+    { data: policyCount },
+    { data: totalClaimInProcessCount },
   ] = useQueries({
     queries: [
       {
@@ -51,10 +59,56 @@ const Endorsement = () => {
         // enabled: false,
         // refetchOnWindowFocus: false,
       },
+      {
+        queryKey: ["intermediatetotalrenewlCoutnonth"],
+        queryFn: () =>
+          intermediateTotalRenewlCoutnonth(
+            getPayload("intermediatetotalrenewlCoutnonth", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: 0,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatepolicycount"],
+        queryFn: () =>
+          intermediatepolicycount(
+            getPayload("intermediatepolicycount", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+            })
+          ),
+        select(data) {
+          // console.log(data);
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatetotalclaiminprocesscount"],
+        queryFn: () =>
+          intermediateTotalClaimInProcessCount(
+            getPayload("intermediatetotalclaiminprocesscount")
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
     ],
   });
 
   console.log(endorsementInvoiceData);
+  console.log(renewalCount);
+  console.log(policyCount);
+  console.log(totalClaimInProcessCount);
+  // totalPolicyCount
+  // totalClaimInProcessCount
+  // totalProposerCount
 
   const cardData = [
     { name: "Total customers", count: "20", image: faUser, color: "#556ee6" },
@@ -81,24 +135,76 @@ const Endorsement = () => {
     <Container fluid>
       <p className="font-16 section--name">Endorsements</p>
       <Row>
-        {cardData.map((item) => (
-          <Col md={3} key={item.name}>
-            <Card className="border-0">
-              <Card.Body className="d-flex">
-                <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">{item.name}</p>
-                  <h5 className="font-14 fw-bold">{item.count}</h5>
-                </section>
-                <section
-                  className="card--icon"
-                  style={{ backgroundColor: item.color }}
-                >
-                  <FontAwesomeIcon icon={item.image} size="xl" />
-                </section>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        <Col md={3}>
+          <Card className="border-0">
+            <Card.Body className="d-flex">
+              <section className="flex-grow-1">
+                <p className="text-muted fw-medium">Total Customers</p>
+                <h5 className="font-14 fw-bold">
+                  {/* {policyCount?.totalPolicyCount} */}
+                </h5>
+              </section>
+              <section
+                className="card--icon"
+                style={{ backgroundColor: "#556ee6" }}
+              >
+                <FontAwesomeIcon icon={faUser} size="xl" />
+              </section>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card className="border-0">
+            <Card.Body className="d-flex">
+              <section className="flex-grow-1">
+                <p className="text-muted fw-medium">Total Policies Count</p>
+                <h5 className="font-14 fw-bold">
+                  {policyCount?.totalPolicyCount}
+                </h5>
+              </section>
+              <section
+                className="card--icon"
+                style={{ backgroundColor: "#34c38f" }}
+              >
+                <FontAwesomeIcon icon={faIndianRupeeSign} size="xl" />
+              </section>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card className="border-0">
+            <Card.Body className="d-flex">
+              <section className="flex-grow-1">
+                <p className="text-muted fw-medium">Claim In-Process</p>
+                <h5 className="font-14 fw-bold">
+                  {totalClaimInProcessCount?.totalClaimInProcessCount}
+                </h5>
+              </section>
+              <section
+                className="card--icon"
+                style={{ backgroundColor: "#f46a6a" }}
+              >
+                <FontAwesomeIcon icon={faPenToSquare} size="xl" />
+              </section>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card className="border-0">
+            <Card.Body className="d-flex">
+              <section className="flex-grow-1">
+                <p className="text-muted fw-medium">Renewal Count</p>
+                <h5 className="font-14 fw-bold">{renewalCount?.length}</h5>
+              </section>
+              <section
+                className="card--icon"
+                style={{ backgroundColor: "#f1b44c" }}
+              >
+                <FontAwesomeIcon icon={faBars} size="xl" />
+              </section>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
       <Row className="mt-4">
         {/* <Col md={6}>
