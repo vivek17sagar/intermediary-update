@@ -7,6 +7,14 @@
   display: flex;
 }
 
+.login--main-forgot {
+  height: 100vh;
+  width: 100vw;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+}
+
 /* .login--main {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -7,11 +7,12 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useSessionStorage("user", null);
+
   const navigate = useNavigate();
-  //   const { setNavBarActive, setSelectmemberDetails } = useStore((store) => ({
-  //     setNavBarActive: store.setNavBarActive,
-  //     setSelectmemberDetails: store.setSelectmemberDetails,
-  //   }));
+
+  const { userDetails } = useStore((store) => ({
+    userDetails: store.userDetails,
+  }));
 
   //do the auth here
   const { setUserDetails } = useStore((store) => ({
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setUser(data);
       sessionStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("userDetails", JSON.stringify(userDetails));
       //   navigate("/prehome");
     } catch (error) {
       alert("please enter correct details");
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/", { replace: true });
   };
 
-  const userDetails = useMemo(
+  const userDetailsMemo = useMemo(
     () => ({
       user,
     }),
@@ -47,8 +49,8 @@ export const AuthProvider = ({ children }) => {
   );
 
   const value = useMemo(
-    () => ({ ...userDetails, login, logout }),
-    [userDetails]
+    () => ({ ...userDetailsMemo, login, logout }),
+    [userDetailsMemo]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

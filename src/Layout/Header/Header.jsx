@@ -14,6 +14,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Card } from "react-bootstrap";
 // import { UseAuthType } from "Types/types";
 import { isBrowser } from "../../../decideENV.js";
+import { useStore } from "../../Store/store";
 
 /** make sure to put svg in userMenu */
 
@@ -28,6 +29,12 @@ const Header = () => {
 
   // const isBrowser = typeof window !== "undefined";
 
+  const { userDetails } = useStore((store) => ({
+    // setUserDetails: store.setUserDetails,
+    userDetails: store.userDetails,
+  }));
+
+  console.log(userDetails);
   useEffect(() => {
     setActive(location.pathname.slice(1));
   }, [location]);
@@ -139,18 +146,24 @@ const Header = () => {
                     alt="profilePic"
                   />
                   <div className="user-details">
-                    <h2 style={{ fontWeight: "600" }}>Rahul Saxena</h2>
-                    <p>Senior Manager</p>
-                    <p>rahulsaxena@company.com</p>
+                    <h2 style={{ fontWeight: "600" }}>
+                      {userDetails?.userName}
+                    </h2>
+                    <p>{userDetails?.userCategory}</p>
+                    <p>{userDetails?.userEmail}</p>
                   </div>
                 </section>
                 <ul
-                  className="uluser"
+                  className="uluser mt-3"
                   style={{ listStyle: "none", padding: 0 }}
                 >
                   {Object.entries(userMenu).map(([key, value]) => {
                     return (
-                      <li key={`userprofile__${key}`} onClick={value.handler}>
+                      <li
+                        key={`userprofile__${key}`}
+                        className="d-flex gap-3"
+                        onClick={value.handler}
+                      >
                         <hr />
                         <value.Icon />
                         &nbsp;&nbsp;&nbsp; {key}
