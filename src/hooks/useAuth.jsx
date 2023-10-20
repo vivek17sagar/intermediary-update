@@ -1,6 +1,8 @@
 import { createContext, useContext, useMemo } from "react";
 import { useSessionStorage } from "./useSessionStorage";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../Store/store";
+import { useEffect } from "react";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -12,6 +14,13 @@ export const AuthProvider = ({ children }) => {
   //   }));
 
   //do the auth here
+  const { setUserDetails } = useStore((store) => ({
+    setUserDetails: store.setUserDetails,
+  }));
+
+  useEffect(() => {
+    setUserDetails(JSON.parse(sessionStorage.getItem("user")));
+  }, []);
 
   const login = (data) => {
     try {

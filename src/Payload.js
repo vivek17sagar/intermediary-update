@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 import { toast } from "./Components/Toaster/Toaster";
 
 export const getPayload = (endpoint, extraValues = undefined) => {
@@ -13,20 +14,46 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         OTP: extraValues?.OTP,
       };
     }
+    case "intermediatetotalclaiminprocesscount": {
+      return {
+        agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
+        agencyCode: JSON.parse(sessionStorage.getItem("user"))?.userCode,
+        tokenID: JSON.parse(sessionStorage.getItem("user"))?.tokenID,
+      };
+    }
+    case "intermediateclaiminprocess": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
+
     case "intermediatepolicycount": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
       };
     }
     case "intermediatecustomersinfo": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
-        pageSize: extraValues?.pageSize
+        pageSize: extraValues?.pageSize,
+      };
+    }
+    case "intermediatetotalrenewlCoutnonth": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
       };
     }
     default: {
