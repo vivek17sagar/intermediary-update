@@ -1,5 +1,5 @@
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import { Card, Row, Col, Container, Form } from "react-bootstrap";
+import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useStore } from "../../Store/store";
 import { useQueries } from "@tanstack/react-query";
 import { intermediatecustomersinfo } from "../../API/Home.api";
@@ -7,12 +7,33 @@ import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useState } from "react";
 import PaginationCustomer from "./PaginationCustomer";
+import { useForm } from "react-hook-form";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
   }));
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    reset,
+    watch,
+    trigger,
+  } = useForm({
+    defaultValues: {
+      membername: "",
+      membershipno: "",
+      proposerno: "",
+      mobileno: "",
+    },
+    // resolver: yupResolver(schema),
+  });
+
+  // console.log(getValues()?.membershipno);
   const [page, setPage] = useState(1);
 
   const [{ data: customeInfo, refetch }] = useQueries({
@@ -26,6 +47,10 @@ const Customer = () => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              memberName: getValues()?.membername,
+              membershipNo: getValues()?.membershipno,
+              proposerName: getValues()?.proposerno,
+              mobileNo: getValues()?.mobileno,
             })
           ),
         select(data) {
@@ -35,13 +60,18 @@ const Customer = () => {
     ],
   });
 
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
+
   const selectPage = (param) => {
     console.log(param);
     setPage(param);
 
     setTimeout(() => {
       refetch();
-    }, 500);
+    }, 600);
   };
 
   return (
@@ -53,33 +83,78 @@ const Customer = () => {
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body>
               <Row>
-                <Col md={4}>
+                <Col md={3}>
+                  <Form.Label className="font-14 fw-bold text-muted">
+                    Proposer No
+                  </Form.Label>
+
+                  <Form.Control
+                    id="proposerno"
+                    type="text"
+                    placeholder="Choose..."
+                    {...register("proposerno")}
+                  />
+                </Col>
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Member Name
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    id="membername"
+                    type="text"
+                    placeholder="Choose..."
+                    {...register("membername")}
+                  />
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
+                    Membership No
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    id="membershipno"
+                    type="text"
+                    placeholder="Choose..."
+                    {...register("membershipno")}
+                  />
                 </Col>
-                <Col md={4}>
+
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer Name
+                    Mobile No
                   </Form.Label>
 
-                  <Form.Select>
-                    <option>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </Form.Select>
+                  <Form.Control
+                    id="mobileno"
+                    type="number"
+                    placeholder="Choose..."
+                    {...register("mobileno")}
+                  />
                 </Col>
               </Row>
+              <Button
+                type="button"
+                variant="primary"
+                // eslint-disable-next-line no-void
+                // ref={OTPref}
+                onClick={() => console.log(refetch())}
+                className="mt-4 ml-2 bg-blue-700 justify-end"
+                tabIndex={0}
+              >
+                Search
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                // eslint-disable-next-line no-void
+                // ref={OTPref}
+                onClick={handleReset}
+                className="mt-4 ml-3 bg-blue-700 justify-end"
+                tabIndex={0}
+              >
+                Reset
+              </Button>
             </Card.Body>
           </Card>
         </Row>
