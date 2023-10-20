@@ -5,9 +5,9 @@ import {
   faPenToSquare,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import { Area, Pie } from "../../Components/Charts/Charts";
+// import { Area, Pie } from "../../Components/Charts/Charts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MonthlyWiseChartProps, pieProps } from "../Home/props";
+// import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
 import { Container, Row, Card, Col, Form } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
@@ -33,8 +33,8 @@ const Endorsement = () => {
   const [
     {
       data: endorsementInvoiceData,
-      refetch: endorsementRefetch,
-      isFetching: isEndorsementFetching,
+      // refetch: endorsementRefetch,
+      // isFetching: isEndorsementFetching,
     },
     { data: renewalCount },
     { data: policyCount },
@@ -102,35 +102,6 @@ const Endorsement = () => {
     ],
   });
 
-  console.log(endorsementInvoiceData);
-  console.log(renewalCount);
-  console.log(policyCount);
-  console.log(totalClaimInProcessCount);
-  // totalPolicyCount
-  // totalClaimInProcessCount
-  // totalProposerCount
-
-  const cardData = [
-    { name: "Total customers", count: "20", image: faUser, color: "#556ee6" },
-    {
-      name: "Total Policies Count",
-      count: "20",
-      image: faIndianRupeeSign,
-      color: "#34c38f",
-    },
-    {
-      name: "Claim In-Process",
-      count: "20",
-      image: faPenToSquare,
-      color: "#f46a6a",
-    },
-    {
-      name: "Endorsement Request",
-      count: "20",
-      image: faBars,
-      color: "#f1b44c",
-    },
-  ];
   return (
     <Container fluid>
       <p className="font-16 section--name">Endorsements</p>

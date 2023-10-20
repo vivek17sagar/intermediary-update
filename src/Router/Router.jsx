@@ -9,6 +9,9 @@ const Customer = lazy(() => import("../Pages/Customer/Customer"));
 const Endorsement = lazy(() => import("../Pages/Endorsement/Endorsement"));
 const Claims = lazy(() => import("../Pages/Claims/Claims"));
 const Policies = lazy(() => import("../Pages/Policies/Policies"));
+const Invoice = lazy(() => import("../Pages/Invoice/Invoice"));
+const Quotation = lazy(() => import("../Pages/Quotation/Quotation"));
+const Receipt = lazy(() => import("../Pages/Receipt/Receipt"));
 const ForgotpasswordComponent = lazy(() =>
   import("../Pages/Login/ForgotpasswordComponent")
 );
@@ -105,6 +108,42 @@ const Router = () => {
             <Layout>
               <Suspense fallback={<>Loading...</>}>
                 <ComissionStatement />
+              </Suspense>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/quotation"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Suspense fallback={<>Loading...</>}>
+                <Quotation />
+              </Suspense>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/invoice"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Suspense fallback={<>Loading...</>}>
+                <Invoice />
+              </Suspense>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/receipt"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Suspense fallback={<>Loading...</>}>
+                <Receipt />
               </Suspense>
             </Layout>
           </ProtectedRoute>
