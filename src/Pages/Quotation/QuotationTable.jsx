@@ -14,7 +14,7 @@ const QuotationTable = ({ quotationTableData }) => {
       </thead>
       <tbody>
         {quotationTableData?.map((data) => (
-          <tr key={Math.floor(Math.random() * 10000)}>
+          <tr key={Math.floor(Math.random() * 100000)}>
             <td className="text-center">{data?.basicPremium}</td>
             <td className="text-center">{data?.premiumAmount}</td>
             <td className="text-center">{data?.proposerName}</td>

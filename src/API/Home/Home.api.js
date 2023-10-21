@@ -5,7 +5,6 @@ export const intermediatepolicycount = (payLoad) => {
 };
 
 export const intermediatecustomersinfo = (payLoad) => {
-  console.log(payLoad);
   return ServiceInstance.post("/intermediatecustomersinfo", payLoad);
 };
 

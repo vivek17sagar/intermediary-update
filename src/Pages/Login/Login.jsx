@@ -53,8 +53,6 @@ const Login = () => {
     userDetails: store.userDetails,
   }));
 
-  console.log(userDetails);
-
   // const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
   //   refetchOnWindowFocus: false,
   //   enabled: false,
@@ -90,7 +88,7 @@ const Login = () => {
 
   async function handleFormValues() {
     const values = getValues();
-    console.log(values);
+
     if (!values) {
       setIsLoggedIn(undefined);
 
@@ -149,7 +147,7 @@ const Login = () => {
 
     // OTPref.current.disabled = true;
     const validatewithotp = await verifyWithOTP(payLoad);
-    console.log(getResultFromData(validatewithotp));
+
     if (validatewithotp.ok) {
       if (login) {
         login(getResultFromData(validatewithotp));
