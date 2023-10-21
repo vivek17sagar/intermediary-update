@@ -6,19 +6,19 @@ const QuotationTable = ({ quotationTableData }) => {
     <Table striped bordered responsive hover>
       <thead>
         <tr>
-          <th>Basic Premium</th>
-          <th>Premium Amount</th>
-          <th>Proposer Name</th>
-          <th>Quotation No.</th>
+          <th className="text-center">Basic Premium</th>
+          <th className="text-center">Premium Amount</th>
+          <th className="text-center">Proposer Name</th>
+          <th className="text-center">Quotation No.</th>
         </tr>
       </thead>
       <tbody>
         {quotationTableData?.map((data) => (
           <tr key={Math.floor(Math.random() * 10000)}>
-            <td>{data?.basicPremium}</td>
-            <td>{data?.premiumAmount}</td>
-            <td>{data?.proposerName}</td>
-            <td>{data?.quotationNo}</td>
+            <td className="text-center">{data?.basicPremium}</td>
+            <td className="text-center">{data?.premiumAmount}</td>
+            <td className="text-center">{data?.proposerName}</td>
+            <td className="text-center">{data?.quotationNo}</td>
           </tr>
         ))}
       </tbody>

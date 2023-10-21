@@ -7,23 +7,23 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th>memberName</th>
-              <th>admissionDate</th>
-              <th>claimNo</th>
-              <th>displayMemberShipNo</th>
-              <th>entryTime</th>
-              <th>status</th>
+              <th className="text-center">memberName</th>
+              <th className="text-center">admissionDate</th>
+              <th className="text-center">claimNo</th>
+              <th className="text-center">displayMemberShipNo</th>
+              <th className="text-center">entryTime</th>
+              <th className="text-center">status</th>
             </tr>
           </thead>
           <tbody>
             {Data?.map((data) => (
               <tr key={data?.claimNo}>
-                <td>{data?.memberName}</td>
-                <td>{data?.admissionDate}</td>
-                <td>{data?.claimNo}</td>
-                <td>{data?.displayMemberShipNo}</td>
-                <td>{data?.entryTime}</td>
-                <td>{data?.status}</td>
+                <td className="text-center">{data?.memberName}</td>
+                <td className="text-center">{data?.admissionDate}</td>
+                <td className="text-center">{data?.claimNo}</td>
+                <td className="text-center">{data?.displayMemberShipNo}</td>
+                <td className="text-center">{data?.entryTime}</td>
+                <td className="text-center">{data?.status}</td>
               </tr>
             ))}
           </tbody>

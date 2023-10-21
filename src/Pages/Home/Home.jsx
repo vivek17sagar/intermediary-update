@@ -14,14 +14,15 @@ import "./styles.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import {
-  intermediateTotalProposer,
-  intermediateTotalRenewlCoutnonth,
+  intermediateTotalCustomer,
+  intermediateTotalRenewlListnonth,
   intermediatecustomersinfo,
   intermediatepolicycount,
-} from "../../API/Home.api";
+} from "../../API/Home/Home.api";
 import { getResultFromData } from "../../Utils/Utils";
 import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
 import Claims from "../Claims/Claims";
+import Endorsement from "../Endorsement/Endorsement";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
@@ -31,8 +32,8 @@ const Home = () => {
   const [
     { data: policyCount },
     { data: totalClaimInProcessCount },
+    { data: totalCustomerCount },
     { data: renewalCount },
-    { data: totalProposerCount },
   ] = useQueries({
     queries: [
       {
@@ -61,10 +62,24 @@ const Home = () => {
       },
 
       {
-        queryKey: ["intermediatetotalrenewlCoutnonth"],
+        queryKey: ["intermediatetotalcustomer"],
         queryFn: () =>
-          intermediateTotalRenewlCoutnonth(
-            getPayload("intermediatetotalrenewlCoutnonth", {
+          intermediateTotalCustomer(
+            getPayload("intermediatetotalcustomer", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatetotalrenewlListnonth"],
+        queryFn: () =>
+          intermediateTotalRenewlListnonth(
+            getPayload("intermediatetotalrenewlListnonth", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: 0,
@@ -76,26 +91,9 @@ const Home = () => {
           return getResultFromData(data);
         },
       },
-      {
-        queryKey: ["intermediatetotalproposer"],
-        queryFn: () =>
-          intermediateTotalProposer(
-            getPayload("intermediatetotalproposer", {
-              agencyID: userDetails?.userID,
-              agencyCode: userDetails?.userCode,
-              tokenID: userDetails?.tokenID,
-            })
-          ),
-        select(data) {
-          return getResultFromData(data);
-        },
-      },
     ],
   });
-  console.log("policyCount => ", policyCount);
-  console.log("totalClaimInProcessCount => ", totalClaimInProcessCount);
-  console.log("renewalCount => ", renewalCount);
-  console.log("totalProposalCount ==> ", totalProposerCount);
+
   return (
     <main>
       <Container fluid>
@@ -108,7 +106,7 @@ const Home = () => {
                   <p className="text-muted fw-medium">Total customers</p>
                   <h5 className="font-14 fw-bold">
                     {" "}
-                    {totalProposerCount?.totalClaimInProcessCount}
+                    {totalCustomerCount?.totalCustomerCount}
                   </h5>
                 </section>
                 <section
@@ -204,9 +202,8 @@ const Home = () => {
               <p className="font-16 section--name">
                 List of endorsement request in process
               </p>
-              <Card.Body className="d-flex justify-content-center">
-                <CustomisedTable count={3} />
-              </Card.Body>
+              <Endorsement dashboard={true} />
+              <Card.Body className="d-flex justify-content-center"></Card.Body>
             </Card>
           </Col>
         </Row>
