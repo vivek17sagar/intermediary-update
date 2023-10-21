@@ -1,12 +1,12 @@
 // import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import {
-  faUser,
-  faIndianRupeeSign,
-  faPenToSquare,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faUser,
+//   faIndianRupeeSign,
+//   faPenToSquare,
+//   faBars,
+// } from "@fortawesome/free-solid-svg-icons";
 // import { Area, Pie } from "../../Components/Charts/Charts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
 import { Container, Row, Card, Col, Form } from "react-bootstrap";
@@ -16,11 +16,11 @@ import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
 import { getResultFromData } from "../../Utils/Utils";
-import {
-  intermediateTotalRenewlCoutnonth,
-  intermediatepolicycount,
-} from "../../API/Home.api";
-import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
+// import {
+//   intermediateTotalRenewlCoutnonth,
+//   intermediatepolicycount,
+// } from "../../API/Home.api";
+// import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
 
 const Endorsement = () => {
   const { userDetails } = useStore((store) => ({
@@ -105,7 +105,8 @@ const Endorsement = () => {
   return (
     <Container fluid>
       <p className="font-16 section--name">Endorsements</p>
-      {/* <Row>
+      {/* 
+       <Row>
         <Col md={3}>
           <Card className="border-0">
             <Card.Body className="d-flex">
@@ -207,9 +208,9 @@ const Endorsement = () => {
       </Row> */}
       <Row className="mt-4">
         <Card className="border-0 p-3">
-          <p className="font-16 section--name">List of endorsements made</p>
+          {/* <p className="font-16 section--name">List of endorsements made</p> */}
           <Card className="border-0">
-            <p className="font-16 section--name">Search Filter</p>
+            <p className="font-16 section--name">Search By Proposer Name</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row>
                 {/* <Col md={4}>
@@ -227,12 +228,12 @@ const Endorsement = () => {
                   <Form.Control type="text" placeholder="Choose..." />
                 </Col> */}
                 <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
+                  {/* <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
-                  </Form.Label>
+                  </Form.Label> */}
 
-                  <Form.Select>
-                    <option>Open this select menu</option>
+                  <Form.Select className="mt-2">
+                    <option>Enter Proposer Name</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
