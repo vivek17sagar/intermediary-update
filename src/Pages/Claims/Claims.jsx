@@ -5,7 +5,7 @@ import { IntermediateClaimInprocess } from "../../API/Claims/claim.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
-import { PaginationBasic } from "./PaginationComponenet";
+import { PaginationBasic } from "./PaginationComponent";
 import { useState } from "react";
 const Claims = ({ dashboard }) => {
   const [page, setPage] = useState(1);
