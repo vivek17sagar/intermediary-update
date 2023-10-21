@@ -2,7 +2,7 @@ import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTabl
 import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useStore } from "../../Store/store";
 import { useQueries } from "@tanstack/react-query";
-import { intermediatecustomersinfo } from "../../API/Home.api";
+import { intermediatecustomersinfo } from "../../API/Home/Home.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useState } from "react";

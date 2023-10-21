@@ -58,11 +58,10 @@ const Quotation = () => {
   return (
     <Container fluid>
       <p className="font-16 section--name">Quotation</p>
-
       <Row className="mt-4">
         <Card className="border-0 p-3">
           <p className="font-16 section--name">List of Quotations made</p>
-          <Card className="border-0">
+          <Card className="border-0 p-3">
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row>

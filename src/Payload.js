@@ -193,12 +193,11 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         mobileNo: extraValues?.mobileNo,
       };
     }
-    case "intermediatetotalrenewlCoutnonth": {
+    case "intermediatetotalcustomer": {
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,
-        pageNo: extraValues?.pageNo,
-        pageSize: extraValues?.pageSize,
+
         tokenID: extraValues?.tokenID,
       };
     }
@@ -221,10 +220,12 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageSize: extraValues?.pageSize,
       };
     }
-    case "intermediatetotalproposer": {
+    case "intermediatetotalrenewlListnonth": {
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
         tokenID: extraValues?.tokenID,
       };
     }
