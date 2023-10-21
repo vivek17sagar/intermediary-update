@@ -171,17 +171,17 @@ export const getPayload = (endpoint, extraValues = undefined) => {
     }
     case "intermediatepolicycount": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
-      }
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
+      };
     }
     case "intermediatepolicycount": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
-      }
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
+      };
     }
     case "intermediatetotalclaiminprocesscount": {
       return {
@@ -242,21 +242,21 @@ export const getPayload = (endpoint, extraValues = undefined) => {
 
     case "intermediateinvoicesreceipts": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
-      }
+      };
     }
     case "intermediateendrosmentinvoices": {
       return {
-        agencyID : extraValues?.agencyID,
-        agencyCode : extraValues?.agencyCode,
-        tokenID : sessionStorage.getItem("tokenID"),
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
-      }
+      };
     }
     case "intermediatetotalproposer": {
       return {
@@ -274,7 +274,15 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: extraValues?.tokenID,
       };
     }
-
+    case "intermediatequotations": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+      };
+    }
     default: {
       toast.error("Payload.ts : Wrong endpoint, please check payload");
     }
