@@ -15,8 +15,6 @@ const Policies = () => {
     userDetails: store.userDetails,
   }));
 
-  console.log(userDetails);
-
   const [{ data: policiesData, refetch }] = useQueries({
     queries: [
       {
@@ -45,7 +43,6 @@ const Policies = () => {
     setTimeout(() => refetch(), 0);
   };
 
-  console.log(policiesData);
   return (
     <Container fluid>
       <p className="font-16 section--name">POLICIES</p>

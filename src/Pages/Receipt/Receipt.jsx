@@ -44,7 +44,6 @@ const Receipt = () => {
             })
           ),
         select(data) {
-          console.log(data);
           return getResultFromData(data);
         },
       },
@@ -52,7 +51,6 @@ const Receipt = () => {
   });
 
   const selectPage = (param) => {
-    console.log(param);
     setPage(param);
 
     setTimeout(() => {

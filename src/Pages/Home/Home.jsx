@@ -46,7 +46,6 @@ const Home = () => {
             })
           ),
         select(data) {
-          // console.log(data);
           return getResultFromData(data);
         },
       },

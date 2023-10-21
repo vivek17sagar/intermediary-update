@@ -34,7 +34,6 @@ const Header = () => {
     userDetails: store.userDetails,
   }));
 
-  console.log(userDetails);
   useEffect(() => {
     setActive(location.pathname.slice(1));
   }, [location]);
@@ -160,7 +159,7 @@ const Header = () => {
                   {Object.entries(userMenu).map(([key, value]) => {
                     return (
                       <li
-                        key={`userprofile__${key}`}
+                        key={Math.floor(Math.random() * 100000)}
                         className="d-flex gap-3"
                         onClick={value.handler}
                       >

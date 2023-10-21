@@ -7,17 +7,17 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th className="text-center">memberName</th>
-              <th className="text-center">admissionDate</th>
-              <th className="text-center">claimNo</th>
-              <th className="text-center">displayMemberShipNo</th>
-              <th className="text-center">entryTime</th>
-              <th className="text-center">status</th>
+              <th className="text-center">Member Name</th>
+              <th className="text-center">Admission Date</th>
+              <th className="text-center">Claim No.</th>
+              <th className="text-center">Display MemberShipNo</th>
+              <th className="text-center">Entry Time</th>
+              <th className="text-center">Status</th>
             </tr>
           </thead>
           <tbody>
             {Data?.map((data) => (
-              <tr key={data?.claimNo}>
+              <tr key={Math.floor(Math.random() * 100000)}>
                 <td className="text-center">{data?.memberName}</td>
                 <td className="text-center">{data?.admissionDate}</td>
                 <td className="text-center">{data?.claimNo}</td>
@@ -47,7 +47,7 @@ export const CustomisedTable = ({ Data, table }) => {
           </thead>
           <tbody>
             {Data?.map((data) => (
-              <tr key={data?.invoiceNo}>
+              <tr key={Math.floor(Math.random() * 100000)}>
                 <td>{data?.invoiceNo}</td>
                 <td>{data?.invoiceDate}</td>
                 <td>{data?.proposerName}</td>
@@ -76,7 +76,7 @@ export const CustomisedTable = ({ Data, table }) => {
           </thead>
           <tbody>
             {Data?.map((data) => (
-              <tr key={data?.invoiceNo}>
+              <tr key={Math.floor(Math.random() * 100000)}>
                 <td>{data?.invoiceNo}</td>
                 <td>{data?.basicPremium}</td>
                 <td>{data?.premium}</td>
@@ -106,7 +106,7 @@ export const CustomisedTable = ({ Data, table }) => {
           </thead>
           <tbody>
             {Data?.map((data) => (
-              <tr key={data?.claimNo}>
+              <tr key={Math.floor(Math.random() * 100000)}>
                 <td>{data?.memberName}</td>
                 <td>{data?.memberNo}</td>
                 <td>{data?.empCode}</td>

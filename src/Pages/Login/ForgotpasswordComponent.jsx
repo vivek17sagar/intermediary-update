@@ -104,7 +104,7 @@ const ForgotpasswordComponent = () => {
 
   async function handleFormValues() {
     const values = getValues();
-    console.log(values);
+
     if (!values) {
       setIsLoggedIn(undefined);
 

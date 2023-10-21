@@ -2,8 +2,6 @@ import Table from "react-bootstrap/Table";
 
 // eslint-disable-next-line react/prop-types
 export const PoliciesTable = ({ tableData }) => {
-  console.log(tableData);
-
   return (
     <Table striped bordered responsive hover>
       <thead>
@@ -20,7 +18,7 @@ export const PoliciesTable = ({ tableData }) => {
       </thead>
       <tbody>
         {tableData?.map((data) => (
-          <tr key={data?.refNo}>
+          <tr key={Math.floor(Math.random() * 100000)}>
             <td className="text-xs text-center">{data?.proposer}</td>
             <td className="text-xs text-center">{data?.policyNo}</td>
             <td className="text-xs text-center">{data?.email}</td>

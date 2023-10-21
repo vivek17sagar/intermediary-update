@@ -44,7 +44,6 @@ const Invoice = () => {
             })
           ),
         select(data) {
-          console.log(data);
           return getResultFromData(data);
         },
       },
@@ -52,14 +51,12 @@ const Invoice = () => {
   });
 
   const selectPage = (param) => {
-    console.log(param);
     setPage(param);
 
     setTimeout(() => {
       refetch();
     }, 500);
   };
-  console.log(userDetails);
 
   //   const [
   //     { data: endorsementInvoiceData },

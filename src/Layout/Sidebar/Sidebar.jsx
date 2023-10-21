@@ -139,7 +139,7 @@ const Sidebar = () => {
 
           {navLinks.map((item) => (
             <div
-              key={item.name}
+              key={Math.floor(Math.random() * 100000)}
               style={{
                 display: "flex",
                 justifyContent: "space-around",

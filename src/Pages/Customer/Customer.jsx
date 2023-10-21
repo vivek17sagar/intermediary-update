@@ -66,7 +66,6 @@ const Customer = () => {
   };
 
   const selectPage = (param) => {
-    console.log(param);
     setPage(param);
 
     setTimeout(() => {
@@ -138,7 +137,7 @@ const Customer = () => {
                 variant="primary"
                 // eslint-disable-next-line no-void
                 // ref={OTPref}
-                onClick={() => console.log(refetch())}
+                onClick={() => refetch()}
                 className="mt-4 ml-2 bg-blue-700 justify-end"
                 tabIndex={0}
               >
