@@ -86,14 +86,14 @@ const Customer = () => {
               <Row>
                 <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer No
+                    Proposer Name
                   </Form.Label>
 
                   <Form.Control
                     id="proposerno"
                     className="border-gray-400 rounded-xl"
                     type="text"
-                    placeholder="Choose..."
+                    placeholder="Enter Proposer Name"
                     {...register("proposerno")}
                   />
                 </Col>
@@ -106,7 +106,7 @@ const Customer = () => {
                     id="membername"
                     className="border-gray-400 rounded-xl"
                     type="text"
-                    placeholder="Choose..."
+                    placeholder="Enter Member Name"
                     {...register("membername")}
                   />
                 </Col>
@@ -119,7 +119,7 @@ const Customer = () => {
                     id="membershipno"
                     className="border-gray-400 rounded-xl"
                     type="text"
-                    placeholder="Choose..."
+                    placeholder="Enter Membership No"
                     {...register("membershipno")}
                   />
                 </Col>
@@ -133,7 +133,7 @@ const Customer = () => {
                     id="mobileno"
                     className="border-gray-400 rounded-xl"
                     type="number"
-                    placeholder="Choose..."
+                    placeholder="Enter Mobile No"
                     {...register("mobileno")}
                   />
                 </Col>
