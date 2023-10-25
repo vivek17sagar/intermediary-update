@@ -18,7 +18,6 @@ import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
 import { getResultFromData } from "../../Utils/Utils";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
-import PageNotFound from "../CommonComponents/DataNotFound";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 // import {
@@ -143,16 +142,6 @@ const Endorsement = ({ dashboard = false }) => {
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
                   <Col md={4}>
-                    <Col md={8}>
-                      <Form.Label className="font-14 fw-bold text-muted">
-                        Customer Name
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="border-gray-400 rounded-xl"
-                        placeholder="Choose..."
-                      />
-                    </Col>
                     {/* <Form.Label className="font-14 fw-bold text-muted">
                         Proposer Name
                       </Form.Label> */}
@@ -189,7 +178,7 @@ const Endorsement = ({ dashboard = false }) => {
             </Card>
           )}
           <p className="font-16 mb-3 section--name">List of Endorsement</p>
-          <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
+          {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           {endorsementInvoiceData ? (
             <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
           ) : (
