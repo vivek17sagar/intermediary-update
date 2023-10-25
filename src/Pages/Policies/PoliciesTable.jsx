@@ -33,13 +33,3 @@ export const PoliciesTable = ({ tableData }) => {
     </Table>
   );
 };
-
-/*activeMemberCount: 1;
-email: "null@mail.com";
-endDate: "21 Aug 2023";
-mobile: "9877896780";
-policyNo: "KEA1B/CC669/22/000012/02";
-proposer: "GA INSURANCE (Kenya)";
-startDate: "22 Aug 2022";
-type: "CORPORATE";
-*/

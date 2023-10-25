@@ -20,22 +20,49 @@ import {
   intermediatepolicycount,
 } from "../../API/Home/Home.api";
 import { getResultFromData } from "../../Utils/Utils";
-import { intermediateTotalClaimInProcessCount } from "../../API/Claims/claim.api";
+import {
+  IntermediateClaimInprocess,
+  intermediateTotalClaimInProcessCount,
+} from "../../API/Claims/claim.api";
 import Claims from "../Claims/Claims";
 import Endorsement from "../Endorsement/Endorsement";
+import { useState } from "react";
+import { getPoliciesData } from "../../API/Policies/policies.api";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
   }));
 
+  const [table, setTable] = useState("renewal");
+  const [page, setPage] = useState(1);
+
   const [
+    { data: policyData },
     { data: policyCount },
     { data: totalClaimInProcessCount },
     { data: totalCustomerCount },
     { data: renewalCount },
+    { data: customerInfo },
+    { data: claimData },
   ] = useQueries({
     queries: [
+      {
+        queryKey: ["intermediatepolicies"],
+        queryFn: () =>
+          getPoliciesData(
+            getPayload("intermediatepolicies", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: page - 1,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
       {
         queryKey: ["intermediatepolicycount"],
         queryFn: () =>
@@ -90,15 +117,54 @@ const Home = () => {
           return getResultFromData(data);
         },
       },
+      {
+        queryKey: ["intermediatecustomersinfo"],
+        queryFn: () =>
+          intermediatecustomersinfo(
+            getPayload("intermediatecustomersinfo", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: page - 1,
+              pageSize: 10,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediateclaiminprocess"],
+        queryFn: () =>
+          IntermediateClaimInprocess(
+            getPayload("intermediateclaiminprocess", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: page - 1,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
     ],
   });
+
+  const handleClick = (param) => {
+    setTable(param);
+  };
 
   return (
     <main>
       <Container fluid>
         <p className="font-16 section--name">DASHBOARD</p>
         <Row className="flex justify-center">
-          <Col md={3}>
+          <Col
+            md={3}
+            onClick={() => handleClick("customer")}
+            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
@@ -118,7 +184,11 @@ const Home = () => {
             </Card>
           </Col>
 
-          <Col md={3}>
+          <Col
+            md={3}
+            onClick={() => handleClick("policies")}
+            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
@@ -137,7 +207,11 @@ const Home = () => {
             </Card>
           </Col>
 
-          <Col md={3}>
+          <Col
+            md={3}
+            onClick={() => handleClick("claim")}
+            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
@@ -156,7 +230,11 @@ const Home = () => {
             </Card>
           </Col>
 
-          <Col md={3}>
+          <Col
+            md={3}
+            onClick={() => handleClick("renewal")}
+            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
             <Card className="border-0">
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
@@ -198,15 +276,33 @@ const Home = () => {
         <Row className="mt-4">
           <Col md={12}>
             <Card className="border-0 p-3">
-              <p className="font-16 section--name">
-                List of endorsement request in process
+              <p className="font-16 section--name mb-3">
+                {" "}
+                {table == "policies"
+                  ? "List of Policies"
+                  : table == "customer"
+                  ? "List of Customer"
+                  : table == "claim"
+                  ? "List of Claim"
+                  : "List of Renewal"}
               </p>
-              <Endorsement dashboard={true} />
+              <CustomisedTable
+                Data={
+                  table == "policies"
+                    ? policyData
+                    : table == "customer"
+                    ? customerInfo
+                    : table == "claim"
+                    ? claimData
+                    : renewalCount
+                }
+                table={table}
+              />
               <Card.Body className="d-flex justify-content-center"></Card.Body>
             </Card>
           </Col>
         </Row>
-        <Row className="mt-4">
+        {/* <Row className="mt-4">
           <Col md={12}>
             <Card className="border-0 p-3">
               <p className="font-16 section--name">List of claims in process</p>
@@ -215,7 +311,7 @@ const Home = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </main>
   );

@@ -263,6 +263,17 @@ const Invoice = () => {
 
                     <Form.Control
                       type="text"
+                      className="border-gray-400 rounded-xl"
+                      placeholder="Choose..."
+                    />
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Customer Name
+                    </Form.Label>
+
+                    <Form.Control
+                      type="text"
                       placeholder="Choose..."
                       className="border-gray-400 rounded-xl"
                     />

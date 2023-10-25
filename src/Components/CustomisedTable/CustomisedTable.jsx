@@ -61,6 +61,56 @@ export const CustomisedTable = ({ Data, table }) => {
             ))}
           </tbody>
         </Table>
+      ) : table === "policies" ? (
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr className="justify-center">
+              <th className="text-center">Proposer</th>
+              <th className="text-center">Policy Number</th>
+              <th className="text-center">Email</th>
+              <th className="text-center">Mobile</th>
+              <th className="text-center">Start Date</th>
+              <th className="text-center">End Date</th>
+              <th className="text-center">Active Member Count</th>
+              <th className="text-center"> Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Data?.map((data) => (
+              <tr key={Math.floor(Math.random() * 100000)}>
+                <td className="text-xs text-center">{data?.proposer}</td>
+                <td className="text-xs text-center">{data?.policyNo}</td>
+                <td className="text-xs text-center">{data?.email}</td>
+                <td className="text-xs text-center">{data?.mobile}</td>
+                <td className="text-xs text-center">{data?.startDate}</td>
+                <td className="text-xs text-center">{data?.endDate}</td>
+                <td className="text-xs text-center">
+                  {data?.activeMemberCount}
+                </td>
+                <td className="text-xs text-center">{data?.type}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : table === "renewal" ? (
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr>
+              <th>Total Proposer Count</th>
+              <th>Policy Upto</th>
+              <th>Policy Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Data?.map((data) => (
+              <tr key={Math.floor(Math.random() * 100000)}>
+                <td>{data?.totalProposerCount}</td>
+                <td>{data?.policyUpto}</td>
+                <td>{data?.policyCode}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       ) : table === "receipt" ? (
         <Table striped bordered responsive hover>
           <thead>
@@ -94,11 +144,11 @@ export const CustomisedTable = ({ Data, table }) => {
               <th>Joining Date</th>
               <th>Valid From</th>
               <th>Valid Upto</th>
-              <th>Mobile No</th>
-              <th>Email</th>
               <th>Proposer</th>
               <th>Product</th>
               <th>Category</th>
+              <th>Mobile No.</th>
+              <th>Email</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -111,11 +161,11 @@ export const CustomisedTable = ({ Data, table }) => {
                 <td>{data?.joingDate}</td>
                 <td>{data?.validFrom}</td>
                 <td>{data?.validUpto}</td>
-                <td>{data?.mobileNo}</td>
-                <td>{data?.email}</td>
                 <td>{data?.proposer}</td>
                 <td>{data?.product}</td>
                 <td>{data?.category}</td>
+                <td>{data?.mobileNo}</td>
+                <td>{data?.email}</td>
                 <td>{data?.status}</td>
               </tr>
             ))}
