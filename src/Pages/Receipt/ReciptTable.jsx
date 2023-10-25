@@ -9,7 +9,7 @@ const ReciptTable = ({ Data }) => {
           <th className="text-center">Invoice No.</th>
           <th className="text-center">Basic Premium</th>
           <th className="text-center">Net Premium</th>
-          <th className="text-center">Premium Concat</th>
+          <th className="text-center">Receipt No.</th>
           <th className="text-center">Print Amount</th>
         </tr>
       </thead>

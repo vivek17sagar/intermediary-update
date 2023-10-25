@@ -9,7 +9,7 @@ import {
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
@@ -23,9 +23,26 @@ import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTabl
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import InvoiceTable from "./InvoiceTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 
 const Invoice = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    reset,
+    watch,
+    trigger,
+  } = useForm({
+    defaultValues: {
+      proposerno: "",
+    },
+    // resolver: yupResolver(schema),
+  });
+
   const { userDetails } = useStore((store) => ({
     // setUserDetails: store.setUserDetails,
     userDetails: store.userDetails,
@@ -44,6 +61,7 @@ const Invoice = () => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              proposerName: getValues()?.proposerno,
             })
           ),
         select(data) {
@@ -61,6 +79,10 @@ const Invoice = () => {
     }, 500);
   };
 
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
   //   const [
   //     { data: endorsementInvoiceData },
   //     { data: renewalCount },
@@ -244,6 +266,7 @@ const Invoice = () => {
                       type="text"
                       className="border-gray-400 rounded-xl"
                       placeholder="Choose..."
+                      {...register("proposerno")}
                     />
                   </Col>
                   {/* <Col md={4}>
@@ -255,9 +278,10 @@ const Invoice = () => {
                       type="text"
                       className="border-gray-400 rounded-xl"
                       placeholder="Choose..."
+                      {...register("proposerno")}
                     />
                   </Col>
-                  <Col md={4}>
+                  {/* <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Customer Name
                     </Form.Label>
@@ -280,6 +304,25 @@ const Invoice = () => {
                     />
                   </Col> */}
                 </Row>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => refetch()}
+                  className="mt-4 ml-2 bg-blue-700 justify-end"
+                  tabIndex={0}
+                >
+                  Search
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={handleReset}
+                  className="mt-4 ml-2 bg-blue-700 justify-end"
+                  tabIndex={0}
+                >
+                  Reset
+                </Button>
               </Card.Body>
             </Card>
           </Card>
