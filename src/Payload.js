@@ -153,6 +153,7 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
         tokenID: extraValues?.tokenID,
+        proposerName: extraValues?.proposerName,
       };
     }
     case "intermediatepolicycount": {
@@ -236,6 +237,7 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
         tokenID: extraValues?.tokenID,
+        proposerName: extraValues?.proposerName,
       };
     }
     case "intermediatequotations": {

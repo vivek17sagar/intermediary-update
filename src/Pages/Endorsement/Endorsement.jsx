@@ -9,7 +9,7 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 import { getPayload } from "../../Payload";
@@ -20,6 +20,7 @@ import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
 import PageNotFound from "../CommonComponents/DataNotFound";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { useForm } from "react-hook-form";
 // import {
 //   intermediateTotalRenewlCoutnonth,
 //   intermediatepolicycount,
@@ -33,6 +34,24 @@ const Endorsement = ({ dashboard = false }) => {
     // setUserDetails: store.setUserDetails,
     userDetails: store.userDetails,
   }));
+
+  const {
+    register,
+    // handleSubmit,
+    // control,
+    // setValue,
+    getValues,
+    reset,
+    // watch,
+    // trigger,
+  } = useForm({
+    defaultValues: {
+      proposerName: "",
+    },
+    // resolver: yupResolver(schema),
+  });
+
+  console.log(userDetails);
 
   const [
     { data: endorsementInvoiceData, refetch },
@@ -51,6 +70,7 @@ const Endorsement = ({ dashboard = false }) => {
               pageNo: page - 1,
               pageSize: 10,
               tokenID: userDetails?.tokenID,
+              proposerName: getValues()?.proposerName,
             })
           ),
         select(data) {
@@ -102,6 +122,11 @@ const Endorsement = ({ dashboard = false }) => {
     ],
   });
 
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
+
   const handlePaginationBehaviour = (pageNo) => {
     setPage(pageNo);
     setTimeout(() => refetch(), 0);
@@ -118,21 +143,43 @@ const Endorsement = ({ dashboard = false }) => {
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
                   <Col md={4}>
-                    <Col md={8}>
-                      <Form.Label className="font-14 fw-bold text-muted">
-                        Customer Name
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="border-gray-400 rounded-xl"
-                        placeholder="Choose..."
-                      />
-                    </Col>
+                    {/* <Form.Label className="font-14 fw-bold text-muted">
+                        Proposer Name
+                      </Form.Label> */}
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Proposer Name"
+                      className="rouded rounded-md"
+                      {...register("proposerName")}
+                    />
+                  </Col>
+                  <Col md={1}>
+                    <Button
+                      size="md"
+                      variant="primary"
+                      className="bg-blue-700"
+                      onClick={() => refetch()}
+                    >
+                      Search
+                    </Button>
+                  </Col>
+                  <Col md={1}>
+                    <Button
+                      size="md"
+                      variant="primary"
+                      className="bg-blue-700 ml-0"
+                      style={{ marginLeft: "-3rem" }}
+                      onClick={handleReset}
+                    >
+                      Reset
+                    </Button>
                   </Col>
                 </Row>
               </Card.Body>
             </Card>
           )}
+          <p className="font-16 mb-3 section--name">List of Endorsement</p>
+          <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
           {endorsementInvoiceData ? (
             <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
           ) : (
