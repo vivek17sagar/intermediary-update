@@ -7,6 +7,8 @@ import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
 import { PaginationBasic } from "./PaginationComponent";
 import { useState } from "react";
+
+import DataNotFound from "../CommonComponents/DataNotFound";
 const Claims = ({ dashboard }) => {
   const [page, setPage] = useState(1);
 
@@ -60,9 +62,23 @@ const Claims = ({ dashboard }) => {
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row className="p-3">
-                <Col md={3}>
+                <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer No.
+                    Claim No.
+                  </Form.Label>
+
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Claim Number"
+                    className="border-gray-400 rounded-xl"
+                  />
+                </Col>
+              </Row>
+
+              <Row className="p-3">
+                <Col md={4}>
+                  <Form.Label className="font-14 fw-bold text-muted">
+                    Proposer Name
                   </Form.Label>
 
                   <Form.Control
@@ -72,7 +88,7 @@ const Claims = ({ dashboard }) => {
                   />
                 </Col>
 
-                <Col md={3}>
+                <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Mobile No.
                   </Form.Label>
@@ -83,20 +99,9 @@ const Claims = ({ dashboard }) => {
                     placeholder="Choose..."
                   />
                 </Col>
-                <Col md={3}>
+                <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Membership No.
-                  </Form.Label>
-
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Choose..."
-                  />
-                </Col>
-                <Col md={3}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Claim No.
                   </Form.Label>
 
                   <Form.Control
@@ -112,11 +117,7 @@ const Claims = ({ dashboard }) => {
           {claimProcessData ? (
             <CustomisedTable Data={claimProcessData} table="claim" />
           ) : (
-            <div className="text-center">
-              <h1 style={{ fontSize: "50px", padding: "250px" }}>
-                No Data Found
-              </h1>
-            </div>
+            <DataNotFound />
           )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
@@ -130,7 +131,11 @@ const Claims = ({ dashboard }) => {
     <Container fluid>
       <Row className="mt-4">
         <Card className="border-0 p-3">
-          <CustomisedTable Data={claimProcessData} table="claim" />
+          {claimProcessData ? (
+            <CustomisedTable Data={claimProcessData} table="claim" />
+          ) : (
+            <DataNotFound />
+          )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic

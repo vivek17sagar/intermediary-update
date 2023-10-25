@@ -22,6 +22,7 @@ import { useQueries } from "@tanstack/react-query";
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import InvoiceTable from "./InvoiceTable";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Invoice = () => {
   const { userDetails } = useStore((store) => ({
@@ -235,7 +236,7 @@ const Invoice = () => {
                 <Row className="p-3">
                   <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
+                      Proposer Name
                     </Form.Label>
 
                     <Form.Control
@@ -244,7 +245,7 @@ const Invoice = () => {
                       placeholder="Choose..."
                     />
                   </Col>
-                  <Col md={4}>
+                  {/* <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Customer Name
                     </Form.Label>
@@ -265,17 +266,21 @@ const Invoice = () => {
                       placeholder="Choose..."
                       className="border-gray-400 rounded-xl"
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
               </Card.Body>
             </Card>
           </Card>
         </Row>
-        {console.log(invoiceData)}
+
         <Row className="mt-4">
           <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of customers</p>
-            <InvoiceTable Data={invoiceData} />
+            <p className="font-16 section--name p-2">List of Invoices</p>
+            {invoiceData ? (
+              <InvoiceTable Data={invoiceData} />
+            ) : (
+              <DataNotFound />
+            )}
           </Card>
         </Row>
       </Container>
