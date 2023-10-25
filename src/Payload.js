@@ -177,6 +177,11 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         agencyCode: extraValues?.agencyCode,
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        proposerName: extraValues?.proposerName,
+        memberName: extraValues?.memberName,
+        displayMembershipNo: extraValues?.displayMembershipNo,
+        claimNo: extraValues?.claimNo,
+
         tokenID: extraValues?.tokenID,
       };
     }
@@ -210,15 +215,18 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        proposerName: extraValues?.proposerName,
       };
     }
     case "intermediateendrosmentinvoices": {
+      console.log("extraValues => ", extraValues);
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,
         tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        proposerName: extraValues?.proposerName,
       };
     }
     case "intermediatetotalrenewlListnonth": {
@@ -246,6 +254,7 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         agencyCode: extraValues?.agencyCode,
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        proposerName: extraValues?.proposerName,
         tokenID: extraValues?.tokenID,
       };
     }

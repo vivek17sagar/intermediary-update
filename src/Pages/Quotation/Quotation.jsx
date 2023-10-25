@@ -9,7 +9,7 @@ import {
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
@@ -23,8 +23,25 @@ import QuotationTable from "./QuotationTable";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { useForm } from "react-hook-form";
 
 const Quotation = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    reset,
+    watch,
+    trigger,
+  } = useForm({
+    defaultValues: {
+      proposerno: "",
+    },
+    // resolver: yupResolver(schema),
+  });
+
   const [page, setPage] = useState(1);
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
@@ -41,6 +58,7 @@ const Quotation = () => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              proposerName: getValues()?.proposerno,
               tokenID: userDetails?.tokenID,
             })
           ),
@@ -56,12 +74,16 @@ const Quotation = () => {
     setTimeout(() => refetch(), 0);
   };
 
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
+
   return (
     <Container fluid>
       <p className="font-16 section--name">Quotation</p>
       <Row className="mt-4">
         <Card className="border-0 p-3">
-          <p className="font-16 section--name">List of Quotations made</p>
           <Card className="border-0 p-3">
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
@@ -75,6 +97,7 @@ const Quotation = () => {
                     type="text"
                     className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
+                    {...register("proposerno")}
                   />
                 </Col>
                 {/* <Col md={4}>
@@ -86,34 +109,53 @@ const Quotation = () => {
                     type="text"
                     className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
+                    {...register("proposerno")}
                   />
                 </Col>
-                <Col md={4}>
+                {/* <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
+                  Customer Name
                   </Form.Label>
-
+                  
                   <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Choose..."
+                  type="text"
+                  className="border-gray-400 rounded-xl"
+                  placeholder="Choose..."
                   />
-                </Col>
-                <Col md={4}>
+                  </Col>
+                  <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
+                  Customer Name
                   </Form.Label>
-
+                  
                   <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Choose..."
+                  type="text"
+                  className="border-gray-400 rounded-xl"
+                  placeholder="Choose..."
                   />
                 </Col>
                 </Col> */}
               </Row>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={() => refetch()}
+                className="mt-4 ml-2 bg-blue-700 justify-end"
+              >
+                Search
+              </Button>
+
+              <Button
+                type="button"
+                variant="primary"
+                onClick={handleReset}
+                className="mt-4 ml-2 bg-blue-700 justify-end"
+              >
+                Reset
+              </Button>
             </Card.Body>
           </Card>
+          <p className="font-16 section--name">List of Quotations</p>
           {quotationTableData ? (
             <QuotationTable quotationTableData={quotationTableData} />
           ) : (

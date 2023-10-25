@@ -9,7 +9,7 @@ import {
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form } from "react-bootstrap";
+import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
@@ -23,6 +23,7 @@ import { getPayload } from "../../Payload";
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import ReciptTable from "./ReciptTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 
 const Receipt = () => {
@@ -32,6 +33,22 @@ const Receipt = () => {
   }));
 
   const [page, setPage] = useState(1);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    reset,
+    watch,
+    trigger,
+  } = useForm({
+    defaultValues: {
+      proposerno: "",
+    },
+    // resolver: yupResolver(schema),
+  });
 
   const [{ data: receiptData, refetch }] = useQueries({
     queries: [
@@ -44,6 +61,7 @@ const Receipt = () => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              proposerName: getValues()?.proposerno,
             })
           ),
         select(data) {
@@ -128,6 +146,11 @@ const Receipt = () => {
   //       },
   //     ],
   //   });
+
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
 
   return (
     <>
@@ -232,7 +255,7 @@ const Receipt = () => {
           <Card className="border-0 p-3">
             <p className="font-16 section--name">List of Receipt made</p>
             <Card className="border-0">
-              <p className="font-16 section--name">Search Filter</p>
+              <p className="font-16 section--name">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
                   <Col md={4}>
@@ -243,7 +266,8 @@ const Receipt = () => {
                     <Form.Control
                       type="text"
                       className="border-gray-400 rounded-xl"
-                      placeholder="Choose..."
+                      placeholder="Enter Proposer Name"
+                      {...register("proposerno")}
                     />
                   </Col>
                   {/* <Col md={4}>
@@ -269,16 +293,31 @@ const Receipt = () => {
                     />
                   </Col> */}
                 </Row>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => refetch()}
+                  className="mt-4 ml-2 bg-blue-700 justify-end"
+                >
+                  Search
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={handleReset}
+                  className="mt-4 ml-2 bg-blue-700 justify-end"
+                >
+                  Reset
+                </Button>
               </Card.Body>
             </Card>
-            {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
-            {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           </Card>
         </Row>
         <Row className="mt-4">
           <Card className="border-0 p-3">
             <p className="font-16 section--name p-2">List of Recipts</p>
-            {console.log("receiptData => ", receiptData)}
+
             {receiptData ? (
               <ReciptTable Data={receiptData} table="receipt" />
             ) : (

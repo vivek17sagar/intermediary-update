@@ -9,7 +9,7 @@ export const CustomisedTable = ({ Data, table }) => {
             <tr>
               <th className="text-center">Claim No.</th>
               <th className="text-center">Member Name</th>
-              <th className="text-center">Display MemberShip No</th>
+              <th className="text-center">Membership No</th>
               <th className="text-center">Admission Date</th>
               <th className="text-center">Status</th>
             </tr>
