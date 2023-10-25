@@ -96,7 +96,7 @@ const Quotation = () => {
                   <Form.Control
                     type="text"
                     className="border-gray-400 rounded-xl"
-                    placeholder="Choose..."
+                    placeholder="Enter Proposer Name"
                     {...register("proposerno")}
                   />
                 </Col>
