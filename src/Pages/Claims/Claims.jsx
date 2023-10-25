@@ -62,23 +62,9 @@ const Claims = ({ dashboard }) => {
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row className="p-3">
-                <Col md={4}>
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Claim No.
-                  </Form.Label>
-
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Claim Number"
-                    className="border-gray-400 rounded-xl"
-                  />
-                </Col>
-              </Row>
-
-              <Row className="p-3">
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer Name
+                    Proposer No.
                   </Form.Label>
 
                   <Form.Control
@@ -88,7 +74,7 @@ const Claims = ({ dashboard }) => {
                   />
                 </Col>
 
-                <Col md={4}>
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Mobile No.
                   </Form.Label>
@@ -99,9 +85,20 @@ const Claims = ({ dashboard }) => {
                     placeholder="Choose..."
                   />
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Membership No.
+                  </Form.Label>
+
+                  <Form.Control
+                    type="text"
+                    className="border-gray-400 rounded-xl"
+                    placeholder="Choose..."
+                  />
+                </Col>
+                <Col md={3}>
+                  <Form.Label className="font-14 fw-bold text-muted">
+                    Claim No.
                   </Form.Label>
 
                   <Form.Control
