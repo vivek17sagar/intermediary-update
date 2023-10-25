@@ -72,8 +72,8 @@ const Quotation = () => {
 
                   <Form.Control
                     type="text"
+                    className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
-                    className="rounded rounded-sm"
                   />
                 </Col>
                 <Col md={4}>
@@ -83,8 +83,8 @@ const Quotation = () => {
 
                   <Form.Control
                     type="text"
+                    className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
-                    className="rounded rounded-sm"
                   />
                 </Col>
                 <Col md={4}>
@@ -94,8 +94,8 @@ const Quotation = () => {
 
                   <Form.Control
                     type="text"
+                    className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
-                    className="rounded rounded-sm"
                   />
                 </Col>
               </Row>

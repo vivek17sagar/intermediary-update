@@ -67,8 +67,8 @@ const Claims = ({ dashboard }) => {
 
                   <Form.Control
                     type="text"
+                    className="border-gray-400 rounded-xl"
                     placeholder="Enter Claim Number"
-                    className="rounded rounded-sm"
                   />
                 </Col>
 
@@ -79,8 +79,8 @@ const Claims = ({ dashboard }) => {
 
                   <Form.Control
                     type="text"
-                    placeholder="Enter Claim Number"
-                    className="rounded rounded-sm"
+                    className="border-gray-400 rounded-xl"
+                    placeholder="Choose..."
                   />
                 </Col>
                 <Col md={3}>
@@ -90,8 +90,8 @@ const Claims = ({ dashboard }) => {
 
                   <Form.Control
                     type="text"
-                    placeholder="Enter Claim Number"
-                    className="rounded rounded-sm"
+                    className="border-gray-400 rounded-xl"
+                    placeholder="Choose..."
                   />
                 </Col>
                 <Col md={3}>
@@ -101,8 +101,8 @@ const Claims = ({ dashboard }) => {
 
                   <Form.Control
                     type="text"
-                    placeholder="Enter Claim Number"
-                    className="rounded rounded-sm"
+                    className="border-gray-400 rounded-xl"
+                    placeholder="Choose..."
                   />
                 </Col>
               </Row>

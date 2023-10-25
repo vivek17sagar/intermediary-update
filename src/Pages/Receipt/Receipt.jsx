@@ -240,8 +240,19 @@ const Receipt = () => {
 
                     <Form.Control
                       type="text"
+                      className="border-gray-400 rounded-xl"
                       placeholder="Choose..."
-                      className="rounded rounded-sm"
+                    />
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Customer Name
+                    </Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="border-gray-400 rounded-xl"
+                      placeholder="Choose..."
                     />
                   </Col>
                   <Col md={4}>
@@ -252,23 +263,13 @@ const Receipt = () => {
                     <Form.Control
                       type="text"
                       placeholder="Choose..."
-                      className="rounded rounded-sm"
-                    />
-                  </Col>
-                  <Col md={4}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      placeholder="Choose..."
-                      className="rounded rounded-sm"
+                      className="border-gray-400 rounded-xl"
                     />
                   </Col>
                 </Row>
               </Card.Body>
             </Card>
+            {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
             {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           </Card>
         </Row>

@@ -32,17 +32,17 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th>invoiceNo</th>
-              <th>invoiceDate</th>
-              <th>proposerName</th>
-              <th>basicPremium</th>
-              <th>premiumAmount</th>
-              <th>policyCode</th>
-              <th>periodFrom</th>
-              <th>periodTo</th>
-              <th>refNo</th>
-              <th>status</th>
-              <th>policyType</th>
+              <th>Invoice No.</th>
+              <th>Invoice Date</th>
+              <th>Proposer Name</th>
+              <th>Basic Premium</th>
+              <th>Premium Amount</th>
+              <th>Policy Code</th>
+              <th>Period From</th>
+              <th>Period To</th>
+              <th>Ref No.</th>
+              <th>Status</th>
+              <th>Policy Type</th>
             </tr>
           </thead>
           <tbody>
@@ -67,11 +67,11 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th>invoiceNo</th>
-              <th>basicPremium</th>
-              <th>premium</th>
-              <th>printAmount</th>
-              <th>premiumConcat</th>
+              <th>Invoice No.</th>
+              <th>Basic Premium</th>
+              <th>Premium</th>
+              <th>Print Amount</th>
+              <th>Premium Concat</th>
             </tr>
           </thead>
           <tbody>
@@ -90,18 +90,18 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th>memberName</th>
-              <th>memberNo</th>
-              <th>empCode</th>
-              <th>joingDate</th>
-              <th>validFrom</th>
-              <th>validUpto</th>
-              <th>mobileNo</th>
-              <th>email</th>
-              <th>proposer</th>
-              <th>product</th>
-              <th>category</th>
-              <th>status</th>
+              <th>Member Name</th>
+              <th>Member No.</th>
+              <th>Emp Code</th>
+              <th>Joining Date</th>
+              <th>Valid From</th>
+              <th>Valid Upto</th>
+              <th>Mobile No</th>
+              <th>Email</th>
+              <th>Proposer</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
