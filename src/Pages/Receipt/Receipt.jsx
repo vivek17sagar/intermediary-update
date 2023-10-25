@@ -23,6 +23,7 @@ import { getPayload } from "../../Payload";
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import ReciptTable from "./ReciptTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { PaginationBasic } from "../Claims/PaginationComponent";
 
 const Receipt = () => {
   const { userDetails } = useStore((store) => ({
@@ -52,7 +53,7 @@ const Receipt = () => {
     ],
   });
 
-  const selectPage = (param) => {
+  const handlePaginationBehaviour = (param) => {
     setPage(param);
 
     setTimeout(() => {
@@ -286,8 +287,10 @@ const Receipt = () => {
           </Card>
         </Row>
       </Container>
-      <div className="flex justify-end mt-3 mr-5 opacity-80">
-        <PaginationCustomer pageSelect={selectPage} />
+      <div className="flex justify-end mt-3 mr-5">
+        <PaginationBasic
+          handlePaginationBehaviour={handlePaginationBehaviour}
+        />
       </div>
     </>
   );

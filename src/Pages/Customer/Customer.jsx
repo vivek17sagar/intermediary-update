@@ -9,6 +9,7 @@ import { useState } from "react";
 import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { PaginationBasic } from "../Claims/PaginationComponent";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({
@@ -66,7 +67,7 @@ const Customer = () => {
     refetch();
   };
 
-  const selectPage = (param) => {
+  const handlePaginationBehaviour = (param) => {
     setPage(param);
 
     setTimeout(() => {
@@ -174,7 +175,11 @@ const Customer = () => {
         </Row>
       </Container>
       <div className="flex justify-end mt-3 mr-5 opacity-80">
-        <PaginationCustomer pageSelect={selectPage} />
+        <div className="flex justify-end mt-3 mr-5">
+          <PaginationBasic
+            handlePaginationBehaviour={handlePaginationBehaviour}
+          />
+        </div>
       </div>
     </>
   );

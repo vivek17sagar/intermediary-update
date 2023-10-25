@@ -23,6 +23,7 @@ import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTabl
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import InvoiceTable from "./InvoiceTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { PaginationBasic } from "../Claims/PaginationComponent";
 
 const Invoice = () => {
   const { userDetails } = useStore((store) => ({
@@ -52,7 +53,7 @@ const Invoice = () => {
     ],
   });
 
-  const selectPage = (param) => {
+  const handlePaginationBehaviour = (param) => {
     setPage(param);
 
     setTimeout(() => {
@@ -295,8 +296,10 @@ const Invoice = () => {
           </Card>
         </Row>
       </Container>
-      <div className="flex justify-end mt-3 mr-5 opacity-80">
-        <PaginationCustomer pageSelect={selectPage} />
+      <div className="flex justify-end mt-3 mr-5">
+        <PaginationBasic
+          handlePaginationBehaviour={handlePaginationBehaviour}
+        />
       </div>
     </>
   );
