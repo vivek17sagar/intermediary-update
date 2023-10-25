@@ -70,21 +70,33 @@ const Quotation = () => {
                     Customer Name
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Choose..."
+                    className="rounded rounded-sm"
+                  />
                 </Col>
                 <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Choose..."
+                    className="rounded rounded-sm"
+                  />
                 </Col>
                 <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Choose..."
+                    className="rounded rounded-sm"
+                  />
                 </Col>
               </Row>
             </Card.Body>

@@ -65,7 +65,11 @@ const Claims = ({ dashboard }) => {
                     Proposer No.
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Enter Claim Number" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Claim Number"
+                    className="rounded rounded-sm"
+                  />
                 </Col>
 
                 <Col md={3}>
@@ -73,26 +77,47 @@ const Claims = ({ dashboard }) => {
                     Mobile No.
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Claim Number"
+                    className="rounded rounded-sm"
+                  />
                 </Col>
                 <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Membership No.
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Claim Number"
+                    className="rounded rounded-sm"
+                  />
                 </Col>
                 <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Claim No.
                   </Form.Label>
 
-                  <Form.Control type="text" placeholder="Choose..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Claim Number"
+                    className="rounded rounded-sm"
+                  />
                 </Col>
               </Row>
             </Card.Body>
           </Card>
-          <CustomisedTable Data={claimProcessData} table="claim" />
+
+          {claimProcessData ? (
+            <CustomisedTable Data={claimProcessData} table="claim" />
+          ) : (
+            <div className="text-center">
+              <h1 style={{ fontSize: "50px", padding: "250px" }}>
+                No Data Found
+              </h1>
+            </div>
+          )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic

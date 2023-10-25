@@ -120,7 +120,11 @@ const Endorsement = ({ dashboard = false }) => {
                       <Form.Label className="font-14 fw-bold text-muted">
                         Customer Name
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Choose..." />
+                      <Form.Control
+                        type="text"
+                        placeholder="Choose..."
+                        className="rounded rounded-sm"
+                      />
                     </Col>
                   </Col>
                 </Row>
