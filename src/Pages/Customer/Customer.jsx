@@ -89,6 +89,7 @@ const Customer = () => {
 
                   <Form.Control
                     id="proposerno"
+                    className="border-gray-400 rounded-xl"
                     type="text"
                     placeholder="Choose..."
                     {...register("proposerno")}
@@ -101,6 +102,7 @@ const Customer = () => {
 
                   <Form.Control
                     id="membername"
+                    className="border-gray-400 rounded-xl"
                     type="text"
                     placeholder="Choose..."
                     {...register("membername")}
@@ -113,6 +115,7 @@ const Customer = () => {
 
                   <Form.Control
                     id="membershipno"
+                    className="border-gray-400 rounded-xl"
                     type="text"
                     placeholder="Choose..."
                     {...register("membershipno")}
@@ -126,6 +129,7 @@ const Customer = () => {
 
                   <Form.Control
                     id="mobileno"
+                    className="border-gray-400 rounded-xl"
                     type="number"
                     placeholder="Choose..."
                     {...register("mobileno")}

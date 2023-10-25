@@ -122,8 +122,8 @@ const Endorsement = ({ dashboard = false }) => {
                       </Form.Label>
                       <Form.Control
                         type="text"
+                        className="border-gray-400 rounded-xl"
                         placeholder="Choose..."
-                        className="rounded rounded-sm"
                       />
                     </Col>
                   </Col>
