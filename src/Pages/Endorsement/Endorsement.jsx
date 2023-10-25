@@ -142,6 +142,16 @@ const Endorsement = ({ dashboard = false }) => {
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
                   <Col md={4}>
+                    <Col md={8}>
+                      <Form.Label className="font-14 fw-bold text-muted">
+                        Customer Name
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="border-gray-400 rounded-xl"
+                        placeholder="Choose..."
+                      />
+                    </Col>
                     {/* <Form.Label className="font-14 fw-bold text-muted">
                         Proposer Name
                       </Form.Label> */}
