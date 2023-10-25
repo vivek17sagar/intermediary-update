@@ -7,6 +7,7 @@ import { getPayload } from "../../Payload";
 import { getPoliciesData } from "../../API/Policies/policies.api";
 import { PoliciesPagination } from "./PoliciesPagination";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Policies = () => {
@@ -15,6 +16,22 @@ const Policies = () => {
     // setUserDetails: store.setUserDetails,
     userDetails: store.userDetails,
   }));
+
+  const {
+    register,
+    // handleSubmit,
+    // control,
+    // setValue,
+    getValues,
+    reset,
+    // watch,
+    // trigger,
+  } = useForm({
+    defaultValues: {
+      proposerName: "",
+    },
+    // resolver: yupResolver(schema),
+  });
 
   const [{ data: policiesData, refetch }] = useQueries({
     queries: [
@@ -28,6 +45,7 @@ const Policies = () => {
               pageNo: page - 1,
               pageSize: 10,
               tokenID: userDetails?.tokenID,
+              proposerName: getValues()?.proposerName,
             })
           ),
         select(data) {
@@ -39,6 +57,10 @@ const Policies = () => {
     ],
   });
 
+  const handleReset = () => {
+    reset();
+    refetch();
+  };
   const handlePagination = (pageNo) => {
     setPage(pageNo);
     setTimeout(() => refetch(), 0);
@@ -78,11 +100,31 @@ const Policies = () => {
                   <Form.Label className="font-14 fw-bold text-muted">
                     Proposer Name
                   </Form.Label>
-                  <Form.Control placeholder="Enter Proposer Name" size="lg" />
+                  <Form.Control
+                    placeholder="Enter Proposer Name"
+                    size="lg"
+                    {...register("proposerName")}
+                  />
                 </Col>
-                <Col md={4} style={{ marginTop: "1.8rem" }}>
-                  <Button size="md" variant="primary">
+                <Col md={1} style={{ marginTop: "1.8rem" }}>
+                  <Button
+                    size="md"
+                    variant="primary"
+                    className="bg-blue-700"
+                    onClick={() => refetch()}
+                  >
                     Search
+                  </Button>
+                </Col>
+                <Col md={1}>
+                  <Button
+                    size="md"
+                    variant="primary"
+                    className="bg-blue-700"
+                    style={{ marginLeft: "-3rem", marginTop: "1.8rem" }}
+                    onClick={handleReset}
+                  >
+                    Reset
                   </Button>
                 </Col>
               </Form>
