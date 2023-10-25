@@ -7,22 +7,20 @@ export const CustomisedTable = ({ Data, table }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th className="text-center">Member Name</th>
-              <th className="text-center">Admission Date</th>
               <th className="text-center">Claim No.</th>
-              <th className="text-center">Display MemberShipNo</th>
-              <th className="text-center">Entry Time</th>
+              <th className="text-center">Member Name</th>
+              <th className="text-center">Display MemberShip No</th>
+              <th className="text-center">Admission Date</th>
               <th className="text-center">Status</th>
             </tr>
           </thead>
           <tbody>
             {Data?.map((data) => (
               <tr key={Math.floor(Math.random() * 100000)}>
-                <td className="text-center">{data?.memberName}</td>
-                <td className="text-center">{data?.admissionDate}</td>
                 <td className="text-center">{data?.claimNo}</td>
+                <td className="text-center">{data?.memberName}</td>
                 <td className="text-center">{data?.displayMemberShipNo}</td>
-                <td className="text-center">{data?.entryTime}</td>
+                <td className="text-center">{data?.admissionDate}</td>
                 <td className="text-center">{data?.status}</td>
               </tr>
             ))}

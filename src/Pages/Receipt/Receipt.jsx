@@ -22,6 +22,7 @@ import { intermediateinvoicesreceipts } from "../../API/Receipt/Receipt.api";
 import { getPayload } from "../../Payload";
 import PaginationCustomer from "../Customer/PaginationCustomer";
 import ReciptTable from "./ReciptTable";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Receipt = () => {
   const { userDetails } = useStore((store) => ({
@@ -235,7 +236,7 @@ const Receipt = () => {
                 <Row>
                   <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
+                      Proposer Name
                     </Form.Label>
 
                     <Form.Control
@@ -244,7 +245,7 @@ const Receipt = () => {
                       placeholder="Choose..."
                     />
                   </Col>
-                  <Col md={4}>
+                  {/* <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Customer Name
                     </Form.Label>
@@ -265,7 +266,7 @@ const Receipt = () => {
                       placeholder="Choose..."
                       className="border-gray-400 rounded-xl"
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
               </Card.Body>
             </Card>
@@ -275,8 +276,13 @@ const Receipt = () => {
         </Row>
         <Row className="mt-4">
           <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of customers</p>
-            <ReciptTable Data={receiptData} table="receipt" />
+            <p className="font-16 section--name p-2">List of Recipts</p>
+            {console.log("receiptData => ", receiptData)}
+            {receiptData ? (
+              <ReciptTable Data={receiptData} table="receipt" />
+            ) : (
+              <DataNotFound />
+            )}
           </Card>
         </Row>
       </Container>

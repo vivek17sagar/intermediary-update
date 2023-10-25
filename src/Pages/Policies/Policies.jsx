@@ -7,6 +7,7 @@ import { getPayload } from "../../Payload";
 import { getPoliciesData } from "../../API/Policies/policies.api";
 import { PoliciesPagination } from "./PoliciesPagination";
 import { useState } from "react";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Policies = () => {
   const [page, setPage] = useState(1);
@@ -92,15 +93,15 @@ const Policies = () => {
       <Row className="mt-4">
         <Card className="border-0 p-3">
           <p className="font-16 section--name">List of Policies sold</p>
-          <PoliciesTable tableData={policiesData} />
+
+          {policiesData ? (
+            <PoliciesTable tableData={policiesData} />
+          ) : (
+            <DataNotFound />
+          )}
+
           <div className="flex justify-end">
-            {policiesData ? (
-              <PoliciesPagination handlePagination={handlePagination} />
-            ) : (
-              <div className="text-center mt-4 text-3xl text-red-600">
-                No more data
-              </div>
-            )}
+            <PoliciesPagination handlePagination={handlePagination} />
           </div>
         </Card>
       </Row>

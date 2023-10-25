@@ -18,6 +18,8 @@ import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
 import { getResultFromData } from "../../Utils/Utils";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
+import PageNotFound from "../CommonComponents/DataNotFound";
+import DataNotFound from "../CommonComponents/DataNotFound";
 // import {
 //   intermediateTotalRenewlCoutnonth,
 //   intermediatepolicycount,
@@ -131,7 +133,11 @@ const Endorsement = ({ dashboard = false }) => {
               </Card.Body>
             </Card>
           )}
-          <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
+          {endorsementInvoiceData ? (
+            <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
+          ) : (
+            <DataNotFound />
+          )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic

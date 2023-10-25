@@ -8,6 +8,7 @@ import { getResultFromData } from "../../Utils/Utils";
 import { useState } from "react";
 import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({
@@ -164,7 +165,11 @@ const Customer = () => {
         <Row className="mt-4">
           <Card className="border-0 p-3">
             <p className="font-16 section--name">List of customers</p>
-            <CustomisedTable Data={customeInfo} table="customer" />
+            {customeInfo ? (
+              <CustomisedTable Data={customeInfo} table="customer" />
+            ) : (
+              <DataNotFound />
+            )}
           </Card>
         </Row>
       </Container>

@@ -22,6 +22,7 @@ import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTabl
 import QuotationTable from "./QuotationTable";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Quotation = () => {
   const [page, setPage] = useState(1);
@@ -67,7 +68,7 @@ const Quotation = () => {
               <Row>
                 <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
-                    Customer Name
+                    Proposer Name
                   </Form.Label>
 
                   <Form.Control
@@ -76,7 +77,7 @@ const Quotation = () => {
                     placeholder="Choose..."
                   />
                 </Col>
-                <Col md={4}>
+                {/* <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
                   </Form.Label>
@@ -97,11 +98,15 @@ const Quotation = () => {
                     className="border-gray-400 rounded-xl"
                     placeholder="Choose..."
                   />
-                </Col>
+                </Col> */}
               </Row>
             </Card.Body>
           </Card>
-          <QuotationTable quotationTableData={quotationTableData} />
+          {quotationTableData ? (
+            <QuotationTable quotationTableData={quotationTableData} />
+          ) : (
+            <DataNotFound />
+          )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
