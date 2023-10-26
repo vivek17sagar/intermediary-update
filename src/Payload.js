@@ -132,6 +132,7 @@ export const getPayload = (endpoint, extraValues = undefined) => {
 
 import { json } from "react-router-dom";
 import { toast } from "./Components/Toaster/Toaster";
+import dayjs from "dayjs";
 
 export const getPayload = (endpoint, extraValues = undefined) => {
   switch (endpoint) {
@@ -216,6 +217,9 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
         proposerName: extraValues?.proposerName,
+        invoiceNo: extraValues?.invoiceNo,
+        // dateFrom: extraValues?.dateFrom,
+        // dateUpto: extraValues?.dateUpto,
       };
     }
     case "intermediateendrosmentinvoices": {

@@ -1,4 +1,4 @@
-import { Pie, Area } from "../../Components/Charts/Charts";
+// import { Pie, Area } from "../../Components/Charts/Charts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useStore } from "../../Store/store";
 import {
@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { pieProps, MonthlyWiseChartProps } from "./props";
+// import { pieProps, MonthlyWiseChartProps } from "./props";
 import { getPayload } from "../../Payload";
 import "./styles.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
@@ -171,7 +171,7 @@ const Home = () => {
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Total customers</p>
-                  <h5 className="font-14 fw-bold">
+                  <h5 className="font-14 fw-bold mt-3">
                     {" "}
                     {totalCustomerCount?.totalCustomerCount}
                   </h5>
@@ -195,7 +195,7 @@ const Home = () => {
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Total Policies Count</p>
-                  <h5 className="font-14 fw-bold">
+                  <h5 className="font-14 fw-bold mt-3">
                     {policyCount?.totalPolicyCount}
                   </h5>
                 </section>
@@ -218,7 +218,7 @@ const Home = () => {
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Claim In-Process</p>
-                  <h5 className="font-14 fw-bold">
+                  <h5 className="font-14 fw-bold mt-3">
                     {totalClaimInProcessCount?.totalClaimInProcessCount}
                   </h5>
                 </section>
@@ -241,7 +241,9 @@ const Home = () => {
               <Card.Body className="d-flex">
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Renewal Count</p>
-                  <h5 className="font-14 fw-bold">{renewalCount?.length}</h5>
+                  <h5 className="font-14 fw-bold mt-3">
+                    {renewalCount?.length}
+                  </h5>
                 </section>
                 <section
                   className="card--icon"
@@ -253,7 +255,7 @@ const Home = () => {
             </Card>
           </Col>
         </Row>
-        <Row className="mt-4">
+        {/* <Row className="mt-4">
           <Col md={7}>
             <Card className="border-0 p-3 pl-20">
               <p className="font-16 section--name">
@@ -274,7 +276,7 @@ const Home = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
         <Row className="mt-4">
           <Col md={12}>
             <Card className="border-0 p-3">
