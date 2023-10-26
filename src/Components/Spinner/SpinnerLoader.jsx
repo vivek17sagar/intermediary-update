@@ -22,7 +22,11 @@ import "./styles.css";
 const SpinnerLoader = () => {
   return (
     <div>
-      <Button variant="primary" disabled>
+      <Button
+        variant="custom-btn"
+        className="bg-[#4e4a91] border-none text-white"
+        disabled
+      >
         <Spinner
           as="span"
           animation="grow"
