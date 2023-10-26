@@ -10,6 +10,8 @@ import { FaClaims } from "../../assets/FaClaims";
 import { FaPolicies } from "../../assets/faPolicies";
 import { FaEndorsement } from "../../assets/faEndoresement";
 import { FaCommision } from "../../assets/faCommission";
+import { FaReceipt } from "../../assets/faReceipt";
+import { FaInvoice } from "../../assets/faInvoice";
 import ArrowSideBar from "../../assets/ArrowSideBar";
 import forwardArrow from "../../assets/forward_arrow.png";
 import back_arrow from "../../assets/back_arrow.png";
@@ -73,23 +75,23 @@ const Sidebar = () => {
       name: "Endorsement",
       route: "/endorsement",
     },
-    {
-      icon: FaCommision,
-      name: "Comission Statement",
-      route: "/comissionstatement",
-    },
+    // {
+    //   icon: FaCommision,
+    //   name: "Comission Statement",
+    //   route: "/comissionstatement",
+    // },
     {
       icon: FaCommision,
       name: "Quotation",
       route: "/quotation",
     },
     {
-      icon: FaCommision,
+      icon: FaInvoice,
       name: "invoice",
       route: "/invoice",
     },
     {
-      icon: FaCommision,
+      icon: FaReceipt,
       name: "Receipt",
       route: "/receipt",
     },
