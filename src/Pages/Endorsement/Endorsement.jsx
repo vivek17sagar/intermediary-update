@@ -21,6 +21,7 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 // import {
 //   intermediateTotalRenewlCoutnonth,
 //   intermediatepolicycount,
@@ -54,7 +55,7 @@ const Endorsement = ({ dashboard = false }) => {
   console.log(userDetails);
 
   const [
-    { data: endorsementInvoiceData, refetch },
+    { data: endorsementInvoiceData, refetch, isFetching },
     // { data: renewalCount },
     // { data: policyCount },
     // { data: totalClaimInProcessCount },
@@ -180,7 +181,9 @@ const Endorsement = ({ dashboard = false }) => {
           )}
           <p className="font-16 mb-3 section--name">List of Endorsement</p>
           {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
-          {endorsementInvoiceData ? (
+          {isFetching ? (
+            <ShimmeringTable />
+          ) : endorsementInvoiceData ? (
             <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
           ) : (
             <DataNotFound />

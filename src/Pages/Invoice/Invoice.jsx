@@ -25,6 +25,7 @@ import InvoiceTable from "./InvoiceTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../Claims/PaginationComponent";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Invoice = () => {
   const {
@@ -50,7 +51,7 @@ const Invoice = () => {
 
   const [page, setPage] = useState(1);
 
-  const [{ data: invoiceData, refetch }] = useQueries({
+  const [{ data: invoiceData, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediateendrosmentinvoices"],
@@ -342,7 +343,9 @@ const Invoice = () => {
         <Row className="mt-4">
           <Card className="border-0 p-3">
             <p className="font-16 section--name p-2">List of Invoices</p>
-            {invoiceData ? (
+            {isFetching ? (
+              <ShimmeringTable />
+            ) : invoiceData ? (
               <InvoiceTable Data={invoiceData} />
             ) : (
               <DataNotFound />

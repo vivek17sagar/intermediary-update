@@ -9,6 +9,7 @@ import { PoliciesPagination } from "./PoliciesPagination";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Policies = () => {
   const [page, setPage] = useState(1);
@@ -33,7 +34,7 @@ const Policies = () => {
     // resolver: yupResolver(schema),
   });
 
-  const [{ data: policiesData, refetch }] = useQueries({
+  const [{ data: policiesData, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediatepolicies"],
@@ -67,14 +68,15 @@ const Policies = () => {
   };
 
   return (
-    <Container fluid>
-      <p className="font-16 section--name">POLICIES</p>
-      <Row>
-        <Card className="border-0 p-3">
-          <p className="font-16 section--name">Search By</p>
-          <Card.Body>
-            <Row>
-              {/* <Col md={4}>
+    <>
+      <Container fluid>
+        <p className="font-16 section--name">POLICIES</p>
+        <Row>
+          <Card className="border-0 p-3">
+            <p className="font-16 section--name">Search By</p>
+            <Card.Body>
+              <Row>
+                {/* <Col md={4}>
                 <Form.Label className="font-14 fw-bold text-muted">
                   Customer Name
                 </Form.Label>
@@ -88,75 +90,78 @@ const Policies = () => {
 
                 <Form.Control type="text" placeholder="Choose..." />
               </Col> */}
-              <Form
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexBasis: "initial",
-                  gap: "2rem",
-                }}
-              >
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer Name
-                  </Form.Label>
-                  <Form.Control
-                    placeholder="Enter Proposer Name"
-                    size="lg"
-                    {...register("proposerName")}
-                  />
-                </Col>
-                <Col md={1} style={{ marginTop: "1.8rem" }}>
-                  <Button
-                    size="md"
-                    variant="primary"
-                    className="bg-blue-700"
-                    onClick={() => refetch()}
-                  >
-                    Search
-                  </Button>
-                </Col>
-                <Col md={1}>
-                  <Button
-                    size="md"
-                    variant="primary"
-                    className="bg-blue-700"
-                    style={{ marginLeft: "-3rem", marginTop: "1.8rem" }}
-                    onClick={handleReset}
-                  >
-                    Reset
-                  </Button>
-                </Col>
-              </Form>
-            </Row>
-          </Card.Body>
-        </Card>
-      </Row>
-      <Row className="mt-4">
-        <Card className="border-0 p-3">
-          <p className="font-16 section--name">List of Policies sold</p>
+                <Form
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexBasis: "initial",
+                    gap: "2rem",
+                  }}
+                >
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Proposer Name
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="Enter Proposer Name"
+                      size="lg"
+                      {...register("proposerName")}
+                    />
+                  </Col>
+                  <Col md={1} style={{ marginTop: "1.8rem" }}>
+                    <Button
+                      size="md"
+                      variant="primary"
+                      className="bg-blue-700"
+                      onClick={() => refetch()}
+                    >
+                      Search
+                    </Button>
+                  </Col>
+                  <Col md={1}>
+                    <Button
+                      size="md"
+                      variant="primary"
+                      className="bg-blue-700"
+                      style={{ marginLeft: "-3rem", marginTop: "1.8rem" }}
+                      onClick={handleReset}
+                    >
+                      Reset
+                    </Button>
+                  </Col>
+                </Form>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Row>
+        <Row className="mt-4">
+          <Card className="border-0 p-3">
+            <p className="font-16 section--name">List of Policies sold</p>
 
-          {policiesData ? (
-            <PoliciesTable tableData={policiesData} />
-          ) : (
-            <DataNotFound />
-          )}
+            {isFetching ? (
+              <ShimmeringTable />
+            ) : policiesData ? (
+              <PoliciesTable tableData={policiesData} />
+            ) : (
+              <DataNotFound />
+            )}
+          </Card>
+        </Row>
 
-          <div className="flex justify-end">
-            <PoliciesPagination handlePagination={handlePagination} />
-          </div>
-        </Card>
-      </Row>
-      <Row className="flex justify-end items-end self-end mt-4">
-        {/* {policiesData ? (
+        <Row className="flex justify-end items-end self-end mt-4">
+          {/* {policiesData ? (
           <PoliciesPagination handlePagination={handlePagination} />
         ) : (
           <div className="text-center mt-4 text-3xl text-red-600">
             No more data
           </div>
         )} */}
-      </Row>
-    </Container>
+        </Row>
+      </Container>
+      <div className="flex justify-end  mt-3 mr-5">
+        <PoliciesPagination handlePagination={handlePagination} />
+      </div>
+    </>
   );
 };
 

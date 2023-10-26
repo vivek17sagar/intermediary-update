@@ -25,7 +25,7 @@ import ReciptTable from "./ReciptTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../Claims/PaginationComponent";
-import dayjs from "dayjs";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Receipt = () => {
   const { userDetails } = useStore((store) => ({
@@ -47,16 +47,11 @@ const Receipt = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
-      invoiceno: "",
-      datefrom: "",
-      dateupto: "",
     },
     // resolver: yupResolver(schema),
   });
 
-  // const values = getValues();
-
-  const [{ data: receiptData, refetch }] = useQueries({
+  const [{ data: receiptData, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediateinvoicesreceipts"],
@@ -68,9 +63,6 @@ const Receipt = () => {
               pageNo: page - 1,
               pageSize: 10,
               proposerName: getValues()?.proposerno,
-              invoiceNo: getValues()?.invoiceno,
-              // dateFrom: dayjs(values?.datefrom).format("DD/MM/YYYY"),
-              // dateUpto: dayjs(values?.dateupto).format("DD/MM/YYYY"),
             })
           ),
         select(data) {
@@ -267,7 +259,7 @@ const Receipt = () => {
               <p className="font-16 section--name">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
-                  <Col md={3}>
+                  <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Proposer Name
                     </Form.Label>
@@ -279,42 +271,6 @@ const Receipt = () => {
                       {...register("proposerno")}
                     />
                   </Col>
-                  <Col md={3}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Invoice Number
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Enter Invoice Number"
-                      {...register("invoiceno")}
-                    />
-                  </Col>
-                  {/* <Col md={3}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Date From
-                    </Form.Label>
-
-                    <Form.Control
-                      type="date"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Enter Proposer Name"
-                      {...register("datefrom")}
-                    />
-                  </Col>
-                  <Col md={3}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Date Upto
-                    </Form.Label>
-
-                    <Form.Control
-                      type="date"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Enter Proposer Name"
-                      {...register("dateupto")}
-                    />
-                  </Col> */}
                   {/* <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Customer Name
@@ -363,7 +319,9 @@ const Receipt = () => {
           <Card className="border-0 p-3">
             <p className="font-16 section--name p-2">List of Recipts</p>
 
-            {receiptData ? (
+            {isFetching ? (
+              <ShimmeringTable />
+            ) : receiptData ? (
               <ReciptTable Data={receiptData} table="receipt" />
             ) : (
               <DataNotFound />
