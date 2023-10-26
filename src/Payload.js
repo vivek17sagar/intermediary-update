@@ -166,9 +166,9 @@ export const getPayload = (endpoint, extraValues = undefined) => {
 
     case "intermediatetotalclaiminprocesscount": {
       return {
-        agencyID: JSON.parse(sessionStorage.getItem("user"))?.userID,
-        agencyCode: JSON.parse(sessionStorage.getItem("user"))?.userCode,
-        tokenID: JSON.parse(sessionStorage.getItem("user"))?.tokenID,
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: extraValues?.tokenID,
       };
     }
     case "intermediateclaiminprocess": {

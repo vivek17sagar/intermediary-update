@@ -75,13 +75,13 @@ const Claims = ({ dashboard }) => {
       </Row> */}
 
       <Row className="mt-2">
-        <Card className="border-0 p-3">
+        <Card className="border-0 p-4">
           {/* <p className="font-16 section--name">List of claims made</p> */}
           <Card className="border-0">
             <p className="font-16 section--name">Search Filter</p>
             <Card.Body style={{ padding: "0 0 1rem 0" }}>
-              <Row className="p-3">
-                <Col md={3}>
+              <Row className="p-3 flex items-center">
+                <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Claim No.
                   </Form.Label>
@@ -92,6 +92,23 @@ const Claims = ({ dashboard }) => {
                     className="border-gray-400 rounded-xl"
                     {...register("claimno")}
                   />
+                </Col>
+                <Col md={4}>
+                  <Button
+                    variant="primary"
+                    onClick={() => refetch()}
+                    className="mt-4 ml-3 bg-blue-700 justify-end"
+                  >
+                    Search
+                  </Button>
+
+                  <Button
+                    variant="primary"
+                    onClick={handleRest}
+                    className="mt-4 ml-3 bg-blue-700 justify-end"
+                  >
+                    Reset
+                  </Button>
                 </Col>
               </Row>
 
@@ -145,21 +162,6 @@ const Claims = ({ dashboard }) => {
                   />
                 </Col>
               </Row>
-              <Button
-                variant="primary"
-                onClick={() => refetch()}
-                className="mt-4 ml-3 bg-blue-700 justify-end"
-              >
-                Search
-              </Button>
-
-              <Button
-                variant="primary"
-                onClick={handleRest}
-                className="mt-4 ml-3 bg-blue-700 justify-end"
-              >
-                Reset
-              </Button>
             </Card.Body>
           </Card>
 

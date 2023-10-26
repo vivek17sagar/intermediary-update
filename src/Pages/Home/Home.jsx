@@ -24,8 +24,6 @@ import {
   IntermediateClaimInprocess,
   intermediateTotalClaimInProcessCount,
 } from "../../API/Claims/claim.api";
-import Claims from "../Claims/Claims";
-import Endorsement from "../Endorsement/Endorsement";
 import { useState } from "react";
 import { getPoliciesData } from "../../API/Policies/policies.api";
 
@@ -80,7 +78,11 @@ const Home = () => {
         queryKey: ["intermediatetotalclaiminprocesscount"],
         queryFn: () =>
           intermediateTotalClaimInProcessCount(
-            getPayload("intermediatetotalclaiminprocesscount")
+            getPayload("intermediatetotalclaiminprocesscount", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              tokenID: userDetails?.tokenID,
+            })
           ),
         select(data) {
           return getResultFromData(data);
