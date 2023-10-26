@@ -34,6 +34,7 @@ import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../Claims/PaginationComponent";
 import ShimmeringTable from "../CommonComponents/Shimmer";
+import dayjs from "dayjs";
 
 const Receipt = () => {
   const { userDetails } = useStore((store) => ({
@@ -55,6 +56,9 @@ const Receipt = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
+      invoiceno: "",
+      datefrom: "",
+      dateupto: "",
     },
     // resolver: yupResolver(schema),
   });
@@ -71,6 +75,14 @@ const Receipt = () => {
               pageNo: page - 1,
               pageSize: 10,
               proposerName: getValues()?.proposerno,
+              invoiceNo: getValues()?.invoiceno,
+              dateFrom: getValues()?.datefrom
+                ? dayjs(getValues()?.datefrom).format("DD/MM/YYYY")
+                : "",
+              dateUpto: getValues()?.dateupto
+                ? dayjs(getValues()?.dateupto).format("DD/MM/YYYY")
+                : "",
+              tokenID: userDetails?.tokenID,
             })
           ),
         select(data) {
@@ -267,7 +279,7 @@ const Receipt = () => {
               <p className="font-16 section--name">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
-                  <Col md={4}>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Proposer Name
                     </Form.Label>
@@ -279,28 +291,42 @@ const Receipt = () => {
                       {...register("proposerno")}
                     />
                   </Col>
-                  {/* <Col md={4}>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
+                      invoice No.
                     </Form.Label>
 
                     <Form.Control
                       type="text"
                       className="border-gray-400 rounded-xl"
-                      placeholder="Choose..."
+                      placeholder="Enter Invoice Number"
+                      {...register("invoiceno")}
                     />
                   </Col>
-                  <Col md={4}>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
+                      Date From
                     </Form.Label>
 
                     <Form.Control
-                      type="text"
-                      placeholder="Choose..."
+                      type="date"
+                      placeholder="Date From"
                       className="border-gray-400 rounded-xl"
+                      {...register("datefrom")}
                     />
-                  </Col> */}
+                  </Col>
+                  <Col md={3}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Date upto
+                    </Form.Label>
+
+                    <Form.Control
+                      type="date"
+                      placeholder="Date Upto"
+                      className="border-gray-400 rounded-xl"
+                      {...register("dateupto")}
+                    />
+                  </Col>
                 </Row>
                 <Button
                   type="button"

@@ -213,13 +213,13 @@ export const getPayload = (endpoint, extraValues = undefined) => {
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,
-        tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
         proposerName: extraValues?.proposerName,
         invoiceNo: extraValues?.invoiceNo,
-        // dateFrom: extraValues?.dateFrom,
-        // dateUpto: extraValues?.dateUpto,
+        dateFrom: extraValues?.dateFrom,
+        dateUpto: extraValues?.dateUpto,
+        tokenID: extraValues?.tokenID,
       };
     }
     case "intermediateendrosmentinvoices": {
