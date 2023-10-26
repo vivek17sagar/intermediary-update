@@ -81,6 +81,7 @@ const Login = () => {
   //     },
   //   ],
   // });
+  const [waiting, setWaiting] = useState(false);
 
   if (user) {
     return <Navigate to="/home" />;
@@ -100,15 +101,19 @@ const Login = () => {
       password: encryptPassword(values.password),
       sendType: "M",
     };
-
+    setWaiting(true);
     const validateFirstStep = await ValidateLogin(payLoad);
 
-    if (validateFirstStep.ok) {
-      cogoToast
-        .success(getResultFromData(validateFirstStep)?.message)
-        .then(() => modalRef.current?.showModal());
-      return true;
-    }
+    setTimeout(() => {
+      if (validateFirstStep.ok) {
+        cogoToast
+          .success(getResultFromData(validateFirstStep)?.message)
+          .then(() => modalRef.current?.showModal());
+        setWaiting(false);
+        return true;
+      }
+    }, 2000);
+    setWaiting(true);
     return false;
   }
 
@@ -242,17 +247,23 @@ const Login = () => {
                 Forgot Password
               </a>
             </section>
-            <Button
-              // disabled={isLoggedIn === true}
-              className="mt-2 w-100 btn-bg"
-              onClick={handleSubmit(handleFormValues)}
-            >
-              {/* {isValidating ? (
+            {waiting ? (
+              <div className="mt-2 w-100 btn-bg rounded-3xl">
+                <Spinner />
+              </div>
+            ) : (
+              <Button
+                // disabled={isLoggedIn === true}
+                className="mt-2 w-100 btn-bg"
+                onClick={handleSubmit(handleFormValues)}
+              >
+                {/* {isValidating ? (
                 <ReactSpinner type="border" color="primary" size="5" />
               ) : ( */}
-              Sign In
-              {/* )} */}
-            </Button>
+                Sign In
+                {/* )} */}
+              </Button>
+            )}
             <hr />
           </Form>
           <dialog ref={modalRef} className="dialog__modal">
