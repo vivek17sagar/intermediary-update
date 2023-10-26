@@ -1,5 +1,13 @@
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Container,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { useStore } from "../../Store/store";
 import { useQueries } from "@tanstack/react-query";
 import { intermediatecustomersinfo } from "../../API/Home/Home.api";
@@ -166,10 +174,12 @@ const Customer = () => {
           </Card>
         </Row>
         <Row className="mt-4">
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of customers</p>
+          <p className="font-16 section--name">List of customers</p>
+          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
             {isFetching ? (
-              <ShimmeringTable />
+              <div className="flex justify-center align-middle">
+                <Spinner />
+              </div>
             ) : customeInfo ? (
               <CustomisedTable Data={customeInfo} table="customer" />
             ) : (

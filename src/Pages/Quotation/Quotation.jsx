@@ -9,7 +9,15 @@ import {
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Card,
+  Col,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
@@ -83,25 +91,23 @@ const Quotation = () => {
   return (
     <Container fluid>
       <p className="font-16 section--name">Quotation</p>
-      <Row className="mt-4">
-        <Card className="border-0 p-3">
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name">Search Filter</p>
-            <Card.Body style={{ padding: "0 0 1rem 0" }}>
-              <Row>
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer Name
-                  </Form.Label>
+      <Card className="border-0 p-3">
+        <p className="font-16 section--name">Search Filter</p>
+        <Card.Body style={{ padding: "0 0 1rem 0" }}>
+          <Row>
+            <Col md={4}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Proposer Name
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Enter Proposer Name"
-                    {...register("proposerno")}
-                  />
-                </Col>
-                {/* <Col md={4}>
+              <Form.Control
+                type="text"
+                className="border-gray-400 rounded-xl"
+                placeholder="Enter Proposer Name"
+                {...register("proposerno")}
+              />
+            </Col>
+            {/* <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Customer Name
                   </Form.Label>
@@ -146,29 +152,33 @@ const Quotation = () => {
                   />
                 </Col>
                 </Col> */}
-              </Row>
-              <Button
-                type="button"
-                variant="primary"
-                onClick={() => refetch()}
-                className="mt-4 ml-2 bg-blue-700 justify-end"
-              >
-                Search
-              </Button>
+          </Row>
+          <Button
+            type="button"
+            variant="primary"
+            onClick={() => refetch()}
+            className="mt-4 ml-2 bg-blue-700 justify-end"
+          >
+            Search
+          </Button>
 
-              <Button
-                type="button"
-                variant="primary"
-                onClick={handleReset}
-                className="mt-4 ml-2 bg-blue-700 justify-end"
-              >
-                Reset
-              </Button>
-            </Card.Body>
-          </Card>
-          <p className="font-16 section--name">List of Quotations</p>
+          <Button
+            type="button"
+            variant="primary"
+            onClick={handleReset}
+            className="mt-4 ml-2 bg-blue-700 justify-end"
+          >
+            Reset
+          </Button>
+        </Card.Body>
+      </Card>
+      <Row className="mt-4">
+        <p className="font-16 section--name">List of Quotations</p>
+        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
           {isFetching ? (
-            <ShimmeringTable />
+            <div className="flex justify-center align-middle">
+              <Spinner />
+            </div>
           ) : quotationTableData ? (
             <QuotationTable quotationTableData={quotationTableData} />
           ) : (
