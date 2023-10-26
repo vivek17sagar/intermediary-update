@@ -4,7 +4,7 @@ import "./styles.css";
 // eslint-disable-next-line react/prop-types
 export const EndorsementCustomizedTable = ({ tableData }) => {
   return (
-    <Table striped bordered responsive hover className="tableSize">
+    <Table striped bordered responsive hover>
       <thead>
         <tr className="justify-center">
           <th className="text-center">Invoice No</th>
