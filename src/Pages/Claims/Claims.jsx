@@ -10,6 +10,7 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 const Claims = ({ dashboard }) => {
   const { register, getValues, reset } = useForm({
     defaultValues: {
@@ -26,7 +27,7 @@ const Claims = ({ dashboard }) => {
     userDetails: store.userDetails,
   }));
 
-  const [{ data: claimProcessData, refetch }] = useQueries({
+  const [{ data: claimProcessData, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediateclaiminprocess"],
@@ -182,7 +183,9 @@ const Claims = ({ dashboard }) => {
     <Container fluid>
       <Row className="mt-4">
         <Card className="border-0 p-3">
-          {claimProcessData ? (
+          {isFetching ? (
+            <ShimmeringTable />
+          ) : claimProcessData ? (
             <CustomisedTable Data={claimProcessData} table="claim" />
           ) : (
             <DataNotFound />

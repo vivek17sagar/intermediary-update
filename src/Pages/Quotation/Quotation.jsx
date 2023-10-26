@@ -24,6 +24,7 @@ import { PaginationBasic } from "../Claims/PaginationComponent";
 import { useState } from "react";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Quotation = () => {
   const {
@@ -47,7 +48,7 @@ const Quotation = () => {
     userDetails: store.userDetails,
   }));
 
-  const [{ data: quotationTableData, refetch }] = useQueries({
+  const [{ data: quotationTableData, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediatequotations"],
@@ -166,7 +167,9 @@ const Quotation = () => {
             </Card.Body>
           </Card>
           <p className="font-16 section--name">List of Quotations</p>
-          {quotationTableData ? (
+          {isFetching ? (
+            <ShimmeringTable />
+          ) : quotationTableData ? (
             <QuotationTable quotationTableData={quotationTableData} />
           ) : (
             <DataNotFound />

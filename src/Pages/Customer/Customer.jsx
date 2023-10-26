@@ -10,6 +10,8 @@ import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../Claims/PaginationComponent";
+import Loader from "../../Components/Spinner/Loader";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({
@@ -38,7 +40,7 @@ const Customer = () => {
   // console.log(getValues()?.membershipno);
   const [page, setPage] = useState(1);
 
-  const [{ data: customeInfo, refetch }] = useQueries({
+  const [{ data: customeInfo, refetch, isFetching }] = useQueries({
     queries: [
       {
         queryKey: ["intermediatecustomersinfo"],
@@ -166,7 +168,9 @@ const Customer = () => {
         <Row className="mt-4">
           <Card className="border-0 p-3">
             <p className="font-16 section--name">List of customers</p>
-            {customeInfo ? (
+            {isFetching ? (
+              <ShimmeringTable />
+            ) : customeInfo ? (
               <CustomisedTable Data={customeInfo} table="customer" />
             ) : (
               <DataNotFound />
