@@ -9,7 +9,15 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Card,
+  Col,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 import { getPayload } from "../../Payload";
@@ -136,53 +144,55 @@ const Endorsement = ({ dashboard = false }) => {
   return (
     <Container fluid>
       {!dashboard && <p className="font-16 section--name">Endorsements</p>}
-      <Row className="mt-4">
-        <Card className="border-0 p-3">
-          {!dashboard && (
-            <Card className="border-0">
-              <p className="font-16 section--name">Search By Proposer Name</p>
-              <Card.Body style={{ padding: "0 0 1rem 0" }}>
-                <Row>
-                  <Col md={4}>
-                    {/* <Form.Label className="font-14 fw-bold text-muted">
+      {!dashboard && (
+        <Card className="border-0">
+          <p className="font-16 section--name">Search By Proposer Name</p>
+          <Card.Body style={{ padding: "0 0 1rem 0" }}>
+            <Row>
+              <Col md={4}>
+                {/* <Form.Label className="font-14 fw-bold text-muted">
                         Proposer Name
                       </Form.Label> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Proposer Name"
-                      className="rouded rounded-md"
-                      {...register("proposerName")}
-                    />
-                  </Col>
-                  <Col md={1}>
-                    <Button
-                      size="md"
-                      variant="primary"
-                      className="bg-blue-700"
-                      onClick={() => refetch()}
-                    >
-                      Search
-                    </Button>
-                  </Col>
-                  <Col md={1}>
-                    <Button
-                      size="md"
-                      variant="primary"
-                      className="bg-blue-700 ml-0"
-                      style={{ marginLeft: "-3rem" }}
-                      onClick={handleReset}
-                    >
-                      Reset
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          )}
-          <p className="font-16 mb-3 section--name">List of Endorsement</p>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Proposer Name"
+                  className="rouded rounded-md"
+                  {...register("proposerName")}
+                />
+              </Col>
+              <Col md={1}>
+                <Button
+                  size="md"
+                  variant="primary"
+                  className="bg-blue-700"
+                  onClick={() => refetch()}
+                >
+                  Search
+                </Button>
+              </Col>
+              <Col md={1}>
+                <Button
+                  size="md"
+                  variant="primary"
+                  className="bg-blue-700 ml-0"
+                  style={{ marginLeft: "-3rem" }}
+                  onClick={handleReset}
+                >
+                  Reset
+                </Button>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      )}
+      <Row className="mt-4">
+        <p className="font-16 mb-3 section--name">List of Endorsement</p>
+        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
           {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           {isFetching ? (
-            <ShimmeringTable />
+            <div className="flex justify-center align-middle">
+              <Spinner />
+            </div>
           ) : endorsementInvoiceData ? (
             <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
           ) : (

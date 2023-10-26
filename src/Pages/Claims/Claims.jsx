@@ -1,6 +1,14 @@
 import { useQueries } from "@tanstack/react-query";
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Container,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { IntermediateClaimInprocess } from "../../API/Claims/claim.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
@@ -64,7 +72,7 @@ const Claims = ({ dashboard }) => {
 
   return !dashboard ? (
     <Container fluid>
-      <p className="font-16 section--name">CLAIMS</p>
+      <p className="font-16 section--name pl-5 pb-2">CLAIMS</p>
 
       {/* <Row>
         <Card className="border-0 p-3">
@@ -75,98 +83,101 @@ const Claims = ({ dashboard }) => {
         </Card>
       </Row> */}
 
-      <Row className="mt-2">
-        <Card className="border-0 p-4">
-          {/* <p className="font-16 section--name">List of claims made</p> */}
-          <Card className="border-0">
-            <p className="font-16 section--name">Search Filter</p>
-            <Card.Body style={{ padding: "0 0 1rem 0" }}>
-              <Row className="p-3 flex items-center">
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Claim No.
-                  </Form.Label>
+      {/* <p className="font-16 section--name">List of claims made</p> */}
+      <Card className="border-0">
+        <p className="font-16 section--name pl-5 pt-2">Search Filter</p>
+        <Card.Body style={{ padding: "0 0 1rem 0" }}>
+          <Row className="p-3 flex items-center">
+            <Col md={4}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Claim No.
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Claim Number"
-                    className="border-gray-400 rounded-xl"
-                    {...register("claimno")}
-                  />
-                </Col>
-                <Col md={4}>
-                  <Button
-                    variant="primary"
-                    onClick={() => refetch()}
-                    className="mt-4 ml-3 bg-blue-700 justify-end"
-                  >
-                    Search
-                  </Button>
+              <Form.Control
+                type="text"
+                placeholder="Enter Claim Number"
+                className="border-gray-400 rounded-xl"
+                {...register("claimno")}
+              />
+            </Col>
+            <Col md={4}>
+              <Button
+                variant="primary"
+                onClick={() => refetch()}
+                className="mt-4 ml-3 bg-blue-700 justify-end"
+              >
+                Search
+              </Button>
 
-                  <Button
-                    variant="primary"
-                    onClick={handleRest}
-                    className="mt-4 ml-3 bg-blue-700 justify-end"
-                  >
-                    Reset
-                  </Button>
-                </Col>
-              </Row>
+              <Button
+                variant="primary"
+                onClick={handleRest}
+                className="mt-4 ml-3 bg-blue-700 justify-end"
+              >
+                Reset
+              </Button>
+            </Col>
+          </Row>
 
-              <Row className="p-3">
-                <Col md={4}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Proposer Name
-                  </Form.Label>
+          <Row className="p-3">
+            <Col md={4}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Proposer Name
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Enter Proposer Name"
-                    {...register("proposername")}
-                  />
-                </Col>
+              <Form.Control
+                type="text"
+                className="border-gray-400 rounded-xl"
+                placeholder="Enter Proposer Name"
+                {...register("proposername")}
+              />
+            </Col>
 
-                <Col md={3}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Member Name
-                  </Form.Label>
+            <Col md={3}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Member Name
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Enter Member Name"
-                    {...register("membername")}
-                  />
-                </Col>
-                <Col md={3}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Membership No.
-                  </Form.Label>
+              <Form.Control
+                type="text"
+                className="border-gray-400 rounded-xl"
+                placeholder="Enter Member Name"
+                {...register("membername")}
+              />
+            </Col>
+            <Col md={3}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Membership No.
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Enter Membership No"
-                    {...register("displaymembershipno")}
-                  />
-                </Col>
-                <Col md={3}>
-                  <Form.Label className="font-14 fw-bold text-muted">
-                    Claim No.
-                  </Form.Label>
+              <Form.Control
+                type="text"
+                className="border-gray-400 rounded-xl"
+                placeholder="Enter Membership No"
+                {...register("displaymembershipno")}
+              />
+            </Col>
+            <Col md={3}>
+              <Form.Label className="font-14 fw-bold text-muted">
+                Claim No.
+              </Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    className="border-gray-400 rounded-xl"
-                    placeholder="Choose..."
-                  />
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
-
-          {claimProcessData ? (
+              <Form.Control
+                type="text"
+                className="border-gray-400 rounded-xl"
+                placeholder="Choose..."
+              />
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+      <Row className="mt-4">
+        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+          {isFetching ? (
+            <div className="flex justify-center align-middle">
+              <Spinner />
+            </div>
+          ) : claimProcessData ? (
             <CustomisedTable Data={claimProcessData} table="claim" />
           ) : (
             <DataNotFound />
@@ -182,9 +193,11 @@ const Claims = ({ dashboard }) => {
   ) : (
     <Container fluid>
       <Row className="mt-4">
-        <Card className="border-0 p-3">
+        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
           {isFetching ? (
-            <ShimmeringTable />
+            <div className="flex justify-center align-middle">
+              <Spinner />
+            </div>
           ) : claimProcessData ? (
             <CustomisedTable Data={claimProcessData} table="claim" />
           ) : (

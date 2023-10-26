@@ -9,7 +9,15 @@ import {
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
 
-import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Card,
+  Col,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
@@ -316,11 +324,12 @@ const Receipt = () => {
           </Card>
         </Row>
         <Row className="mt-4">
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name p-2">List of Recipts</p>
-
+          <p className="font-16 section--name p-2">List of Recipts</p>
+          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
             {isFetching ? (
-              <ShimmeringTable />
+              <div className="flex justify-center align-middle">
+                <Spinner />
+              </div>
             ) : receiptData ? (
               <ReciptTable Data={receiptData} table="receipt" />
             ) : (

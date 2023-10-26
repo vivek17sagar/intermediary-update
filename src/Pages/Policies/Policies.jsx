@@ -1,4 +1,12 @@
-import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Card,
+  Col,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { PoliciesTable } from "./PoliciesTable";
 import { getResultFromData } from "../../Utils/Utils";
 import { useQueries } from "@tanstack/react-query";
@@ -135,11 +143,12 @@ const Policies = () => {
           </Card>
         </Row>
         <Row className="mt-4">
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of Policies sold</p>
-
+          <p className="font-16 section--name">List of Policies sold</p>
+          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
             {isFetching ? (
-              <ShimmeringTable />
+              <div className="flex justify-center align-middle">
+                <Spinner />
+              </div>
             ) : policiesData ? (
               <PoliciesTable tableData={policiesData} />
             ) : (
