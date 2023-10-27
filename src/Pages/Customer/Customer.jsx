@@ -18,8 +18,6 @@ import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
-import Loader from "../../Components/Spinner/Loader";
-import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({
@@ -45,7 +43,6 @@ const Customer = () => {
     // resolver: yupResolver(schema),
   });
 
-  // console.log(getValues()?.membershipno);
   const [page, setPage] = useState(1);
 
   const [{ data: customeInfo, refetch, isFetching }] = useQueries({
@@ -154,7 +151,10 @@ const Customer = () => {
                 variant="primary"
                 // eslint-disable-next-line no-void
                 // ref={OTPref}
-                onClick={() => refetch()}
+                onClick={() => {
+                  setPage(1);
+                  setTimeout(() => refetch(), 0);
+                }}
                 className="mt-4 ml-2 bg-blue-700 justify-end"
                 tabIndex={0}
               >

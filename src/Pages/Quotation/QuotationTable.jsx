@@ -9,7 +9,7 @@ const QuotationTable = ({ quotationTableData }) => {
           <th className="text-center">Quotation No.</th>
           <th className="text-center">Proposer Name</th>
           <th className="text-center">Basic Premium</th>
-          <th className="text-center">Net Premium</th>
+          <th className="text-center">Quotation Amount</th>
         </tr>
       </thead>
       <tbody>

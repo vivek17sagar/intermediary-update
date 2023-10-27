@@ -176,12 +176,6 @@ const Login = () => {
     return <Navigate to="/forgotpassword" />;
   };
 
-  //   useEffect(()=>{
-  // localStorage.setItem("userData", JSON.stringify())
-  //   })
-
-  // console.log(loginValidatedData);
-
   return (
     <main className="login--main">
       <section className="first--half">
@@ -274,7 +268,7 @@ const Login = () => {
                   id="otp"
                   name="otp"
                   type="number"
-                  value={OTP}
+                  value={parseInt(OTP)}
                   className="inputOtp rounded"
                   onChange={(e) => setOTP(e.target.valueAsNumber)}
                   onKeyDown={(e) => (e.key === "Enter" ? handleOTP() : void 0)}

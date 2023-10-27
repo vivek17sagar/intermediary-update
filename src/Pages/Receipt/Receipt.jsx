@@ -23,7 +23,6 @@ import {
 // import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { getResultFromData } from "../../Utils/Utils";
-import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import { useQueries } from "@tanstack/react-query";
 import { useState } from "react";
 import { intermediateinvoicesreceipts } from "../../API/Receipt/Receipt.api";
@@ -32,7 +31,6 @@ import ReciptTable from "./ReciptTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
-
 import dayjs from "dayjs";
 
 const Receipt = () => {
@@ -95,7 +93,7 @@ const Receipt = () => {
       refetch();
     }, 500);
   };
-
+  console.log("receiptData => ", receiptData);
   //   const [
   //     { data: endorsementInvoiceData },
   //     { data: renewalCount },
@@ -170,6 +168,7 @@ const Receipt = () => {
     setTimeout(() => refetch(), 0);
   };
 
+  console.log("receiptData => ", receiptData);
   return (
     <>
       <Container fluid>
