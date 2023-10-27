@@ -160,12 +160,12 @@ const Home = () => {
   return (
     <main>
       <Container fluid>
-        <p className="font-16 section--name">DASHBOARD</p>
+        <p className="font-16 section--name ml-2">DASHBOARD</p>
         <Row className="flex justify-center">
           <Col
             md={3}
             onClick={() => handleClick("customer")}
-            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
               <Card.Body className="d-flex">
@@ -189,7 +189,7 @@ const Home = () => {
           <Col
             md={3}
             onClick={() => handleClick("policies")}
-            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
               <Card.Body className="d-flex">
@@ -212,7 +212,7 @@ const Home = () => {
           <Col
             md={3}
             onClick={() => handleClick("claim")}
-            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
               <Card.Body className="d-flex">
@@ -235,7 +235,7 @@ const Home = () => {
           <Col
             md={3}
             onClick={() => handleClick("renewal")}
-            className="cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
               <Card.Body className="d-flex">

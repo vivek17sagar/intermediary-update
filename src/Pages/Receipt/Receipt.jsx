@@ -55,9 +55,6 @@ const Receipt = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
-      invoiceno: "",
-      datefrom: "",
-      dateupto: "",
     },
     // resolver: yupResolver(schema),
   });
@@ -176,7 +173,7 @@ const Receipt = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name">Receipt</p>
+        <p className="font-16 section--name ml-2">Receipt</p>
         {/*
         <Row>
           <Col md={3}>
@@ -272,14 +269,14 @@ const Receipt = () => {
       </Row>
       */}
 
-        <Row className="mt-4">
+        <Row className="mt-2">
           <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of Receipt made</p>
+            <p className="font-16 section--name mb-2">List of Receipt made</p>
             <Card className="border-0">
               <p className="font-16 section--name">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
-                  <Col md={3}>
+                  <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Proposer Name
                     </Form.Label>

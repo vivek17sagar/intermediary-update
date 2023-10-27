@@ -17,7 +17,7 @@ import { useState } from "react";
 import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
-import { PaginationBasic } from "../Claims/PaginationComponent";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import Loader from "../../Components/Spinner/Loader";
 import ShimmeringTable from "../CommonComponents/Shimmer";
 
@@ -89,7 +89,7 @@ const Customer = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name">CUSTOMER</p>
+        <p className="font-16 section--name mb-2">CUSTOMER</p>
         <Row>
           <Card className="border-0 p-3">
             <p className="font-16 section--name">Search Filter</p>
