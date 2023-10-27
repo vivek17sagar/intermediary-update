@@ -223,7 +223,6 @@ export const getPayload = (endpoint, extraValues = undefined) => {
       };
     }
     case "intermediateendrosmentinvoices": {
-      console.log("extraValues => ", extraValues);
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,

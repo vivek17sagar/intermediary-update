@@ -28,12 +28,11 @@ import { useQueries } from "@tanstack/react-query";
 import { useState } from "react";
 import { intermediateinvoicesreceipts } from "../../API/Receipt/Receipt.api";
 import { getPayload } from "../../Payload";
-import PaginationCustomer from "../Customer/PaginationCustomer";
 import ReciptTable from "./ReciptTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
-import { PaginationBasic } from "../Claims/PaginationComponent";
-import ShimmeringTable from "../CommonComponents/Shimmer";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
+
 import dayjs from "dayjs";
 
 const Receipt = () => {
@@ -170,7 +169,8 @@ const Receipt = () => {
 
   const handleReset = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
 
   return (
@@ -293,7 +293,7 @@ const Receipt = () => {
                   </Col>
                   <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      invoice No.
+                      Invoice Number
                     </Form.Label>
 
                     <Form.Control
@@ -331,7 +331,10 @@ const Receipt = () => {
                 <Button
                   type="button"
                   variant="primary"
-                  onClick={() => refetch()}
+                  onClick={() => {
+                    setPage(1);
+                    setTimeout(() => refetch(), 0);
+                  }}
                   className="mt-4 ml-2 bg-blue-700 justify-end"
                 >
                   Search
@@ -367,6 +370,7 @@ const Receipt = () => {
       <div className="flex justify-end mt-3 mr-5">
         <PaginationBasic
           handlePaginationBehaviour={handlePaginationBehaviour}
+          page={page}
         />
       </div>
     </>
