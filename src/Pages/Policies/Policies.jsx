@@ -13,11 +13,9 @@ import { useQueries } from "@tanstack/react-query";
 import { useStore } from "../../Store/store";
 import { getPayload } from "../../Payload";
 import { getPoliciesData } from "../../API/Policies/policies.api";
-import { PoliciesPagination } from "./PoliciesPagination";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
-import ShimmeringTable from "../CommonComponents/Shimmer";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 const Policies = () => {
   const [page, setPage] = useState(1);

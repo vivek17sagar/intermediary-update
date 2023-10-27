@@ -60,8 +60,6 @@ const Endorsement = ({ dashboard = false }) => {
     // resolver: yupResolver(schema),
   });
 
-  console.log(userDetails);
-
   const [
     { data: endorsementInvoiceData, refetch, isFetching },
     // { data: renewalCount },
