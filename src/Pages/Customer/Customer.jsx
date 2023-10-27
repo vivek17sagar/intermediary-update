@@ -74,7 +74,8 @@ const Customer = () => {
 
   const handleReset = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
 
   const handlePaginationBehaviour = (param) => {
@@ -192,6 +193,7 @@ const Customer = () => {
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
+            page={page}
           />
         </div>
       </div>

@@ -28,7 +28,7 @@ import { useQueries } from "@tanstack/react-query";
 import { intermediateQuotations } from "../../API/Quotation/Quotation.api";
 import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
 import QuotationTable from "./QuotationTable";
-import { PaginationBasic } from "../Claims/PaginationComponent";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import { useState } from "react";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
@@ -85,7 +85,8 @@ const Quotation = () => {
 
   const handleReset = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
 
   return (
@@ -156,7 +157,10 @@ const Quotation = () => {
           <Button
             type="button"
             variant="primary"
-            onClick={() => refetch()}
+            onClick={() => {
+              setPage(1);
+              setTimeout(() => refetch(), 0);
+            }}
             className="mt-4 ml-2 bg-blue-700 justify-end"
           >
             Search
@@ -188,6 +192,7 @@ const Quotation = () => {
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
+            page={page}
           />
         </div>
       </Row>

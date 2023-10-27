@@ -6,12 +6,12 @@ const ReciptTable = ({ Data }) => {
     <Table striped bordered responsive hover>
       <thead>
         <tr>
-          <th className="text-center">Receipt No.</th>
-          <th className="text-center">Invoice No.</th>
+          <th className="text-center">Receipt Number</th>
+          <th className="text-center">Invoice Number</th>
           <th className="text-center">Invoice Date</th>
           <th className="text-center">Basic Premium</th>
           <th className="text-center">Net Premium</th>
-          <th className="text-center">Propose Name</th>
+          <th className="text-center">Proposer Name</th>
 
           <th className="text-center">Print Amount</th>
         </tr>

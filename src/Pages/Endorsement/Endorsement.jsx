@@ -24,7 +24,7 @@ import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { EndorsementCustomizedTable } from "./EndorsementCustomizedTable";
 import { getResultFromData } from "../../Utils/Utils";
-import { PaginationBasic } from "../Claims/PaginationComponent";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
@@ -133,7 +133,8 @@ const Endorsement = ({ dashboard = false }) => {
 
   const handleReset = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
 
   const handlePaginationBehaviour = (pageNo) => {
@@ -165,7 +166,10 @@ const Endorsement = ({ dashboard = false }) => {
                   size="md"
                   variant="primary"
                   className="bg-blue-700"
-                  onClick={() => refetch()}
+                  onClick={() => {
+                    setPage(1);
+                    setTimeout(() => refetch(), 0);
+                  }}
                 >
                   Search
                 </Button>
@@ -202,6 +206,7 @@ const Endorsement = ({ dashboard = false }) => {
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
+            page={page}
           />
         </div>
       </Row>

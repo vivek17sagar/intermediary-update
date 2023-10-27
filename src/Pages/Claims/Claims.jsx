@@ -13,7 +13,7 @@ import { IntermediateClaimInprocess } from "../../API/Claims/claim.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
-import { PaginationBasic } from "./PaginationComponent";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
@@ -67,7 +67,8 @@ const Claims = ({ dashboard }) => {
 
   const handleRest = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
 
   return !dashboard ? (
@@ -103,7 +104,10 @@ const Claims = ({ dashboard }) => {
             <Col md={4}>
               <Button
                 variant="primary"
-                onClick={() => refetch()}
+                onClick={() => {
+                  setPage(1);
+                  setTimeout(() => refetch(), 0);
+                }}
                 className="mt-4 ml-3 bg-blue-700 justify-end"
               >
                 Search
@@ -133,7 +137,7 @@ const Claims = ({ dashboard }) => {
               />
             </Col>
 
-            <Col md={3}>
+            <Col md={4}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Member Name
               </Form.Label>
@@ -145,7 +149,7 @@ const Claims = ({ dashboard }) => {
                 {...register("membername")}
               />
             </Col>
-            <Col md={3}>
+            <Col md={4}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Membership No.
               </Form.Label>
@@ -155,17 +159,6 @@ const Claims = ({ dashboard }) => {
                 className="border-gray-400 rounded-xl"
                 placeholder="Enter Membership No"
                 {...register("displaymembershipno")}
-              />
-            </Col>
-            <Col md={3}>
-              <Form.Label className="font-14 fw-bold text-muted">
-                Claim No.
-              </Form.Label>
-
-              <Form.Control
-                type="text"
-                className="border-gray-400 rounded-xl"
-                placeholder="Choose..."
               />
             </Col>
           </Row>
@@ -186,6 +179,7 @@ const Claims = ({ dashboard }) => {
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
+            page={page}
           />
         </div>
       </Row>
@@ -207,6 +201,7 @@ const Claims = ({ dashboard }) => {
         <div className="flex justify-end mt-3 mr-5">
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
+            page={page}
           />
         </div>
       </Row>

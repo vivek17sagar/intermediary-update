@@ -27,13 +27,11 @@ import { intermediateendrosmentinvoices } from "../../API/Invoice/Invoice.api";
 import { getPayload } from "../../Payload";
 import { useState } from "react";
 import { useQueries } from "@tanstack/react-query";
-import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import PaginationCustomer from "../Customer/PaginationCustomer";
+
 import InvoiceTable from "./InvoiceTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
-import { PaginationBasic } from "../Claims/PaginationComponent";
-import ShimmeringTable from "../CommonComponents/Shimmer";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 
 const Invoice = () => {
   const {
@@ -90,7 +88,8 @@ const Invoice = () => {
 
   const handleReset = () => {
     reset();
-    refetch();
+    setPage(1);
+    setTimeout(() => refetch(), 0);
   };
   //   const [
   //     { data: endorsementInvoiceData },
@@ -327,7 +326,10 @@ const Invoice = () => {
                 <Button
                   type="button"
                   variant="primary"
-                  onClick={() => refetch()}
+                  onClick={() => {
+                    setPage(1);
+                    setTimeout(() => refetch(), 0);
+                  }}
                   className="mt-4 ml-2 bg-blue-700 justify-end"
                   tabIndex={0}
                 >
@@ -366,6 +368,7 @@ const Invoice = () => {
       <div className="flex justify-end mt-3 mr-5">
         <PaginationBasic
           handlePaginationBehaviour={handlePaginationBehaviour}
+          page={page}
         />
       </div>
     </>
