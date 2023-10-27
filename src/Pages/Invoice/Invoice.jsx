@@ -162,7 +162,7 @@ const Invoice = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name">Invoice</p>
+        <p className="font-16 section--name ml-2">Invoice</p>
         {/*
           <Row>
             <Col md={3}>
@@ -258,9 +258,9 @@ const Invoice = () => {
         </Row>
         */}
 
-        <Row className="mt-4">
+        <Row className="mt-2">
           <Card className="border-0 p-3">
-            <p className="font-16 section--name">List of Invoices made</p>
+            <p className="font-16 section--name mb-2">List of Invoices made</p>
             <Card className="border-0">
               <p className="font-16 section--name">Search Filter</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>

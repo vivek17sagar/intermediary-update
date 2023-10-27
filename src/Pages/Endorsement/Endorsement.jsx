@@ -144,10 +144,12 @@ const Endorsement = ({ dashboard = false }) => {
 
   return (
     <Container fluid>
-      {!dashboard && <p className="font-16 section--name">Endorsements</p>}
       {!dashboard && (
-        <Card className="border-0">
-          <p className="font-16 section--name">Search By Proposer Name</p>
+        <p className="font-16 section--name ml-3 mb-2">Endorsements</p>
+      )}
+      {!dashboard && (
+        <Card className="border-0 pl-3 p-3">
+          <p className="font-16 section--name mb-2">Search By Proposer Name</p>
           <Card.Body style={{ padding: "0 0 1rem 0" }}>
             <Row>
               <Col md={4}>
@@ -161,31 +163,29 @@ const Endorsement = ({ dashboard = false }) => {
                   {...register("proposerName")}
                 />
               </Col>
-              <Col md={1}>
-                <Button
-                  size="md"
-                  variant="primary"
-                  className="bg-blue-700"
-                  onClick={() => {
-                    setPage(1);
-                    setTimeout(() => refetch(), 0);
-                  }}
-                >
-                  Search
-                </Button>
-              </Col>
-              <Col md={1}>
-                <Button
-                  size="md"
-                  variant="primary"
-                  className="bg-blue-700 ml-0"
-                  style={{ marginLeft: "-3rem" }}
-                  onClick={handleReset}
-                >
-                  Reset
-                </Button>
-              </Col>
             </Row>
+            <Button
+              type="button"
+              variant="primary"
+              onClick={() => {
+                setPage(1);
+                setTimeout(() => refetch(), 0);
+              }}
+              className="mt-4 ml-2 bg-blue-700 justify-end"
+              tabIndex={0}
+            >
+              Search
+            </Button>
+
+            <Button
+              type="button"
+              variant="primary"
+              onClick={handleReset}
+              className="mt-4 ml-2 bg-blue-700 justify-end"
+              tabIndex={0}
+            >
+              Reset
+            </Button>
           </Card.Body>
         </Card>
       )}

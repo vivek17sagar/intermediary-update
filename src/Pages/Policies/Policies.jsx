@@ -118,32 +118,30 @@ const Policies = () => {
                       {...register("proposerName")}
                     />
                   </Col>
-                  <Col md={1} style={{ marginTop: "1.8rem" }}>
-                    <Button
-                      size="md"
-                      variant="primary"
-                      className="bg-blue-700"
-                      onClick={() => {
-                        setPage(1);
-                        setTimeout(() => refetch(), 0);
-                      }}
-                    >
-                      Search
-                    </Button>
-                  </Col>
-                  <Col md={1}>
-                    <Button
-                      size="md"
-                      variant="primary"
-                      className="bg-blue-700"
-                      style={{ marginLeft: "-3rem", marginTop: "1.8rem" }}
-                      onClick={handleReset}
-                    >
-                      Reset
-                    </Button>
-                  </Col>
                 </Form>
               </Row>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={() => {
+                  setPage(1);
+                  setTimeout(() => refetch(), 0);
+                }}
+                className="mt-4 ml-2 bg-blue-700 justify-end"
+                tabIndex={0}
+              >
+                Search
+              </Button>
+
+              <Button
+                type="button"
+                variant="primary"
+                onClick={handleReset}
+                className="mt-4 ml-2 bg-blue-700 justify-end"
+                tabIndex={0}
+              >
+                Reset
+              </Button>
             </Card.Body>
           </Card>
         </Row>
