@@ -29,7 +29,7 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
-import ShimmeringTable from "../CommonComponents/Shimmer";
+// import ShimmeringTable from "../CommonComponents/Shimmer";
 // import {
 //   intermediateTotalRenewlCoutnonth,
 //   intermediatepolicycount,
@@ -68,10 +68,10 @@ const Endorsement = ({ dashboard = false }) => {
   ] = useQueries({
     queries: [
       {
-        queryKey: ["endorsementInvoicesList"],
+        queryKey: ["intermediateendrosmentinvoices"],
         queryFn: () =>
           endorsementInvoicesList(
-            getPayload("endorsementInvoicesList", {
+            getPayload("intermediateendrosmentinvoices", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,

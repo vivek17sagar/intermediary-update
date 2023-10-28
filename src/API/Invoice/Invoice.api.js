@@ -1,7 +1,5 @@
 import { ServiceInstance } from "../../../axios.config";
 
-
-export const intermediateendrosmentinvoices = (payLoad) => {
-    return ServiceInstance.post("/intermediateendrosmentinvoices", payLoad);
-  };
-  
+export const intermediateInvoices = (payLoad) => {
+  return ServiceInstance.post("/intermediateinvoices", payLoad);
+};

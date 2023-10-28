@@ -1,10 +1,10 @@
 // import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import {
-  faUser,
-  faIndianRupeeSign,
-  faPenToSquare,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faUser,
+//   faIndianRupeeSign,
+//   faPenToSquare,
+//   faBars,
+// } from "@fortawesome/free-solid-svg-icons";
 // import { Area, Pie } from "../../Components/Charts/Charts";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
@@ -23,7 +23,7 @@ import {
 // import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { getResultFromData } from "../../Utils/Utils";
-import { intermediateendrosmentinvoices } from "../../API/Invoice/Invoice.api";
+import { intermediateInvoices } from "../../API/Invoice/Invoice.api";
 import { getPayload } from "../../Payload";
 import { useState } from "react";
 import { useQueries } from "@tanstack/react-query";
@@ -36,13 +36,13 @@ import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 const Invoice = () => {
   const {
     register,
-    handleSubmit,
-    control,
-    setValue,
+    // handleSubmit,
+    // control,
+    // setValue,
     getValues,
     reset,
-    watch,
-    trigger,
+    // watch,
+    // trigger,
   } = useForm({
     defaultValues: {
       proposerno: "",
@@ -55,20 +55,23 @@ const Invoice = () => {
     userDetails: store.userDetails,
   }));
 
+  console.log(userDetails);
+
   const [page, setPage] = useState(1);
 
   const [{ data: invoiceData, refetch, isFetching }] = useQueries({
     queries: [
       {
-        queryKey: ["intermediateendrosmentinvoices"],
+        queryKey: ["intermediateinvoices"],
         queryFn: () =>
-          intermediateendrosmentinvoices(
-            getPayload("intermediateendrosmentinvoices", {
+          intermediateInvoices(
+            getPayload("intermediateinvoices", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
               proposerName: getValues()?.proposerno,
+              tokenID: userDetails?.tokenID,
             })
           ),
         select(data) {

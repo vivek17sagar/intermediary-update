@@ -14,7 +14,7 @@ import { intermediatecustomersinfo } from "../../API/Home/Home.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useState } from "react";
-import PaginationCustomer from "./PaginationCustomer";
+// import PaginationCustomer from "./PaginationCustomer";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
@@ -26,13 +26,13 @@ const Customer = () => {
 
   const {
     register,
-    handleSubmit,
-    control,
-    setValue,
+    // handleSubmit,
+    // control,
+    // setValue,
     getValues,
     reset,
-    watch,
-    trigger,
+    // watch,
+    // trigger,
   } = useForm({
     defaultValues: {
       membername: "",

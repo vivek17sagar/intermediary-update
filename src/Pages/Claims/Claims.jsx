@@ -18,7 +18,7 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
-import ShimmeringTable from "../CommonComponents/Shimmer";
+// import ShimmeringTable from "../CommonComponents/Shimmer";
 const Claims = ({ dashboard }) => {
   const { register, getValues, reset } = useForm({
     defaultValues: {
