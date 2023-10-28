@@ -53,9 +53,14 @@ const Receipt = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
+      invoiceno: "",
+      datefrom: "",
+      dateupto: "",
     },
     // resolver: yupResolver(schema),
   });
+
+  // const values = getValues();
 
   const [{ data: receiptData, refetch, isFetching }] = useQueries({
     queries: [
@@ -69,6 +74,9 @@ const Receipt = () => {
               pageNo: page - 1,
               pageSize: 10,
               proposerName: getValues()?.proposerno,
+              invoiceNo: getValues()?.invoiceno,
+              // dateFrom: dayjs(values?.datefrom).format("DD/MM/YYYY"),
+              // dateUpto: dayjs(values?.dateupto).format("DD/MM/YYYY"),
               invoiceNo: getValues()?.invoiceno,
               dateFrom: getValues()?.datefrom
                 ? dayjs(getValues()?.datefrom).format("DD/MM/YYYY")
@@ -299,6 +307,31 @@ const Receipt = () => {
                       {...register("invoiceno")}
                     />
                   </Col>
+                  {/* <Col md={3}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Date From
+                    </Form.Label>
+
+                    <Form.Control
+                      type="date"
+                      className="border-gray-400 rounded-xl"
+                      placeholder="Enter Proposer Name"
+                      {...register("datefrom")}
+                    />
+                  </Col>
+                  <Col md={3}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Date Upto
+                    </Form.Label>
+
+                    <Form.Control
+                      type="date"
+                      className="border-gray-400 rounded-xl"
+                      placeholder="Enter Proposer Name"
+                      {...register("dateupto")}
+                    />
+                  </Col> */}
+
                   <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Date From
