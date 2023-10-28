@@ -130,9 +130,9 @@ export const getPayload = (endpoint, extraValues = undefined) => {
   }
 };*/
 
-import { json } from "react-router-dom";
+// import { json } from "react-router-dom";
 import { toast } from "./Components/Toaster/Toaster";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 export const getPayload = (endpoint, extraValues = undefined) => {
   switch (endpoint) {
@@ -147,7 +147,17 @@ export const getPayload = (endpoint, extraValues = undefined) => {
     //     OTP: extraValues?.OTP,
     //   };
     // }
-    case "endorsementInvoicesList": {
+    case "intermediateinvoices": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+        proposerName: extraValues?.proposerName,
+      };
+    }
+    case "intermediatelistcommision": {
       return {
         agencyID: extraValues?.agencyID,
         agencyCode: extraValues?.agencyCode,
@@ -261,24 +271,7 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: extraValues?.tokenID,
       };
     }
-    case "intermediatetotalrenewlListnonth": {
-      return {
-        agencyID: extraValues?.agencyID,
-        agencyCode: extraValues?.agencyCode,
-        pageNo: extraValues?.pageNo,
-        pageSize: extraValues?.pageSize,
-        tokenID: extraValues?.tokenID,
-      };
-    }
-    case "intermediatetotalrenewlListnonth": {
-      return {
-        agencyID: extraValues?.agencyID,
-        agencyCode: extraValues?.agencyCode,
-        pageNo: extraValues?.pageNo,
-        pageSize: extraValues?.pageSize,
-        tokenID: extraValues?.tokenID,
-      };
-    }
+
     default: {
       toast.error("Payload.ts : Wrong endpoint, please check payload");
     }

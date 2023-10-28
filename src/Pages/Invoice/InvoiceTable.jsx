@@ -1,4 +1,3 @@
-import React from "react";
 import { Table } from "react-bootstrap";
 
 const InvoiceTable = ({ Data }) => {
@@ -10,11 +9,11 @@ const InvoiceTable = ({ Data }) => {
           <th className="text-center">Invoice Date</th>
           <th className="text-center">Proposer Name</th>
           <th className="text-center">Basic Premium</th>
-          <th className="text-center">Invoice Approved</th>
+          <th className="text-center">Invoice Amount</th>
           <th className="text-center">Policy Code</th>
           <th className="text-center">Start Date</th>
           <th className="text-center">End Date</th>
-          <th className="text-center">Ref Number</th>
+          <th className="text-center">Reference Number</th>
           <th className="text-center">Status</th>
           <th className="text-center">Policy Type</th>
         </tr>

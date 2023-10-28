@@ -1,10 +1,10 @@
 // import { CustomisedTable } from "../../Components/CustomisedTable/CustomisedTable";
-import {
-  faUser,
-  faIndianRupeeSign,
-  faPenToSquare,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faUser,
+//   faIndianRupeeSign,
+//   faPenToSquare,
+//   faBars,
+// } from "@fortawesome/free-solid-svg-icons";
 // import { Area, Pie } from "../../Components/Charts/Charts";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { MonthlyWiseChartProps, pieProps } from "../Home/props";
@@ -43,13 +43,13 @@ const Receipt = () => {
 
   const {
     register,
-    handleSubmit,
-    control,
-    setValue,
+    // handleSubmit,
+    // control,
+    // setValue,
     getValues,
     reset,
-    watch,
-    trigger,
+    // watch,
+    // trigger,
   } = useForm({
     defaultValues: {
       proposerno: "",
@@ -77,7 +77,6 @@ const Receipt = () => {
               invoiceNo: getValues()?.invoiceno,
               // dateFrom: dayjs(values?.datefrom).format("DD/MM/YYYY"),
               // dateUpto: dayjs(values?.dateupto).format("DD/MM/YYYY"),
-              invoiceNo: getValues()?.invoiceno,
               dateFrom: getValues()?.datefrom
                 ? dayjs(getValues()?.datefrom).format("DD/MM/YYYY")
                 : "",
