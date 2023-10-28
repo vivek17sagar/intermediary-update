@@ -26,6 +26,7 @@ import {
 } from "../../API/Claims/claim.api";
 import { useState } from "react";
 import { getPoliciesData } from "../../API/Policies/policies.api";
+import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
@@ -37,13 +38,13 @@ const Home = () => {
   const [activeBox, setActiveBox] = useState([false, false, false, true]);
 
   const [
-    { data: policyData },
+    { data: policyData, refetch: policyRefetch },
     { data: policyCount },
     { data: totalClaimInProcessCount },
     { data: totalCustomerCount },
-    { data: renewalCount },
-    { data: customerInfo },
-    { data: claimData },
+    { data: renewalCount, refetch: renewalRefetch },
+    { data: customerInfo, refetch: customerInfoRefetch },
+    { data: claimData, refetch: claimDataReFetch },
   ] = useQueries({
     queries: [
       {
@@ -62,6 +63,7 @@ const Home = () => {
           return getResultFromData(data);
         },
       },
+
       {
         queryKey: ["intermediatepolicycount"],
         queryFn: () =>
@@ -75,6 +77,7 @@ const Home = () => {
           return getResultFromData(data);
         },
       },
+
       {
         queryKey: ["intermediatetotalclaiminprocesscount"],
         queryFn: () =>
@@ -111,7 +114,7 @@ const Home = () => {
             getPayload("intermediatetotalrenewlListnonth", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
-              pageNo: 0,
+              pageNo: page - 1,
               pageSize: 10,
               tokenID: userDetails?.tokenID,
             })
@@ -155,9 +158,23 @@ const Home = () => {
   });
 
   const handleClick = (param, clickBox) => {
-    console.log(clickBox);
     setTable(param);
     setActiveBox(clickBox);
+  };
+
+  const handlePaginationBehaviour = (pageNo) => {
+    setPage(pageNo);
+    setTimeout(() => {
+      if (table === "policies") {
+        policyRefetch();
+      } else if (table === "customer") {
+        customerInfoRefetch();
+      } else if (table === "claim") {
+        claimDataReFetch();
+      } else {
+        renewalRefetch();
+      }
+    }, 0);
   };
 
   return (
@@ -167,7 +184,10 @@ const Home = () => {
         <Row className="flex justify-center">
           <Col
             md={3}
-            onClick={() => handleClick("customer", [true, false, false, false])}
+            onClick={() => {
+              setPage(1);
+              handleClick("customer", [true, false, false, false]);
+            }}
             className="block-1 mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
@@ -201,7 +221,10 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("policies", [false, true, false, false])}
+            onClick={() => {
+              setPage(1);
+              handleClick("policies", [false, true, false, false]);
+            }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
@@ -234,7 +257,10 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("claim", [false, false, true, false])}
+            onClick={() => {
+              setPage(1);
+              handleClick("claim", [false, false, true, false]);
+            }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
@@ -267,7 +293,10 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("renewal", [false, false, false, true])}
+            onClick={() => {
+              setPage(1);
+              handleClick("renewal", [false, false, false, true]);
+            }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
@@ -347,6 +376,13 @@ const Home = () => {
               />
               <Card.Body className="d-flex justify-content-center"></Card.Body>
             </Card>
+
+            <div className="flex justify-end mt-3 mr-5">
+              <PaginationBasic
+                handlePaginationBehaviour={handlePaginationBehaviour}
+                page={page}
+              />
+            </div>
           </Col>
         </Row>
         {/* <Row className="mt-4">
