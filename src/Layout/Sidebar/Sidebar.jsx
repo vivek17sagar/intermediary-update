@@ -75,11 +75,11 @@ const Sidebar = () => {
       name: "Endorsement",
       route: "/endorsement",
     },
-    // {
-    //   icon: FaCommision,
-    //   name: "Comission Statement",
-    //   route: "/comissionstatement",
-    // },
+    {
+      icon: FaCommision,
+      name: "Comission Statement",
+      route: "/comissionstatement",
+    },
     {
       icon: FaCommision,
       name: "Quotation",
