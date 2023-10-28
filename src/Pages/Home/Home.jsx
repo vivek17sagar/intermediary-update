@@ -171,8 +171,10 @@ const Home = () => {
         customerInfoRefetch();
       } else if (table === "claim") {
         claimDataReFetch();
-      } else {
+      } else if (table === "renewal") {
         renewalRefetch();
+      } else {
+        return null;
       }
     }, 0);
   };
@@ -186,6 +188,9 @@ const Home = () => {
             md={3}
             onClick={() => {
               setPage(1);
+              setTimeout(() => {
+                customerInfoRefetch();
+              }, 0);
               handleClick("customer", [true, false, false, false]);
             }}
             className="block-1 mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
@@ -223,6 +228,7 @@ const Home = () => {
             md={3}
             onClick={() => {
               setPage(1);
+              setTimeout(() => policyRefetch(), 0);
               handleClick("policies", [false, true, false, false]);
             }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
@@ -259,6 +265,7 @@ const Home = () => {
             md={3}
             onClick={() => {
               setPage(1);
+              setTimeout(() => claimDataReFetch(), 0);
               handleClick("claim", [false, false, true, false]);
             }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
@@ -295,6 +302,7 @@ const Home = () => {
             md={3}
             onClick={() => {
               setPage(1);
+              setTimeout(() => renewalRefetch(), 0);
               handleClick("renewal", [false, false, false, true]);
             }}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
