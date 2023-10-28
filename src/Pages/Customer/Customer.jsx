@@ -18,6 +18,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
+import Loader from "../../Components/Spinner/Loader";
+import ShimmeringTable from "../CommonComponents/Shimmer";
 
 const Customer = () => {
   const { userDetails } = useStore((store) => ({

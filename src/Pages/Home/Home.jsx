@@ -34,6 +34,7 @@ const Home = () => {
 
   const [table, setTable] = useState("renewal");
   const [page, setPage] = useState(1);
+  const [activeBox, setActiveBox] = useState([false, false, false, true]);
 
   const [
     { data: policyData },
@@ -153,8 +154,10 @@ const Home = () => {
     ],
   });
 
-  const handleClick = (param) => {
+  const handleClick = (param, clickBox) => {
+    console.log(clickBox);
     setTable(param);
+    setActiveBox(clickBox);
   };
 
   return (
@@ -164,11 +167,21 @@ const Home = () => {
         <Row className="flex justify-center">
           <Col
             md={3}
-            onClick={() => handleClick("customer")}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+            onClick={() => handleClick("customer", [true, false, false, false])}
+            className="block-1 mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
-              <Card.Body className="d-flex">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[0]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Total customers</p>
                   <h5 className="font-14 fw-bold mt-3">
@@ -188,11 +201,21 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("policies")}
+            onClick={() => handleClick("policies", [false, true, false, false])}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
-              <Card.Body className="d-flex">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[1]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Total Policies Count</p>
                   <h5 className="font-14 fw-bold mt-3">
@@ -211,11 +234,21 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("claim")}
+            onClick={() => handleClick("claim", [false, false, true, false])}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
-              <Card.Body className="d-flex">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[2]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Claim In-Process</p>
                   <h5 className="font-14 fw-bold mt-3">
@@ -234,11 +267,21 @@ const Home = () => {
 
           <Col
             md={3}
-            onClick={() => handleClick("renewal")}
+            onClick={() => handleClick("renewal", [false, false, false, true])}
             className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
           >
             <Card className="border-0">
-              <Card.Body className="d-flex">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[3]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Renewal Count</p>
                   <h5 className="font-14 fw-bold mt-3">
