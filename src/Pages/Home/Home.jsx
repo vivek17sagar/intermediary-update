@@ -27,6 +27,7 @@ import {
 import { useState } from "react";
 import { getPoliciesData } from "../../API/Policies/policies.api";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
+import DataNotFound from "../CommonComponents/DataNotFound";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
@@ -370,18 +371,27 @@ const Home = () => {
                   ? "List of Claim"
                   : "List of Renewal"}
               </p>
-              <CustomisedTable
-                Data={
-                  table == "policies"
-                    ? policyData
-                    : table == "customer"
-                    ? customerInfo
-                    : table == "claim"
-                    ? claimData
-                    : renewalCount
-                }
-                table={table}
-              />
+
+              {(table === "policies" && policyData === undefined) ||
+              (table === "customer" && customerInfo === undefined) ||
+              (table === "claim" && claimData === undefined) ||
+              (table === "renewal" && renewalCount === undefined) ? (
+                <DataNotFound />
+              ) : (
+                <CustomisedTable
+                  Data={
+                    table == "policies"
+                      ? policyData
+                      : table == "customer"
+                      ? customerInfo
+                      : table == "claim"
+                      ? claimData
+                      : renewalCount
+                  }
+                  table={table}
+                />
+              )}
+
               <Card.Body className="d-flex justify-content-center"></Card.Body>
             </Card>
 
