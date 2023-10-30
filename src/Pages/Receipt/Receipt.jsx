@@ -53,6 +53,9 @@ const Receipt = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
+      datefrom: "",
+      dateupto: "",
+      invoiceno: "",
     },
     // resolver: yupResolver(schema),
   });
