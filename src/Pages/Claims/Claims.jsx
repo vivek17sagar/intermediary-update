@@ -167,7 +167,7 @@ const Claims = ({ dashboard }) => {
         </Card.Body>
       </Card>
       <Row className="mt-4">
-        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+        <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
             <div className="flex justify-center align-middle">
               <Spinner />

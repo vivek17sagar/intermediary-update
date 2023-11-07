@@ -189,7 +189,7 @@ const Endorsement = ({ dashboard = false }) => {
       )}
       <Row className="mt-4">
         <p className="font-16 mb-3 section--name">List of Endorsement</p>
-        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+        <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           {isFetching ? (
             <div className="flex justify-center align-middle">

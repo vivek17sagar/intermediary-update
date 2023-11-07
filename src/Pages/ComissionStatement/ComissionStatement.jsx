@@ -146,7 +146,7 @@ const ComissionStatement = () => {
         </Row>
         <Row className="mt-4">
           <p className="font-16 section--name">List of Commission Statement</p>
-          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+          <Card className="border-0 p-3 mt-2 flex h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">
                 <Spinner />
