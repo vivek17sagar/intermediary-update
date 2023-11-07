@@ -205,6 +205,7 @@ const Endorsement = ({ dashboard = false }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
+            state={endorsementInvoiceData === undefined}
           />
         </div>
       </Row>

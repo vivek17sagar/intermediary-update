@@ -101,29 +101,7 @@ const Claims = ({ dashboard }) => {
                 {...register("claimno")}
               />
             </Col>
-            <Col md={4}>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  setPage(1);
-                  setTimeout(() => refetch(), 0);
-                }}
-                className="mt-4 ml-3 bg-blue-700 justify-end"
-              >
-                Search
-              </Button>
 
-              <Button
-                variant="primary"
-                onClick={handleRest}
-                className="mt-4 ml-3 bg-blue-700 justify-end"
-              >
-                Reset
-              </Button>
-            </Col>
-          </Row>
-
-          <Row className="p-3">
             <Col md={4}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Proposer Name
@@ -149,6 +127,9 @@ const Claims = ({ dashboard }) => {
                 {...register("membername")}
               />
             </Col>
+          </Row>
+
+          <Row className="p-3 d-flex align-items-center">
             <Col md={4}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Membership No.
@@ -160,6 +141,27 @@ const Claims = ({ dashboard }) => {
                 placeholder="Enter Membership No"
                 {...register("displaymembershipno")}
               />
+            </Col>
+
+            <Col md={4}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setPage(1);
+                  setTimeout(() => refetch(), 0);
+                }}
+                className="mt-4 ml-3 bg-blue-700 justify-end"
+              >
+                Search
+              </Button>
+
+              <Button
+                variant="primary"
+                onClick={handleRest}
+                className="mt-4 ml-3 bg-blue-700 justify-end"
+              >
+                Reset
+              </Button>
             </Col>
           </Row>
         </Card.Body>
@@ -180,6 +182,7 @@ const Claims = ({ dashboard }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
+            state={claimProcessData === undefined}
           />
         </div>
       </Row>
@@ -202,6 +205,7 @@ const Claims = ({ dashboard }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
+            state={claimProcessData === undefined}
           />
         </div>
       </Row>

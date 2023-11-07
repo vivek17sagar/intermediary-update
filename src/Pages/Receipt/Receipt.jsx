@@ -100,7 +100,7 @@ const Receipt = () => {
       refetch();
     }, 500);
   };
-  console.log("receiptData => ", receiptData);
+
   //   const [
   //     { data: endorsementInvoiceData },
   //     { data: renewalCount },
@@ -175,7 +175,6 @@ const Receipt = () => {
     setTimeout(() => refetch(), 0);
   };
 
-  console.log("receiptData => ", receiptData);
   return (
     <>
       <Container fluid>
@@ -282,7 +281,7 @@ const Receipt = () => {
               <p className="font-16 section--name">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
-                  <Col md={4}>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Proposer Name
                     </Form.Label>
@@ -306,30 +305,6 @@ const Receipt = () => {
                       {...register("invoiceno")}
                     />
                   </Col>
-                  {/* <Col md={3}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Date From
-                    </Form.Label>
-
-                    <Form.Control
-                      type="date"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Enter Proposer Name"
-                      {...register("datefrom")}
-                    />
-                  </Col>
-                  <Col md={3}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Date Upto
-                    </Form.Label>
-
-                    <Form.Control
-                      type="date"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Enter Proposer Name"
-                      {...register("dateupto")}
-                    />
-                  </Col> */}
 
                   <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
@@ -355,27 +330,31 @@ const Receipt = () => {
                       {...register("dateupto")}
                     />
                   </Col>
-                </Row>
-                <Button
-                  type="button"
-                  variant="primary"
-                  onClick={() => {
-                    setPage(1);
-                    setTimeout(() => refetch(), 0);
-                  }}
-                  className="mt-4 ml-2 bg-blue-700 justify-end"
-                >
-                  Search
-                </Button>
+                  <Row>
+                    <Col>
+                      <Button
+                        type="button"
+                        variant="primary"
+                        onClick={() => {
+                          setPage(1);
+                          setTimeout(() => refetch(), 0);
+                        }}
+                        className="mt-4 ml-2 bg-blue-700 justify-end"
+                      >
+                        Search
+                      </Button>
 
-                <Button
-                  type="button"
-                  variant="primary"
-                  onClick={handleReset}
-                  className="mt-4 ml-2 bg-blue-700 justify-end"
-                >
-                  Reset
-                </Button>
+                      <Button
+                        type="button"
+                        variant="primary"
+                        onClick={handleReset}
+                        className="mt-4 ml-2 bg-blue-700 justify-end"
+                      >
+                        Reset
+                      </Button>
+                    </Col>
+                  </Row>
+                </Row>
               </Card.Body>
             </Card>
           </Card>
@@ -399,6 +378,7 @@ const Receipt = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePaginationBehaviour}
           page={page}
+          state={receiptData === undefined}
         />
       </div>
     </>

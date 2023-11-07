@@ -378,27 +378,33 @@ const Home = () => {
               (table === "renewal" && renewalCount === undefined) ? (
                 <DataNotFound />
               ) : (
-                <CustomisedTable
-                  Data={
-                    table == "policies"
-                      ? policyData
-                      : table == "customer"
-                      ? customerInfo
-                      : table == "claim"
-                      ? claimData
-                      : renewalCount
-                  }
-                  table={table}
-                />
+                <Card.Body>
+                  <CustomisedTable
+                    Data={
+                      table == "policies"
+                        ? policyData
+                        : table == "customer"
+                        ? customerInfo
+                        : table == "claim"
+                        ? claimData
+                        : renewalCount
+                    }
+                    table={table}
+                  />
+                </Card.Body>
               )}
-
-              <Card.Body className="d-flex justify-content-center"></Card.Body>
             </Card>
 
             <div className="flex justify-end mt-3 mr-5">
               <PaginationBasic
                 handlePaginationBehaviour={handlePaginationBehaviour}
                 page={page}
+                state={
+                  (table === "policies" && policyData === undefined) ||
+                  (table === "customer" && customerInfo === undefined) ||
+                  (table === "claim" && claimData === undefined) ||
+                  (table === "renewal" && renewalCount === undefined)
+                }
               />
             </div>
           </Col>
