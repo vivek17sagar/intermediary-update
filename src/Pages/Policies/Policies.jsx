@@ -56,7 +56,12 @@ const Policies = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
         // enabled: false,
         // refetchOnWindowFocus: false,
@@ -150,8 +155,8 @@ const Policies = () => {
               <div className="flex justify-center align-middle">
                 <Spinner />
               </div>
-            ) : policiesData ? (
-              <PoliciesTable tableData={policiesData} />
+            ) : policiesData?.firstValue ? (
+              <PoliciesTable tableData={policiesData?.firstValue} />
             ) : (
               <DataNotFound />
             )}
@@ -172,7 +177,7 @@ const Policies = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePagination}
           page={page}
-          state={policiesData === undefined}
+          pageNum={policiesData?.SecondValue}
         />
       </div>
     </>

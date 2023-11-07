@@ -75,7 +75,11 @@ const Invoice = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
       },
     ],
@@ -316,8 +320,8 @@ const Invoice = () => {
               <div className="flex justify-center align-middle">
                 <Spinner />
               </div>
-            ) : invoiceData ? (
-              <InvoiceTable Data={invoiceData} />
+            ) : invoiceData?.firstValue ? (
+              <InvoiceTable Data={invoiceData?.firstValue} />
             ) : (
               <DataNotFound />
             )}
@@ -328,7 +332,7 @@ const Invoice = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePaginationBehaviour}
           page={page}
-          state={invoiceData === undefined}
+          pageNum={invoiceData?.SecondValue}
         />
       </div>
     </>

@@ -4,7 +4,7 @@ import Pagination from "react-bootstrap/Pagination";
 export const PaginationBasic = ({
   handlePaginationBehaviour,
   page,
-  state = undefined,
+  pageNum = undefined,
 }) => {
   return (
     <Pagination size="2xl">
@@ -26,7 +26,7 @@ export const PaginationBasic = ({
         onClick={() => {
           handlePaginationBehaviour(page + 1);
         }}
-        disabled={state}
+        disabled={pageNum === page}
       />
     </Pagination>
   );

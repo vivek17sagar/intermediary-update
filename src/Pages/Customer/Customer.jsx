@@ -65,7 +65,11 @@ const Customer = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
       },
     ],
@@ -183,8 +187,11 @@ const Customer = () => {
               <div className="flex justify-center align-middle">
                 <Spinner />
               </div>
-            ) : customeInfo ? (
-              <CustomisedTable Data={customeInfo} table="customer" />
+            ) : customeInfo?.firstValue ? (
+              <CustomisedTable
+                Data={customeInfo?.firstValue}
+                table="customer"
+              />
             ) : (
               <DataNotFound />
             )}
@@ -196,7 +203,7 @@ const Customer = () => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
-            state={customeInfo === undefined}
+            pageNum={customeInfo?.SecondValue}
           />
         </div>
       </div>

@@ -30,7 +30,7 @@ const Claims = ({ dashboard }) => {
   });
 
   const [page, setPage] = useState(1);
-
+  const [pageData, setPageData] = useState([]);
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
   }));
@@ -54,7 +54,11 @@ const Claims = ({ dashboard }) => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
       },
     ],
@@ -172,8 +176,11 @@ const Claims = ({ dashboard }) => {
             <div className="flex justify-center align-middle">
               <Spinner />
             </div>
-          ) : claimProcessData ? (
-            <CustomisedTable Data={claimProcessData} table="claim" />
+          ) : claimProcessData?.firstValue ? (
+            <CustomisedTable
+              Data={claimProcessData?.firstValue}
+              table="claim"
+            />
           ) : (
             <DataNotFound />
           )}
@@ -182,7 +189,7 @@ const Claims = ({ dashboard }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
-            state={claimProcessData === undefined}
+            pageNum={claimProcessData?.SecondValue}
           />
         </div>
       </Row>
@@ -195,8 +202,11 @@ const Claims = ({ dashboard }) => {
             <div className="flex justify-center align-middle">
               <Spinner />
             </div>
-          ) : claimProcessData ? (
-            <CustomisedTable Data={claimProcessData} table="claim" />
+          ) : claimProcessData?.firstValue ? (
+            <CustomisedTable
+              Data={claimProcessData?.firstValue}
+              table="claim"
+            />
           ) : (
             <DataNotFound />
           )}
@@ -205,7 +215,7 @@ const Claims = ({ dashboard }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
-            state={claimProcessData === undefined}
+            pageNum={claimProcessData?.SecondValue}
           />
         </div>
       </Row>
