@@ -81,7 +81,11 @@ const Endorsement = ({ dashboard = false }) => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
         // enabled: false,
         // refetchOnWindowFocus: false,
@@ -195,8 +199,10 @@ const Endorsement = ({ dashboard = false }) => {
             <div className="flex justify-center align-middle">
               <Spinner />
             </div>
-          ) : endorsementInvoiceData ? (
-            <EndorsementCustomizedTable tableData={endorsementInvoiceData} />
+          ) : endorsementInvoiceData?.firstValue ? (
+            <EndorsementCustomizedTable
+              tableData={endorsementInvoiceData?.firstValue}
+            />
           ) : (
             <DataNotFound />
           )}
@@ -205,7 +211,7 @@ const Endorsement = ({ dashboard = false }) => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
-            state={endorsementInvoiceData === undefined}
+            pageNum={endorsementInvoiceData?.SecondValue}
           />
         </div>
       </Row>

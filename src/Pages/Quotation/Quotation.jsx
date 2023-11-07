@@ -72,7 +72,11 @@ const Quotation = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
       },
     ],
@@ -183,8 +187,10 @@ const Quotation = () => {
             <div className="flex justify-center align-middle">
               <Spinner />
             </div>
-          ) : quotationTableData ? (
-            <QuotationTable quotationTableData={quotationTableData} />
+          ) : quotationTableData?.firstValue ? (
+            <QuotationTable
+              quotationTableData={quotationTableData?.firstValue}
+            />
           ) : (
             <DataNotFound />
           )}
@@ -193,7 +199,7 @@ const Quotation = () => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
-            state={quotationTableData === undefined}
+            pageNum={quotationTableData?.SecondValue}
           />
         </div>
       </Row>

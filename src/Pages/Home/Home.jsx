@@ -61,7 +61,12 @@ const Home = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endNumber,
+          };
         },
       },
 
@@ -121,7 +126,12 @@ const Home = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endPageNum = data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endPageNum,
+          };
         },
       },
       {
@@ -136,7 +146,12 @@ const Home = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endPageNum = data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endPageNum,
+          };
         },
       },
       {
@@ -152,7 +167,12 @@ const Home = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endNumber,
+          };
         },
       },
     ],
@@ -323,7 +343,7 @@ const Home = () => {
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Renewal Count</p>
                   <h5 className="font-14 fw-bold mt-3">
-                    {renewalCount?.length}
+                    {renewalCount?.firstValue?.length}
                   </h5>
                 </section>
                 <section
@@ -372,22 +392,24 @@ const Home = () => {
                   : "List of Renewal"}
               </p>
 
-              {(table === "policies" && policyData === undefined) ||
-              (table === "customer" && customerInfo === undefined) ||
-              (table === "claim" && claimData === undefined) ||
-              (table === "renewal" && renewalCount === undefined) ? (
+              {(table === "policies" && policyData?.firstValue === undefined) ||
+              (table === "customer" &&
+                customerInfo?.firstValue === undefined) ||
+              (table === "claim" && claimData?.firstValue === undefined) ||
+              (table === "renewal" &&
+                renewalCount?.firstValue === undefined) ? (
                 <DataNotFound />
               ) : (
                 <Card.Body>
                   <CustomisedTable
                     Data={
                       table == "policies"
-                        ? policyData
+                        ? policyData?.firstValue
                         : table == "customer"
-                        ? customerInfo
+                        ? customerInfo?.firstValue
                         : table == "claim"
-                        ? claimData
-                        : renewalCount
+                        ? claimData?.firstValue
+                        : renewalCount?.firstValue
                     }
                     table={table}
                   />
@@ -399,11 +421,14 @@ const Home = () => {
               <PaginationBasic
                 handlePaginationBehaviour={handlePaginationBehaviour}
                 page={page}
-                state={
-                  (table === "policies" && policyData === undefined) ||
-                  (table === "customer" && customerInfo === undefined) ||
-                  (table === "claim" && claimData === undefined) ||
-                  (table === "renewal" && renewalCount === undefined)
+                pageNum={
+                  table == "policies"
+                    ? policyData?.secondValue
+                    : table == "customer"
+                    ? customerInfo?.secondValue
+                    : table == "claim"
+                    ? claimData?.secondValue
+                    : renewalCount?.secondValue
                 }
               />
             </div>

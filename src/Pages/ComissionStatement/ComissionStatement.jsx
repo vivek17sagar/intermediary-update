@@ -57,7 +57,11 @@ const ComissionStatement = () => {
             })
           ),
         select(data) {
-          return getResultFromData(data);
+          const endNumber = data?.data?.totalPages;
+          return {
+            firstValue: getResultFromData(data),
+            SecondValue: endNumber,
+          };
         },
         // enabled: false,
         // refetchOnWindowFocus: false,
@@ -151,8 +155,8 @@ const ComissionStatement = () => {
               <div className="flex justify-center align-middle">
                 <Spinner />
               </div>
-            ) : commissionData ? (
-              <CommissionTable tableData={commissionData} />
+            ) : commissionData?.firstValue ? (
+              <CommissionTable tableData={commissionData?.firstValue} />
             ) : (
               <DataNotFound />
             )}
@@ -173,7 +177,7 @@ const ComissionStatement = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePagination}
           page={page}
-          state={commissionData === undefined}
+          pageNum={commissionData?.SecondValue}
         />
       </div>
     </>
