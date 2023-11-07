@@ -105,16 +105,16 @@ const Sidebar = () => {
       initial={false}
       transition={{ duration: 0.5 }}
       animate={{ width: open ? "300px" : "80px" }}
-      onHoverEnd={() => {
-        if (cureentWidth > 1280) {
-          controlHover("close");
-        }
-      }}
-      onHoverStart={() => {
-        if (cureentWidth > 1280) {
-          controlHover("open");
-        }
-      }}
+      // onHoverEnd={() => {
+      //   if (cureentWidth > 1280) {
+      //     controlHover("close");
+      //   }
+      // }}
+      // onClick={() => {
+      //   if (cureentWidth > 1280) {
+      //     controlHover("open");
+      //   }
+      // }}
       className="main--section"
     >
       <motion.section
@@ -131,7 +131,7 @@ const Sidebar = () => {
         >
           <div
             style={{ cursor: "pointer" }}
-            hidden={cureentWidth > 1280}
+            // hidden={cureentWidth > 1280}
             onClick={() => {
               open ? controlHover("close") : controlHover("open");
             }}
