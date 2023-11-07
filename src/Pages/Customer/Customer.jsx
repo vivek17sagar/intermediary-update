@@ -196,6 +196,7 @@ const Customer = () => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
+            state={customeInfo === undefined}
           />
         </div>
       </div>

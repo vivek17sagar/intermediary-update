@@ -267,7 +267,7 @@ const Invoice = () => {
             <Card className="border-0">
               <p className="font-16 section--name">Search Filter</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
-                <Row className="p-3">
+                <Row className="p-1">
                   <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Proposer Name
@@ -280,52 +280,8 @@ const Invoice = () => {
                       {...register("proposerno")}
                     />
                   </Col>
-                  {/* <Col md={4}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Choose..."
-                      {...register("proposerno")}
-                    />
-                  </Col>
-                  {/* <Col md={4}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Choose..."
-                    />
-                  </Col>
-                  <Col md={4}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      className="border-gray-400 rounded-xl"
-                      placeholder="Choose..."
-                    />
-                  </Col>
-                  <Col md={4}>
-                    <Form.Label className="font-14 fw-bold text-muted">
-                      Customer Name
-                    </Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      placeholder="Choose..."
-                      className="border-gray-400 rounded-xl"
-                    />
-                  </Col> */}
                 </Row>
+
                 <Button
                   type="button"
                   variant="primary"
@@ -372,6 +328,7 @@ const Invoice = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePaginationBehaviour}
           page={page}
+          state={invoiceData === undefined}
         />
       </div>
     </>

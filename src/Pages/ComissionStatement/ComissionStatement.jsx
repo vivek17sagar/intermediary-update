@@ -65,8 +65,6 @@ const ComissionStatement = () => {
     ],
   });
 
-  console.log(commissionData);
-
   const handleReset = () => {
     reset();
     setPage(1);
@@ -175,6 +173,7 @@ const ComissionStatement = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePagination}
           page={page}
+          state={commissionData === undefined}
         />
       </div>
     </>

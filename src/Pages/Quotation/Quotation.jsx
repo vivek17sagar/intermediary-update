@@ -193,6 +193,7 @@ const Quotation = () => {
           <PaginationBasic
             handlePaginationBehaviour={handlePaginationBehaviour}
             page={page}
+            state={quotationTableData === undefined}
           />
         </div>
       </Row>

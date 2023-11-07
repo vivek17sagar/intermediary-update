@@ -8,7 +8,7 @@ export const CustomisedTable = ({ Data, table }) => {
           <thead>
             <tr>
               <th className="text-center">Claim Number</th>
-              <th className="text-center">Claim Id</th>
+              {/* <th className="text-center">Claim Id</th> */}
               <th className="text-center">Member Name</th>
               <th className="text-center">Membership No</th>
               <th className="text-center">Admission Date</th>
@@ -20,7 +20,7 @@ export const CustomisedTable = ({ Data, table }) => {
             {Data?.map((data) => (
               <tr key={Math.floor(Math.random() * 100000)}>
                 <td className="text-center">{data?.claimNo}</td>
-                <td className="text-center">{data?.claimID}</td>
+                {/* <td className="text-center">{data?.claimID}</td> */}
                 <td className="text-center">{data?.memberName}</td>
                 <td className="text-center">{data?.displayMemberShipNo}</td>
                 <td className="text-center">{data?.admissionDate}</td>

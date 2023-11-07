@@ -172,6 +172,7 @@ const Policies = () => {
         <PaginationBasic
           handlePaginationBehaviour={handlePagination}
           page={page}
+          state={policiesData === undefined}
         />
       </div>
     </>
