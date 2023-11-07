@@ -311,7 +311,7 @@ const Invoice = () => {
 
         <Row className="mt-4">
           <p className="font-16 section--name p-2">List of Invoices</p>
-          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+          <Card className="border-0 p-3 mt-2 flex h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">
                 <Spinner />
