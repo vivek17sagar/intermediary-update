@@ -154,12 +154,18 @@ const ComissionStatement = () => {
           <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">
-                <Spinner />
+                <div>
+                  <Spinner />
+                </div>
               </div>
             ) : commissionData?.firstValue ? (
               <CommissionTable tableData={commissionData?.firstValue} />
             ) : (
-              <DataNotFound />
+              <div className="flex justify-center align-middle mt-28">
+                <div>
+                  <DataNotFound />
+                </div>
+              </div>
             )}
           </Card>
         </Row>

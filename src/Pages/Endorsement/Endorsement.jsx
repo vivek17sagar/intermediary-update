@@ -196,15 +196,21 @@ const Endorsement = ({ dashboard = false }) => {
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           {isFetching ? (
-            <div className="flex justify-center align-middle">
-              <Spinner />
+            <div className="flex justify-center align-middle mt-40">
+              <div>
+                <Spinner />
+              </div>
             </div>
           ) : endorsementInvoiceData?.firstValue ? (
             <EndorsementCustomizedTable
               tableData={endorsementInvoiceData?.firstValue}
             />
           ) : (
-            <DataNotFound />
+            <div className="flex justify-center align-middle mt-28">
+              <div>
+                <DataNotFound />
+              </div>
+            </div>
           )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">

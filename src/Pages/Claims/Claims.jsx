@@ -173,8 +173,10 @@ const Claims = ({ dashboard }) => {
         <p className="font-16  section--name">List of Claims</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
-            <div className="flex justify-center align-middle">
-              <Spinner />
+            <div className="flex justify-center align-middle mt-40">
+              <div>
+                <Spinner />
+              </div>
             </div>
           ) : claimProcessData?.firstValue ? (
             <CustomisedTable
@@ -182,7 +184,11 @@ const Claims = ({ dashboard }) => {
               table="claim"
             />
           ) : (
-            <DataNotFound />
+            <div className="flex justify-center align-middle mt-28">
+              <div>
+                <DataNotFound />
+              </div>
+            </div>
           )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
@@ -197,10 +203,12 @@ const Claims = ({ dashboard }) => {
   ) : (
     <Container fluid>
       <Row className="mt-4">
-        <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
+        <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
-            <div className="flex justify-center align-middle">
-              <Spinner />
+            <div className="flex justify-center align-middle mt-40">
+              <div>
+                <Spinner />
+              </div>
             </div>
           ) : claimProcessData?.firstValue ? (
             <CustomisedTable

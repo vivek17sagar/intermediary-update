@@ -184,8 +184,10 @@ const Customer = () => {
           <p className="font-16 section--name">List of customers</p>
           <Card className="border-0 p-3 mt-2 flex h-[480px]">
             {isFetching ? (
-              <div className="flex justify-center align-middle">
-                <Spinner />
+              <div className="flex justify-center align-middle mt-40">
+                <div>
+                  <Spinner />
+                </div>
               </div>
             ) : customeInfo?.firstValue ? (
               <CustomisedTable
@@ -193,7 +195,11 @@ const Customer = () => {
                 table="customer"
               />
             ) : (
-              <DataNotFound />
+              <div className="flex justify-center align-middle mt-28">
+                <div>
+                  <DataNotFound />
+                </div>
+              </div>
             )}
           </Card>
         </Row>
