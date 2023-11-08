@@ -184,15 +184,21 @@ const Quotation = () => {
         <p className="font-16 section--name">List of Quotations</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
-            <div className="flex justify-center align-middle">
-              <Spinner />
+            <div className="flex justify-center align-middle mt-40">
+              <div>
+                <Spinner />
+              </div>
             </div>
           ) : quotationTableData?.firstValue ? (
             <QuotationTable
               quotationTableData={quotationTableData?.firstValue}
             />
           ) : (
-            <DataNotFound />
+            <div className="flex justify-center align-middle mt-28">
+              <div>
+                <DataNotFound />
+              </div>
+            </div>
           )}
         </Card>
         <div className="flex justify-end mt-3 mr-5">
