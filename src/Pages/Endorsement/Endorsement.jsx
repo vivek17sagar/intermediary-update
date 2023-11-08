@@ -147,17 +147,17 @@ const Endorsement = ({ dashboard = false }) => {
   return (
     <Container fluid>
       {!dashboard && (
-        <p className="font-16 section--name ml-3 mb-2">Endorsements</p>
+        <p className="font-16 section--name ml-3 mb-2">ENDORSEMENT</p>
       )}
       {!dashboard && (
         <Card className="border-0 pl-3 p-3">
-          <p className="font-16 section--name mb-2">Search By Proposer Name</p>
+          <p className="font-16 section--name mb-2">Search By</p>
           <Card.Body style={{ padding: "0 0 1rem 0" }}>
             <Row>
               <Col md={4}>
-                {/* <Form.Label className="font-14 fw-bold text-muted">
-                        Proposer Name
-                      </Form.Label> */}
+                <Form.Label className="font-14 fw-bold text-muted">
+                  Proposer Name
+                </Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter Proposer Name"
@@ -192,7 +192,7 @@ const Endorsement = ({ dashboard = false }) => {
         </Card>
       )}
       <Row className="mt-4">
-        <p className="font-16 mb-3 section--name">List of Endorsement</p>
+        <p className="font-16  section--name">List of Endorsement</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {/* <EndorsementCustomizedTable tableData={endorsementInvoiceData} /> */}
           {isFetching ? (

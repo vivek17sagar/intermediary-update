@@ -15,18 +15,21 @@ import { Card } from "react-bootstrap";
 // import { UseAuthType } from "Types/types";
 import { isBrowser } from "../../../decideENV.js";
 import { useStore } from "../../Store/store";
+import { useClickAway } from "@uidotdev/usehooks";
+import logo from "../../assets/logoGA.jpg";
 
 /** make sure to put svg in userMenu */
 
-const Header = () => {
+const Header = ({ positionData }) => {
   const [userPopup, setUserPopup] = useState(false);
-  const [notificationPopup, setNotificationPopup] = useState(false);
+  // const [notificationPopup, setNotificationPopup] = useState(false);
   const [active, setActive] = useState("home");
-  const notificationRef = useRef(null);
-  const profileRef = useRef(null);
+  // const notificationRef = useRef(null);
+  // const profileRef = useRef(null);
   const { logout } = useAuth();
   const location = useLocation();
 
+  // console.log(`${positionData}rem`);
   // const isBrowser = typeof window !== "undefined";
 
   const { userDetails } = useStore((store) => ({
@@ -38,20 +41,24 @@ const Header = () => {
     setActive(location.pathname.slice(1));
   }, [location]);
 
-  //   const handleClickOutside = () => {
-  //     if (userPopup) {
-  //       setUserPopup(false);
-  //     } else if (notificationPopup) {
-  //       setNotificationPopup(false);
-  //     }
-  //   };
+  // const handleClickOutside = () => {
+  //   if (userPopup) {
+  //     setUserPopup(false);
+  //   } else if (notificationPopup) {
+  //     setNotificationPopup(false);
+  //   }
+  // };
 
-  const handleuserProfile = () => {
-    alert("hi from userprofile");
-  };
-  const handleSettings = () => {
-    alert("hi from settings");
-  };
+  const profileRef = useClickAway(() => {
+    setUserPopup(false);
+  });
+
+  // const handleuserProfile = () => {
+  //   alert("hi from userprofile");
+  // };
+  // const handleSettings = () => {
+  //   alert("hi from settings");
+  // };
   const handleSignout = () => {
     if (logout) {
       logout();
@@ -59,20 +66,20 @@ const Header = () => {
   };
 
   const userMenu = {
-    "User Profile": { Icon: UpdateProfile, handler: handleuserProfile },
-    Settings: { Icon: Settings, handler: handleSettings },
+    // "User Profile": { Icon: UpdateProfile, handler: handleuserProfile },
+    // Settings: { Icon: Settings, handler: handleSettings },
     "Sign Out": { Icon: Signout, handler: handleSignout },
   };
 
-  const handleFullScreen = () => {
-    if (isBrowser) {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-  };
+  // const handleFullScreen = () => {
+  //   if (isBrowser) {
+  //     if (!document.fullscreenElement) {
+  //       document.documentElement.requestFullscreen();
+  //     } else {
+  //       document.exitFullscreen();
+  //     }
+  //   }
+  // };
 
   //   useOnClickOutside(notificationRef, handleClickOutside);
   //   useOnClickOutside(profileRef, handleClickOutside);
@@ -84,10 +91,28 @@ const Header = () => {
       style={{ backgroundColor: "white", padding: "20px" }}
     >
       <section className="pages-header">
-        <i role="button" onClick={handleFullScreen}>
+        <img
+          src={logo}
+          alt=""
+          style={{
+            width: "7rem",
+            position: "absolute",
+            top: "10px",
+            left: `${positionData}rem`,
+            transitionDelay: "100ms",
+            transitionDuration: "0.4s",
+            transitionProperty: "left",
+            // transitionTimingFunction: "ease-in-out",
+          }}
+        />
+        <div className="flex gap-2">
+          <span className="text-blue-700 font-bold">
+            {userDetails?.userName}
+          </span>
+          {/* <i role="button" onClick={handleFullScreen}>
           <FontAwesomeIcon icon={faExpand} color="#8b98a4" size="lg" />
-        </i>
-        <i
+        </i> */}
+          {/* <i
           style={{ cursor: "pointer" }}
           role="button"
           onKeyDown={() => {}}
@@ -98,20 +123,21 @@ const Header = () => {
           }}
         >
           <FontAwesomeIcon icon={faBell} color="#8b98a4" size="lg" />
-        </i>
-        <i
-          style={{ cursor: "pointer" }}
-          role="button"
-          onKeyDown={() => {}}
-          tabIndex={0}
-          onClick={() => {
-            setUserPopup((up) => !up);
-            setNotificationPopup(false);
-          }}
-        >
-          <UserProfile />
-        </i>
-        {notificationPopup && (
+        </i> */}
+          <i
+            style={{ cursor: "pointer" }}
+            role="button"
+            onKeyDown={() => {}}
+            tabIndex={0}
+            onClick={() => {
+              setUserPopup((up) => !up);
+              // setNotificationPopup(false);
+            }}
+          >
+            <UserProfile />
+          </i>
+        </div>
+        {/* {notificationPopup && (
           <motion.div
             ref={notificationRef}
             className="notification-popup rounded-1r"
@@ -129,7 +155,7 @@ const Header = () => {
               </Card.Body>
             </Card>
           </motion.div>
-        )}
+        )} */}
         {userPopup && (
           <motion.div
             ref={profileRef}
@@ -148,7 +174,7 @@ const Header = () => {
                     <h2 style={{ fontWeight: "600" }}>
                       {userDetails?.userName}
                     </h2>
-                    <p>{userDetails?.userCategory}</p>
+                    {/* <p>{userDetails?.userCategory}</p> */}
                     <p>{userDetails?.userEmail}</p>
                   </div>
                 </section>

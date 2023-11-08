@@ -89,11 +89,11 @@ const Claims = ({ dashboard }) => {
       </Row> */}
 
       {/* <p className="font-16 section--name">List of claims made</p> */}
-      <Card className="border-0">
-        <p className="font-16 section--name pl-5 pt-2">Search Filter</p>
+      <Card className="border-0 pl-3 p-3">
+        <p className="font-16 section--name mb-2">Search By</p>
         <Card.Body style={{ padding: "0 0 1rem 0" }}>
-          <Row className="p-3 flex items-center">
-            <Col md={4}>
+          <Row>
+            <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Claim No.
               </Form.Label>
@@ -106,7 +106,7 @@ const Claims = ({ dashboard }) => {
               />
             </Col>
 
-            <Col md={4}>
+            <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Proposer Name
               </Form.Label>
@@ -119,7 +119,7 @@ const Claims = ({ dashboard }) => {
               />
             </Col>
 
-            <Col md={4}>
+            <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Member Name
               </Form.Label>
@@ -131,10 +131,7 @@ const Claims = ({ dashboard }) => {
                 {...register("membername")}
               />
             </Col>
-          </Row>
-
-          <Row className="p-3 d-flex align-items-center">
-            <Col md={4}>
+            <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Membership No.
               </Form.Label>
@@ -146,7 +143,9 @@ const Claims = ({ dashboard }) => {
                 {...register("displaymembershipno")}
               />
             </Col>
+          </Row>
 
+          <Row className=" d-flex align-items-center">
             <Col md={4}>
               <Button
                 variant="primary"
@@ -171,6 +170,7 @@ const Claims = ({ dashboard }) => {
         </Card.Body>
       </Card>
       <Row className="mt-4">
+        <p className="font-16  section--name">List of Claims</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
             <div className="flex justify-center align-middle">

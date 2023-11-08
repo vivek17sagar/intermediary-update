@@ -15,3 +15,6 @@ export const intermediateTotalCustomer = (payload) => {
 export const intermediateTotalRenewlListnonth = (payload) => {
   return ServiceInstance.post("/intermediatetotalrenewlListnonth", payload);
 };
+export const intermediateTotalRenewlListCount = (payload) => {
+  return ServiceInstance.post("/intermediatetotalrenewlcountnonth", payload);
+};

@@ -169,7 +169,7 @@ const Invoice = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name ml-2">Invoice</p>
+        <p className="font-16 section--name  ml-3 mb-2">INVOICE</p>
         {/*
           <Row>
             <Col md={3}>
@@ -265,11 +265,11 @@ const Invoice = () => {
         </Row>
         */}
 
-        <Row className="mt-2">
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name mb-2">List of Invoices made</p>
-            <Card className="border-0">
-              <p className="font-16 section--name">Search Filter</p>
+        <Row>
+          <Card className="border-0 pl-3 p-3">
+            {/* <p className="font-16 section--name mb-2">List of Invoices made</p> */}
+            <Card className="border-0 pl-2 p-2">
+              <p className="font-16 section--name mb-2">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row className="p-1">
                   <Col md={4}>
@@ -314,7 +314,7 @@ const Invoice = () => {
         </Row>
 
         <Row className="mt-4">
-          <p className="font-16 section--name p-2">List of Invoices</p>
+          <p className="font-16 section--name ">List of Invoices</p>
           <Card className="border-0 p-3 mt-2 flex h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">

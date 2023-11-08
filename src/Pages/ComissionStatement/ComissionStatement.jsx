@@ -83,11 +83,11 @@ const ComissionStatement = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name">Commission Statement</p>
+        <p className="font-16 section--name ml-3 mb-2">COMMISSION</p>
         <Row>
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name">Search By</p>
-            <Card.Body>
+          <Card className="border-0 pl-3 p-3">
+            <p className="font-16 section--name mb-2">Search By</p>
+            <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row>
                 {/* <Col md={4}>
                 <Form.Label className="font-14 fw-bold text-muted">
@@ -104,12 +104,12 @@ const ComissionStatement = () => {
                 <Form.Control type="text" placeholder="Choose..." />
               </Col> */}
                 <Form
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexBasis: "initial",
-                    gap: "2rem",
-                  }}
+                // style={{
+                //   display: "flex",
+                //   flexDirection: "row",
+                //   flexBasis: "initial",
+                //   gap: "2rem",
+                // }}
                 >
                   <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
@@ -117,6 +117,7 @@ const ComissionStatement = () => {
                     </Form.Label>
                     <Form.Control
                       placeholder="Enter Proposer Name"
+                      className="border-gray-400 rounded-xl"
                       size="lg"
                       {...register("proposerName")}
                     />
@@ -149,8 +150,8 @@ const ComissionStatement = () => {
           </Card>
         </Row>
         <Row className="mt-4">
-          <p className="font-16 section--name">List of Commission Statement</p>
-          <Card className="border-0 p-3 mt-2 flex h-[480px]">
+          <p className="font-16 section--name">List of Commission </p>
+          <Card className="border-0 p-3 mt-2 flex justify-center h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">
                 <Spinner />

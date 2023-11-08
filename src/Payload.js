@@ -242,6 +242,14 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         proposerName: extraValues?.proposerName,
       };
     }
+    //intermediatetotalrenewlcountnonth
+    case "intermediatetotalrenewlcountnonth": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: extraValues?.tokenID,
+      };
+    }
     case "intermediatetotalrenewlListnonth": {
       return {
         agencyID: extraValues?.agencyID,

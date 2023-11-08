@@ -15,6 +15,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { useQueries } from "@tanstack/react-query";
 import {
   intermediateTotalCustomer,
+  intermediateTotalRenewlListCount,
   intermediateTotalRenewlListnonth,
   intermediatecustomersinfo,
   intermediatepolicycount,
@@ -44,6 +45,7 @@ const Home = () => {
     { data: totalClaimInProcessCount },
     { data: totalCustomerCount },
     { data: renewalCount, refetch: renewalRefetch },
+    { data: renewalList, refetch: renewalListRefetch },
     { data: customerInfo, refetch: customerInfoRefetch },
     { data: claimData, refetch: claimDataReFetch },
   ] = useQueries({
@@ -111,6 +113,25 @@ const Home = () => {
           ),
         select(data) {
           return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatetotalrenewlcountnonth"],
+        queryFn: () =>
+          intermediateTotalRenewlListCount(
+            getPayload("intermediatetotalrenewlcountnonth", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          const endPageNum = data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endPageNum,
+          };
         },
       },
       {
@@ -193,18 +214,91 @@ const Home = () => {
       } else if (table === "claim") {
         claimDataReFetch();
       } else if (table === "renewal") {
-        renewalRefetch();
+        renewalListRefetch();
       } else {
         return null;
       }
     }, 0);
   };
 
+  console.log(renewalCount);
   return (
     <main>
       <Container fluid>
         <p className="font-16 section--name ml-2">DASHBOARD</p>
         <Row className="flex justify-center">
+          <Col
+            md={3}
+            onClick={() => {
+              setPage(1);
+              setTimeout(() => renewalRefetch(), 0);
+              handleClick("renewal", [false, false, false, true]);
+            }}
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
+            <Card className="border-0">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[3]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Renewal Count</p>
+                  <h5 className="font-14 fw-bold mt-3">
+                    {renewalCount?.firstValue?.totalRenewalCount}
+                  </h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#f1b44c" }}
+                >
+                  <FontAwesomeIcon icon={faBars} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col
+            md={3}
+            onClick={() => {
+              setPage(1);
+              setTimeout(() => policyRefetch(), 0);
+              handleClick("policies", [false, true, false, false]);
+            }}
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+          >
+            <Card className="border-0">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[1]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
+                <section className="flex-grow-1">
+                  <p className="text-muted fw-medium">Total Policies Count</p>
+                  <h5 className="font-14 fw-bold mt-3">
+                    {policyCount?.totalPolicyCount}
+                  </h5>
+                </section>
+                <section
+                  className="card--icon"
+                  style={{ backgroundColor: "#34c38f" }}
+                >
+                  <FontAwesomeIcon icon={faIndianRupeeSign} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
           <Col
             md={3}
             onClick={() => {
@@ -249,43 +343,6 @@ const Home = () => {
             md={3}
             onClick={() => {
               setPage(1);
-              setTimeout(() => policyRefetch(), 0);
-              handleClick("policies", [false, true, false, false]);
-            }}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
-          >
-            <Card className="border-0">
-              <Card.Body
-                className="d-flex"
-                style={
-                  activeBox[1]
-                    ? {
-                        boxShadow: "0px 0px 1px 0.5px #556ee6",
-                        borderRadius: "10px",
-                      }
-                    : null
-                }
-              >
-                <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Total Policies Count</p>
-                  <h5 className="font-14 fw-bold mt-3">
-                    {policyCount?.totalPolicyCount}
-                  </h5>
-                </section>
-                <section
-                  className="card--icon"
-                  style={{ backgroundColor: "#34c38f" }}
-                >
-                  <FontAwesomeIcon icon={faIndianRupeeSign} size="xl" />
-                </section>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col
-            md={3}
-            onClick={() => {
-              setPage(1);
               setTimeout(() => claimDataReFetch(), 0);
               handleClick("claim", [false, false, true, false]);
             }}
@@ -314,43 +371,6 @@ const Home = () => {
                   style={{ backgroundColor: "#f46a6a" }}
                 >
                   <FontAwesomeIcon icon={faPenToSquare} size="xl" />
-                </section>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col
-            md={3}
-            onClick={() => {
-              setPage(1);
-              setTimeout(() => renewalRefetch(), 0);
-              handleClick("renewal", [false, false, false, true]);
-            }}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
-          >
-            <Card className="border-0">
-              <Card.Body
-                className="d-flex"
-                style={
-                  activeBox[3]
-                    ? {
-                        boxShadow: "0px 0px 1px 0.5px #556ee6",
-                        borderRadius: "10px",
-                      }
-                    : null
-                }
-              >
-                <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Renewal Count</p>
-                  <h5 className="font-14 fw-bold mt-3">
-                    {renewalCount?.firstValue?.length}
-                  </h5>
-                </section>
-                <section
-                  className="card--icon"
-                  style={{ backgroundColor: "#f1b44c" }}
-                >
-                  <FontAwesomeIcon icon={faBars} size="xl" />
                 </section>
               </Card.Body>
             </Card>
@@ -409,7 +429,7 @@ const Home = () => {
                         ? customerInfo?.firstValue
                         : table == "claim"
                         ? claimData?.firstValue
-                        : renewalCount?.firstValue
+                        : renewalList?.firstValue
                     }
                     table={table}
                   />

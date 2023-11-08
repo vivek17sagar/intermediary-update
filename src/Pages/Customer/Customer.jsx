@@ -94,9 +94,9 @@ const Customer = () => {
       <Container fluid>
         <p className="font-16 section--name mb-2">CUSTOMER</p>
         <Row>
-          <Card className="border-0 p-3">
-            <p className="font-16 section--name">Search Filter</p>
-            <Card.Body>
+          <Card className="border-0 pl-3 p-3">
+            <p className="font-16 section--name mb-2">Search By</p>
+            <Card.Body style={{ padding: "0 0 1rem 0" }}>
               <Row>
                 <Col md={3}>
                   <Form.Label className="font-14 fw-bold text-muted">
