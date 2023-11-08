@@ -30,3 +30,18 @@
 [data-active="true"] {
   color: #556ee6;
 }
+
+[data-title]:hover:after {
+  visibility: visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
+  background-color: white;
+  color: black;
+
+  font-size: 12px;
+  position: absolute;
+  /* padding: 4px 8px 4px 8px; */
+  visibility: hidden;
+}
