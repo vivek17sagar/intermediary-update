@@ -13,6 +13,7 @@ export const CommissionTable = ({ tableData }) => {
           <th className="text-center">Start Date</th>
           <th className="text-center">End Date</th>
           <th className="text-center">Invoice Amount</th>
+          <th className="text-center">Commission</th>
           <th className="text-center">Withholding Tax</th>
           <th className="text-center">Status</th>
           <th className="text-center">Policy Type</th>
@@ -28,6 +29,7 @@ export const CommissionTable = ({ tableData }) => {
             <td className="text-xs text-center">{data?.startDate}</td>
             <td className="text-xs text-center">{data?.endDate}</td>
             <td className="text-xs text-center">{data?.invoiceAmount}</td>
+            <td className="text-xs text-center">{data?.agentCommision}</td>
             <td className="text-xs text-center">{data?.widthHoldTax}</td>
             <td className="text-xs text-center">{data?.status}</td>
             <td className="text-xs text-center">{data?.policyType}</td>

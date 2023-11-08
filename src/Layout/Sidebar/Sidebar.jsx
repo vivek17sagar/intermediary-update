@@ -12,11 +12,13 @@ import { FaEndorsement } from "../../assets/faEndoresement";
 import { FaCommision } from "../../assets/faCommission";
 import { FaReceipt } from "../../assets/faReceipt";
 import { FaInvoice } from "../../assets/faInvoice";
+import { faQuote } from "../../assets/faQuote";
 import ArrowSideBar from "../../assets/ArrowSideBar";
 import forwardArrow from "../../assets/forward_arrow.png";
 import back_arrow from "../../assets/back_arrow.png";
+// import quote from "../../assets/"
 
-const Sidebar = () => {
+const Sidebar = ({ func }) => {
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -77,17 +79,17 @@ const Sidebar = () => {
     },
     {
       icon: FaCommision,
-      name: "Comission Statement",
+      name: "Comission ",
       route: "/comissionstatement",
     },
     {
-      icon: FaCommision,
+      icon: faQuote,
       name: "Quotation",
       route: "/quotation",
     },
     {
       icon: FaInvoice,
-      name: "invoice",
+      name: "Invoice",
       route: "/invoice",
     },
     {
@@ -99,6 +101,12 @@ const Sidebar = () => {
 
   const getSectionActive = () => {
     return window.location.pathname;
+  };
+
+  const controlSidebar = () => {
+    open ? controlHover("close") : controlHover("open");
+
+    open ? func(6) : func(17);
   };
   return (
     <motion.main
@@ -132,9 +140,7 @@ const Sidebar = () => {
           <div
             style={{ cursor: "pointer" }}
             // hidden={cureentWidth > 1280}
-            onClick={() => {
-              open ? controlHover("close") : controlHover("open");
-            }}
+            onClick={controlSidebar}
           >
             <ArrowSideBar arrow={open ? back_arrow : forwardArrow} />
           </div>

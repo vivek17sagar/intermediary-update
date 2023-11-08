@@ -95,9 +95,9 @@ const Quotation = () => {
 
   return (
     <Container fluid>
-      <p className="font-16 section--name ml-3 mb-2">Quotation</p>
+      <p className="font-16 section--name ml-3 mb-2">QUOTATION</p>
       <Card className="border-0 p-3">
-        <p className="font-16 section--name mb-2">Search Filter</p>
+        <p className="font-16 section--name mb-2">Search By</p>
         <Card.Body style={{ padding: "0 0 1rem 0" }}>
           <Row>
             <Col md={4}>

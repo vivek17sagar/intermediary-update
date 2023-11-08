@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen position="bottom-right" />
+      <ReactQueryDevtools initialIsOpen position="bottom-left" />
     </QueryClientProvider>
   </React.StrictMode>
 );

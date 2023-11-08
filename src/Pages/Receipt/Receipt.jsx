@@ -182,7 +182,7 @@ const Receipt = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name ml-2">Receipt</p>
+        <p className="font-16 section--name ml-2">RECEIPT</p>
         {/*
         <Row>
           <Col md={3}>
@@ -280,9 +280,9 @@ const Receipt = () => {
 
         <Row className="mt-2">
           <Card className="border-0 p-3">
-            <p className="font-16 section--name mb-2">List of Receipt made</p>
+            {/* <p className="font-16 section--name mb-2">List of Receipt made</p> */}
             <Card className="border-0">
-              <p className="font-16 section--name">Search By</p>
+              <p className="font-16 section--name mb-2">Search By</p>
               <Card.Body style={{ padding: "0 0 1rem 0" }}>
                 <Row>
                   <Col md={3}>
@@ -310,9 +310,9 @@ const Receipt = () => {
                     />
                   </Col>
 
-                  <Col md={3}>
+                  {/* <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Date From
+                      Start Date
                     </Form.Label>
 
                     <Form.Control
@@ -321,10 +321,10 @@ const Receipt = () => {
                       className="border-gray-400 rounded-xl"
                       {...register("datefrom")}
                     />
-                  </Col>
-                  <Col md={3}>
+                  </Col> */}
+                  {/* <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Date upto
+                      End Date
                     </Form.Label>
 
                     <Form.Control
@@ -333,7 +333,7 @@ const Receipt = () => {
                       className="border-gray-400 rounded-xl"
                       {...register("dateupto")}
                     />
-                  </Col>
+                  </Col> */}
                   <Row>
                     <Col>
                       <Button
@@ -364,7 +364,7 @@ const Receipt = () => {
           </Card>
         </Row>
         <Row className="mt-4">
-          <p className="font-16 section--name p-2">List of Recipts</p>
+          <p className="font-16 section--name ">List of Recipts</p>
           <Card className="border-0 p-3 mt-2 flex h-[480px]">
             {isFetching ? (
               <div className="flex justify-center align-middle">

@@ -12,7 +12,7 @@ export const CustomisedTable = ({ Data, table }) => {
               <th className="text-center">Member Name</th>
               <th className="text-center">Membership No</th>
               <th className="text-center">Admission Date</th>
-              <th className="text-center">Entry Time</th>
+              {/* <th className="text-center">Entry Time</th> */}
               <th className="text-center">Status</th>
             </tr>
           </thead>
@@ -24,7 +24,7 @@ export const CustomisedTable = ({ Data, table }) => {
                 <td className="text-center">{data?.memberName}</td>
                 <td className="text-center">{data?.displayMemberShipNo}</td>
                 <td className="text-center">{data?.admissionDate}</td>
-                <td className="text-center">{data?.entryTime}</td>
+                {/* <td className="text-center">{data?.entryTime}</td> */}
                 <td className="text-center">{data?.status}</td>
               </tr>
             ))}
@@ -107,9 +107,6 @@ export const CustomisedTable = ({ Data, table }) => {
               <th className="text-center">Renewal Date</th>
               <th className="text-center">Renewal Count</th>
             </tr>
-            {/* endDate : "30 Sep 2022" policyCode : "KEA1B/CC698/22/000002/01"
-            proposerName : "DHP GROUP" renewalDate : "01 Oct 2022" startDate :
-            "01 Apr 2022" totalRenewalCount : 0 */}
           </thead>
           <tbody>
             {Data?.map((data) => (

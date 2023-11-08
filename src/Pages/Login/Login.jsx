@@ -28,6 +28,7 @@ import { useStore } from "../../Store/store";
 import Spinner from "../../Components/Spinner/SpinnerLoader";
 import ReactSpinner from "react-bootstrap-spinner";
 import { useEffect } from "react";
+import logo from "../../assets/logoGA.jpg";
 
 const Login = () => {
   const {
@@ -181,15 +182,23 @@ const Login = () => {
       <section className="first--half">
         <LoginBackground />
       </section>
-      <section className="login--card border-0">
+      <section className="login--card border-0 flex flex-col">
+        <img src={logo} alt="" style={{ width: "30rem" }} />
+
         <Card
           className="login_details_card border-0"
           style={{ width: "35rem" }}
         >
           <Card.Title className="text-center">
-            <strong className="sign-in-header d-flex gap-3 justify-center">
-              Welcome to <EoxegenLogoColour />
-            </strong>
+            <div className="sign-in-header d-flex gap-2 justify-center flex flex-col">
+              {/* Welcome to <EoxegenLogoColour /> */}
+              <h2 className=" text-gray-500 text-xl">
+                Welcome to GA Insurance Intermediary Portal
+              </h2>
+              <h4 className=" text-gray-500 text-xl mt-0">
+                Please sign-in to your account
+              </h4>
+            </div>
           </Card.Title>
           <Form
             onSubmit={handleSubmit(handleFormValues)}
@@ -197,7 +206,7 @@ const Login = () => {
           >
             <div>
               <div className="mb-2 block">
-                <Form.Label>USERID / MOBILE / EMAIL</Form.Label>
+                <Form.Label>USER ID</Form.Label>
               </div>
               <Form.Control
                 name="email"
@@ -232,10 +241,10 @@ const Login = () => {
             />
             <section className="options">
               <Form.Label className="mt-4">
-                <InputGroup>
+                {/* <InputGroup>
                   <InputGroup.Checkbox />
                   Remember Me
-                </InputGroup>
+                </InputGroup> */}
               </Form.Label>
               <a href="/forgotpassword" onClick={hadleForgot}>
                 Forgot Password
@@ -248,7 +257,7 @@ const Login = () => {
             ) : (
               <Button
                 // disabled={isLoggedIn === true}
-                className="mt-2 w-100 btn-bg"
+                className="mt-2 w-100 bg-blue-700"
                 onClick={handleSubmit(handleFormValues)}
               >
                 {/* {isValidating ? (
