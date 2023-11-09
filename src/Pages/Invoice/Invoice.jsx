@@ -55,8 +55,6 @@ const Invoice = () => {
     userDetails: store.userDetails,
   }));
 
-  console.log(userDetails);
-
   const [page, setPage] = useState(1);
 
   const [{ data: invoiceData, refetch, isFetching }] = useQueries({

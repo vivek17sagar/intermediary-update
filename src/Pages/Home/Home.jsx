@@ -221,7 +221,6 @@ const Home = () => {
     }, 0);
   };
 
-  console.log(renewalCount);
   return (
     <main>
       <Container fluid>
