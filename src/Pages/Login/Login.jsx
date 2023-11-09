@@ -179,6 +179,9 @@ const Login = () => {
 
   return (
     <main className="login--main">
+      <div style={{ position: "absolute", top: "50px", left: "90px" }}>
+        <EoxegenLogoColour open={open} />
+      </div>
       <section className="first--half">
         <LoginBackground />
       </section>
