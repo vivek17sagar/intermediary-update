@@ -126,12 +126,7 @@ const Home = () => {
             })
           ),
         select(data) {
-          const endPageNum = data?.data?.totalPages;
-
-          return {
-            firstValue: getResultFromData(data),
-            secondValue: endPageNum,
-          };
+          return getResultFromData(data);
         },
       },
       {
@@ -250,7 +245,7 @@ const Home = () => {
                 <section className="flex-grow-1">
                   <p className="text-muted fw-medium">Renewal Count</p>
                   <h5 className="font-14 fw-bold mt-3">
-                    {renewalCount?.firstValue?.totalRenewalCount}
+                    {renewalCount?.totalRenewalCount}
                   </h5>
                 </section>
                 <section
@@ -415,8 +410,7 @@ const Home = () => {
               (table === "customer" &&
                 customerInfo?.firstValue === undefined) ||
               (table === "claim" && claimData?.firstValue === undefined) ||
-              (table === "renewal" &&
-                renewalCount?.firstValue === undefined) ? (
+              (table === "renewal" && renewalList?.firstValue === undefined) ? (
                 <DataNotFound />
               ) : (
                 <Card.Body>
@@ -447,7 +441,7 @@ const Home = () => {
                     ? customerInfo?.secondValue
                     : table == "claim"
                     ? claimData?.secondValue
-                    : renewalCount?.secondValue
+                    : renewalList?.secondValue
                 }
               />
             </div>
