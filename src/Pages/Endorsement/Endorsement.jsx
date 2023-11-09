@@ -165,6 +165,30 @@ const Endorsement = ({ dashboard = false }) => {
                   {...register("proposerName")}
                 />
               </Col>
+              {/* <Col md={4}>
+                <Form.Label className="font-14 fw-bold text-muted">
+                  Start Date
+                </Form.Label>
+
+                <Form.Control
+                  type="date"
+                  placeholder="Date From"
+                  className="border-gray-400 rounded-xl"
+                  {...register("datefrom")}
+                />
+              </Col>
+              <Col md={4}>
+                <Form.Label className="font-14 fw-bold text-muted">
+                  End Date
+                </Form.Label>
+
+                <Form.Control
+                  type="date"
+                  placeholder="Date Upto"
+                  className="border-gray-400 rounded-xl"
+                  {...register("dateupto")}
+                />
+              </Col> */}
             </Row>
             <Button
               type="button"
