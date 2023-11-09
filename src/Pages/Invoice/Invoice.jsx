@@ -167,7 +167,9 @@ const Invoice = () => {
   return (
     <>
       <Container fluid>
-        <p className="font-16 section--name  ml-3 mb-2">INVOICE</p>
+        <p className="font-16 section--name  ml-3 mb-2">
+          INVOICE (NEW / RE-NEW)
+        </p>
         {/*
           <Row>
             <Col md={3}>
@@ -282,6 +284,30 @@ const Invoice = () => {
                       {...register("proposerno")}
                     />
                   </Col>
+                  {/* <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      Start Date
+                    </Form.Label>
+
+                    <Form.Control
+                      type="date"
+                      placeholder="Date From"
+                      className="border-gray-400 rounded-xl"
+                      {...register("datefrom")}
+                    />
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label className="font-14 fw-bold text-muted">
+                      End Date
+                    </Form.Label>
+
+                    <Form.Control
+                      type="date"
+                      placeholder="Date Upto"
+                      className="border-gray-400 rounded-xl"
+                      {...register("dateupto")}
+                    />
+                  </Col> */}
                 </Row>
 
                 <Button

@@ -155,6 +155,7 @@ const Sidebar = ({ func }) => {
                 cursor: "pointer",
                 flexWrap: "nowrap",
               }}
+              // data-title={!open ? item.name : null}
               data-title={open ? null : item.name}
               onClick={() => navigate(item.route)}
             >
