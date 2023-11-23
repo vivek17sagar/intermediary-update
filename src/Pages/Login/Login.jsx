@@ -179,14 +179,14 @@ const Login = () => {
 
   return (
     <main className="login--main">
-      <div style={{ position: "absolute", top: "50px", left: "90px" }}>
+      <div style={{ position: "absolute", top: "50px", left: "90px" }} className="eOxegen-LOGO">
         <EoxegenLogoColour open={open} />
       </div>
       <section className="first--half">
         <LoginBackground />
       </section>
       <section className="login--card border-0 flex flex-col">
-        <img src={logo} alt="" style={{ width: "30rem" }} />
+        <img src={logo} alt="" style={{ width: "30rem" }} className="GA-INC-LOGO"/>
 
         <Card
           className="login_details_card border-0"
