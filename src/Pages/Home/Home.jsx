@@ -488,7 +488,7 @@ const Home = () => {
         </Row> */}
         <Row className="mt-4">
           <Col md={12}>
-            <Card className="border-0 p-3">
+            <Card className="border-0 p-3 h-[280px] dashboradTable">
               <p className="font-16 section--name mb-3">
                 {" "}
                 {table == "policies"

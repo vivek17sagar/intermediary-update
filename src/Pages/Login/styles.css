@@ -31,7 +31,7 @@
 .rememberBox {
   display: flex;
   align-items: center;
-  
+
 }
 
 .login--card {
@@ -160,6 +160,10 @@ hr {
   }
   .options > a {
     padding-bottom: 30px;
+  }
+
+  .Login-title{
+    font-size: 1.1rem !important;
   }
   
 }
