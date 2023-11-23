@@ -11,6 +11,7 @@ const ReciptTable = ({ Data }) => {
           {/* <th className="text-center">Start Date</th> */}
           {/* <th className="text-center">End Date</th> */}
           <th className="text-center">Invoice Number</th>
+          <th className="text-center">Invoice Date</th>
           <th className="text-center">Receipt Amount</th>
           <th className="text-center">Payment Mode</th>
           <th className="text-center">Reference Number</th>
@@ -25,6 +26,7 @@ const ReciptTable = ({ Data }) => {
             {/* <th className="text-center">{"Start Date"}</th> */}
             {/* <th className="text-center">{"End Date"}</th> */}
             <td className="text-center">{data?.invoiceNo}</td>
+            <td className="text-center">{data?.invoiceDate}</td>
             <td className="text-center">{data?.premium}</td>
             <td className="text-center">{data?.paymentType}</td>
             <td className="text-center">{data?.paymentRefNo}</td>

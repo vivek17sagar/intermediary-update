@@ -310,9 +310,9 @@ const Receipt = () => {
                     />
                   </Col>
 
-                  {/* <Col md={3}>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      Start Date
+                      Start Date(Invoice)
                     </Form.Label>
 
                     <Form.Control
@@ -321,10 +321,10 @@ const Receipt = () => {
                       className="border-gray-400 rounded-xl"
                       {...register("datefrom")}
                     />
-                  </Col> */}
-                  {/* <Col md={3}>
+                  </Col>
+                  <Col md={3}>
                     <Form.Label className="font-14 fw-bold text-muted">
-                      End Date
+                      End Date(Invoice)
                     </Form.Label>
 
                     <Form.Control
@@ -333,7 +333,7 @@ const Receipt = () => {
                       className="border-gray-400 rounded-xl"
                       {...register("dateupto")}
                     />
-                  </Col> */}
+                  </Col>
                   <Row>
                     <Col>
                       <Button

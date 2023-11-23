@@ -9,7 +9,6 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
-import { IntermediateClaimInprocess } from "../../API/Claims/claim.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
@@ -18,8 +17,9 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import { intermediatepaidclaim } from "../../API/PaidClaims/paidclaim.api";
 // import ShimmeringTable from "../CommonComponents/Shimmer";
-const Claims = ({ dashboard }) => {
+const PaidClaims = ({ dashboard }) => {
   const { register, getValues, reset } = useForm({
     defaultValues: {
       proposername: "",
@@ -39,10 +39,10 @@ const Claims = ({ dashboard }) => {
   const [{ data: claimProcessData, refetch, isFetching }] = useQueries({
     queries: [
       {
-        queryKey: ["intermediateclaiminprocess"],
+        queryKey: ["intermediatepaidclaim"],
         queryFn: () =>
-          IntermediateClaimInprocess(
-            getPayload("intermediateclaiminprocess", {
+          intermediatepaidclaim(
+            getPayload("intermediatepaidclaim", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
@@ -52,6 +52,7 @@ const Claims = ({ dashboard }) => {
               displayMembershipNo: getValues()?.displaymembershipno,
               claimNo: getValues()?.claimno,
               tokenID: userDetails?.tokenID,
+              claimStatus: "P",
               // mobileNo: getValues()?.mobileNo,
             })
           ),
@@ -66,8 +67,6 @@ const Claims = ({ dashboard }) => {
     ],
   });
 
-  console.log(claimProcessData?.firstValue);
-
   const handlePaginationBehaviour = (pageNo) => {
     setPage(pageNo);
     setTimeout(() => refetch(), 0);
@@ -81,7 +80,7 @@ const Claims = ({ dashboard }) => {
 
   return !dashboard ? (
     <Container fluid>
-      <p className="font-16 section--name pl-5 pb-2">CLAIMS</p>
+      <p className="font-16 section--name pl-5 pb-2">PAID CLAIMS</p>
 
       {/* <Row>
         <Card className="border-0 p-3">
@@ -186,7 +185,7 @@ const Claims = ({ dashboard }) => {
         </Card.Body>
       </Card>
       <Row className="mt-4">
-        <p className="font-16  section--name">List of Claims</p>
+        <p className="font-16  section--name">List of Paid Claims</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
             <div className="flex justify-center align-middle mt-40">
@@ -246,4 +245,4 @@ const Claims = ({ dashboard }) => {
     </Container>
   );
 };
-export default Claims;
+export default PaidClaims;

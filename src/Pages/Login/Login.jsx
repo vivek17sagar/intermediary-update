@@ -14,7 +14,7 @@ import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
 import { ValidateLogin, verifyWithOTP } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // import { getPayload } from "../../Payload";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import Base64 from "crypto-js/enc-base64";
@@ -190,22 +190,28 @@ const Login = () => {
 
         <Card
           className="login_details_card border-0"
-          style={{ width: "35rem" }}
+          style={{ width: "40rem" }}
         >
           <Card.Title className="text-center">
             <div className="sign-in-header d-flex gap-2 justify-center flex flex-col">
               {/* Welcome to <EoxegenLogoColour /> */}
-              <h2 className=" text-gray-500 text-xl">
+              <h2
+                className=" text-gray-600"
+                style={{
+                  fontSize: "1.9rem",
+                  height: "50px",
+                }}
+              >
                 Welcome to GA Insurance Intermediary Portal
               </h2>
-              <h4 className=" text-gray-500 text-xl mt-0">
+              <h4 className=" text-gray-600 text-2xl mt-4">
                 Please sign-in to your account
               </h4>
             </div>
           </Card.Title>
           <Form
             onSubmit={handleSubmit(handleFormValues)}
-            className=" flex flex-col gap-3 mt-4"
+            className=" flex flex-col gap-3 mt-4 pl-16 pr-16"
           >
             <div>
               <div className="mb-2 block">
@@ -216,11 +222,11 @@ const Login = () => {
                 sizing="md"
                 type="text"
                 className="rounded-full"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    refetch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     refetch();
+                //   }
+                // }}
                 {...register("email")}
                 required
               />
@@ -249,9 +255,9 @@ const Login = () => {
                   Remember Me
                 </InputGroup> */}
               </Form.Label>
-              <a href="/forgotpassword" onClick={hadleForgot}>
+              <Link to="/forgotpassword" onClick={hadleForgot}>
                 Forgot Password
-              </a>
+              </Link>
             </section>
             {waiting ? (
               <div className="mt-2 w-100 btn-bg rounded-3xl">
