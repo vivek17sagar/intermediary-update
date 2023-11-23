@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "../Components/ProtectedRoute/ProtectedRoute";
+import { Spinner } from "react-bootstrap";
 
 const Login = lazy(() => import("../Pages/Login/Login"));
 const Layout = lazy(() => import("../Layout/Layout"));
@@ -50,7 +51,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Home />
               </Suspense>
             </Layout>
@@ -62,7 +63,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Customer />
               </Suspense>
             </Layout>
@@ -74,7 +75,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Endorsement />
               </Suspense>
             </Layout>
@@ -86,7 +87,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Claims />
               </Suspense>
             </Layout>
@@ -122,7 +123,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Policies />
               </Suspense>
             </Layout>
@@ -134,7 +135,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <ComissionStatement />
               </Suspense>
             </Layout>
@@ -146,7 +147,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Quotation />
               </Suspense>
             </Layout>
@@ -158,7 +159,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Invoice />
               </Suspense>
             </Layout>
@@ -170,7 +171,7 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <Layout>
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<Spinner/>}>
                 <Receipt />
               </Suspense>
             </Layout>
