@@ -201,7 +201,7 @@ const Home = () => {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
-              pageSize: 10,
+              pageSize: 5,
               tokenID: userDetails?.tokenID,
             })
           ),
@@ -486,22 +486,21 @@ const Home = () => {
             </Card>
           </Col>
         </Row> */}
-        <Row className="mt-4">
+        <Row className="mt-4 overflow-y-scroll">
           <Col md={12}>
-            <Card className="border-0 p-3 h-[280px] dashboradTable">
-              <p className="font-16 section--name mb-3">
-                {" "}
-                {table == "policies"
-                  ? "List of Policies"
-                  : table == "customer"
-                  ? "List of Customer"
-                  : table == "claim"
-                  ? "List of Claim"
-                  : table == "PaidClaim"
-                  ? "List Of Paid Claim"
-                  : "List of Renewal"}
-              </p>
-
+            <p className="font-16 section--name mb-3">
+              {" "}
+              {table == "policies"
+                ? "List of Policies"
+                : table == "customer"
+                ? "List of Customer"
+                : table == "claim"
+                ? "List of Claim"
+                : table == "PaidClaim"
+                ? "List Of Paid Claim"
+                : "List of Renewal"}
+            </p>
+            <Card className="border-0 p-3">
               {(table === "policies" && policyData?.firstValue === undefined) ||
               (table === "customer" &&
                 customerInfo?.firstValue === undefined) ||
@@ -511,7 +510,7 @@ const Home = () => {
               (table === "renewal" && renewalList?.firstValue === undefined) ? (
                 <DataNotFound />
               ) : (
-                <Card.Body>
+                <Card.Body className="overflow-y-scroll">
                   <CustomisedTable
                     Data={
                       table == "policies"

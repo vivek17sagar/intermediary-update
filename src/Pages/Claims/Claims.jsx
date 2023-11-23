@@ -46,7 +46,7 @@ const Claims = ({ dashboard }) => {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
-              pageSize: 10,
+              pageSize: 5,
               proposerName: getValues()?.proposername,
               memberName: getValues()?.membername,
               displayMembershipNo: getValues()?.displaymembershipno,
