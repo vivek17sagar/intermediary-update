@@ -16,12 +16,12 @@ import {
   ForgotOtp,
   Forgotpassword,
   // ValidateLogin,
-  verifyWithOTP,
+  // verifyWithOTP,
 } from "../../API/Login/Login.api";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // import { getPayload } from "../../Payload";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import Base64 from "crypto-js/enc-base64";
 import Utf8 from "crypto-js/enc-utf8";
 import AES from "crypto-js/aes";
@@ -47,11 +47,11 @@ const ForgotpasswordComponent = () => {
   });
 
   // const [openLicense, setOpenLicense] = useState(false);
-  const [OTP, setOTP] = useState();
+  // const [OTP, setOTP] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const modalRef = useRef(null);
 
-  const { login, user } = useAuth();
+  const { user } = useAuth();
 
   // const { refetch, isFetching } = useQuery(["login"], handleFormValues, {
   //   refetchOnWindowFocus: false,
@@ -59,11 +59,11 @@ const ForgotpasswordComponent = () => {
   // });
 
   const [
-    {
-      data: forgotPasswordData,
-      refetch: forgotpassword,
-      isFetching: forgotPasswordFetching,
-    },
+    // {
+    //   data: forgotPasswordData,
+    //   refetch: forgotpassword,
+    //   isFetching: forgotPasswordFetching,
+    // },
     { data: otpData, refetch: getOtpData, isFetching: getOtpFetching },
   ] = useQueries({
     queries: [
@@ -189,9 +189,9 @@ const ForgotpasswordComponent = () => {
           style={{ width: "35rem" }}
         >
           <Col className="ml-80 underline">
-            <a href="/" style={{ color: "navy" }}>
+            <Link to="/" style={{ color: "navy" }}>
               Sign In
-            </a>
+            </Link>
           </Col>
           {/* <Card.Title className="text-center">
             <strong className="sign-in-header">
@@ -203,17 +203,17 @@ const ForgotpasswordComponent = () => {
             className=" flex flex-col gap-3 mt-2 w-96 "
           >
             <div>
-              <Form.Label>USERID / MOBILE / EMAIL</Form.Label>
+              <Form.Label>USERID </Form.Label>
               <Form.Control
                 name="email"
                 sizing="md"
                 type="text"
                 className="rounded-full"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    refetch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     refetch();
+                //   }
+                // }}
                 {...register("email")}
                 required
               />
@@ -224,11 +224,11 @@ const ForgotpasswordComponent = () => {
                 name="password"
                 type="password"
                 className="rounded "
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    refetch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     refetch();
+                //   }
+                // }}
                 {...register("password")}
                 required
               />
@@ -239,11 +239,11 @@ const ForgotpasswordComponent = () => {
                 name="confirmPassword"
                 type="password"
                 className="rounded "
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    refetch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     refetch();
+                //   }
+                // }}
                 {...register("confirmPassword")}
                 required
               />
@@ -254,11 +254,11 @@ const ForgotpasswordComponent = () => {
                 name="enterOtp"
                 type="password"
                 className="rounded "
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    refetch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     refetch();
+                //   }
+                // }}
                 {...register("enterOtp")}
                 required
               />

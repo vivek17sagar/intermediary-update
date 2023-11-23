@@ -16,6 +16,7 @@ import { faQuote } from "../../assets/faQuote";
 import ArrowSideBar from "../../assets/ArrowSideBar";
 import forwardArrow from "../../assets/forward_arrow.png";
 import back_arrow from "../../assets/back_arrow.png";
+import { FaAdmission } from "../../assets/faAdmission";
 // import quote from "../../assets/"
 
 const Sidebar = ({ func }) => {
@@ -67,6 +68,11 @@ const Sidebar = ({ func }) => {
       name: "Claims",
       route: "/claims",
     },
+    // {
+    //   icon: FaClaims,
+    //   name: "Paid Claims",
+    //   route: "/paidclaims",
+    // },
     {
       icon: FaPolicies,
       name: "Policies",
@@ -96,6 +102,11 @@ const Sidebar = ({ func }) => {
       icon: FaReceipt,
       name: "Receipt",
       route: "/receipt",
+    },
+    {
+      icon: FaAdmission,
+      name: "Admission Report",
+      route: "/report",
     },
   ];
 

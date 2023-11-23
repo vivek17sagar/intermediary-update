@@ -18,12 +18,17 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
+// import axios, { AxiosRequestConfig } from "axios";
+// import fs from "fs";
 // import { useQueries } from "@tanstack/react-query";
 // import { endorsementInvoicesList } from "../../API/Endorsement/endorsement.api";
 // import { getPayload } from "../../Payload";
 import { useStore } from "../../Store/store";
 import { getResultFromData } from "../../Utils/Utils";
-import { intermediateInvoices } from "../../API/Invoice/Invoice.api";
+import {
+  intermediateInvoices,
+  intermediateinvoiceexport,
+} from "../../API/Invoice/Invoice.api";
 import { getPayload } from "../../Payload";
 import { useState } from "react";
 import { useQueries } from "@tanstack/react-query";
@@ -32,6 +37,8 @@ import InvoiceTable from "./InvoiceTable";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
+import dayjs from "dayjs";
+import axios from "axios";
 
 const Invoice = () => {
   const {
@@ -46,6 +53,8 @@ const Invoice = () => {
   } = useForm({
     defaultValues: {
       proposerno: "",
+      dateFrom: "",
+      dateUpto: "",
     },
     // resolver: yupResolver(schema),
   });
@@ -55,9 +64,15 @@ const Invoice = () => {
     userDetails: store.userDetails,
   }));
 
-  const [page, setPage] = useState(1);
+  // intermediateinvoiceexport
 
-  const [{ data: invoiceData, refetch, isFetching }] = useQueries({
+  const [page, setPage] = useState(1);
+  const [waiting, setWaiting] = useState(false);
+
+  const [
+    { data: invoiceData, refetch, isFetching },
+    // { data: exportedInvoiceData, refetch: exportedInvoiceRefetch },
+  ] = useQueries({
     queries: [
       {
         queryKey: ["intermediateinvoices"],
@@ -68,6 +83,12 @@ const Invoice = () => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              dateFrom: getValues()?.dateFrom
+                ? dayjs(getValues()?.dateFrom).format("DD/MM/YYYY")
+                : "",
+              dateUpto: getValues()?.dateUpto
+                ? dayjs(getValues()?.dateUpto).format("DD/MM/YYYY")
+                : "",
               proposerName: getValues()?.proposerno,
               tokenID: userDetails?.tokenID,
             })
@@ -80,6 +101,25 @@ const Invoice = () => {
           };
         },
       },
+      // {
+      //   queryKey: ["intermediateinvoiceexport"],
+      //   queryFn: () =>
+      //     intermediateinvoiceexport(
+      //       getPayload("intermediateinvoiceexport", {
+      //         agencyID: userDetails?.userID,
+      //         agencyCode: userDetails?.userCode,
+
+      //         tokenID: userDetails?.tokenID,
+      //       })
+      //     ),
+      //   select(data) {
+      //     const endNumber = data?.data?.totalPages;
+      //     return {
+      //       firstValue: getResultFromData(data),
+      //       SecondValue: endNumber,
+      //     };
+      //   },
+      // },
     ],
   });
 
@@ -91,6 +131,55 @@ const Invoice = () => {
     }, 500);
   };
 
+  const handleExport = async () => {
+    setWaiting(true);
+    const payLoad = {
+      agencyID: userDetails?.userID,
+      agencyCode: userDetails?.userCode,
+      tokenID: userDetails?.tokenID,
+    };
+    const headers = {
+      // "Content-Type": "blob",
+      "Content-Type": "multipart/form-data",
+      "eO2-Secret-Code": import.meta.env.VITE_EO2_SECRET_CODE,
+    };
+    const config = {
+      method: "post",
+      data: payLoad,
+      url: `${
+        import.meta.env.DEV
+          ? import.meta.env.VITE_BaseURL_DEV
+          : import.meta.env.VITE_BaseURL_PROD
+      }/intermediateinvoiceexport`,
+      responseType: "arraybuffer",
+      headers,
+    };
+
+    const res = await axios(config);
+    if (res) {
+      setWaiting(false);
+    }
+    console.log(res);
+    try {
+      const response = await axios(config);
+
+      const outputFilename = `${Date.now()}.xls`;
+
+      // If you want to download file automatically using link attribute.
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", outputFilename);
+      document.body.appendChild(link);
+      link.click();
+
+      // OR you can save/write file locally.
+      // fs.writeFileSync(outputFilename, response.data);
+    } catch (error) {
+      throw Error(error);
+    }
+    // exportedInvoiceRefetch();
+  };
   const handleReset = () => {
     reset();
     setPage(1);
@@ -284,7 +373,7 @@ const Invoice = () => {
                       {...register("proposerno")}
                     />
                   </Col>
-                  {/* <Col md={4}>
+                  <Col md={4}>
                     <Form.Label className="font-14 fw-bold text-muted">
                       Start Date
                     </Form.Label>
@@ -293,7 +382,7 @@ const Invoice = () => {
                       type="date"
                       placeholder="Date From"
                       className="border-gray-400 rounded-xl"
-                      {...register("datefrom")}
+                      {...register("dateFrom")}
                     />
                   </Col>
                   <Col md={4}>
@@ -305,9 +394,9 @@ const Invoice = () => {
                       type="date"
                       placeholder="Date Upto"
                       className="border-gray-400 rounded-xl"
-                      {...register("dateupto")}
+                      {...register("dateUpto")}
                     />
-                  </Col> */}
+                  </Col>
                 </Row>
 
                 <Button
@@ -332,6 +421,34 @@ const Invoice = () => {
                 >
                   Reset
                 </Button>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={handleExport}
+                  className="mt-4 ml-2 bg-blue-700 justify-end"
+                  tabIndex={0}
+                >
+                  {waiting ? (
+                    <div className="mt-2 w-20  rounded-xl">
+                      <Spinner />
+                    </div>
+                  ) : (
+                    "Export File"
+                  )}
+                </Button>
+
+                {/* {waiting ? (
+                  <div className="mt-2 w-20 btn-bg rounded-3xl">
+                    <Spinner />
+                  </div>
+                ) : (
+                  <Button
+                    className="mt-2 w-100 bg-blue-700"
+                    onClick={handleExport}
+                  >
+                    Export File
+                  </Button>
+                )} */}
               </Card.Body>
             </Card>
           </Card>

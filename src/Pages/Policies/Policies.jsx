@@ -7,6 +7,7 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
+// import "./styles.css";
 import { PoliciesTable } from "./PoliciesTable";
 import { getResultFromData } from "../../Utils/Utils";
 import { useQueries } from "@tanstack/react-query";
@@ -17,6 +18,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
+import axios from "axios";
 const Policies = () => {
   const [page, setPage] = useState(1);
   const { userDetails } = useStore((store) => ({
@@ -39,6 +41,8 @@ const Policies = () => {
     },
     // resolver: yupResolver(schema),
   });
+
+  const [waiting, setWaiting] = useState(false);
 
   const [{ data: policiesData, refetch, isFetching }] = useQueries({
     queries: [
@@ -68,6 +72,57 @@ const Policies = () => {
       },
     ],
   });
+
+  const handleExport = async () => {
+    setWaiting(true);
+    const payLoad = {
+      agencyID: userDetails?.userID,
+      agencyCode: userDetails?.userCode,
+      tokenID: userDetails?.tokenID,
+    };
+    // setWaiting(true);
+    const headers = {
+      // "Content-Type": "blob",
+      "Content-Type": "multipart/form-data",
+      "eO2-Secret-Code": import.meta.env.VITE_EO2_SECRET_CODE,
+    };
+    const config = {
+      method: "post",
+      data: payLoad,
+      url: `${
+        import.meta.env.DEV
+          ? import.meta.env.VITE_BaseURL_DEV
+          : import.meta.env.VITE_BaseURL_PROD
+      }/intermediatepoliciesexport`,
+      responseType: "arraybuffer",
+      headers,
+    };
+
+    const res = await axios(config);
+    if (res) {
+      setWaiting(false);
+    }
+    console.log(res);
+    try {
+      const response = await axios(config);
+
+      const outputFilename = `${Date.now()}.xls`;
+
+      // If you want to download file automatically using link attribute.
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", outputFilename);
+      document.body.appendChild(link);
+      link.click();
+
+      // OR you can save/write file locally.
+      // fs.writeFileSync(outputFilename, response.data);
+    } catch (error) {
+      throw Error(error);
+    }
+    // exportedInvoiceRefetch();
+  };
 
   const handleReset = () => {
     reset();
@@ -145,6 +200,21 @@ const Policies = () => {
                 tabIndex={0}
               >
                 Reset
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={handleExport}
+                className="mt-4 ml-2 bg-blue-700 justify-end export_button"
+                tabIndex={0}
+              >
+                {waiting ? (
+                  <div className="mt-2 w-20  rounded-xl">
+                    <Spinner />
+                  </div>
+                ) : (
+                  "Export File"
+                )}
               </Button>
             </Card.Body>
           </Card>

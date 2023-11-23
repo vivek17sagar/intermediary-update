@@ -9,7 +9,6 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
-import { IntermediateClaimInprocess } from "../../API/Claims/claim.api";
 import { getPayload } from "../../Payload";
 import { getResultFromData } from "../../Utils/Utils";
 import { useStore } from "../../Store/store";
@@ -18,15 +17,18 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import { intermediateawatingadmissionreport } from "../../API/AdmissionReport/admission.api";
+import dayjs from "dayjs";
 // import ShimmeringTable from "../CommonComponents/Shimmer";
-const Claims = ({ dashboard }) => {
+const AdmissionReport = ({ dashboard }) => {
   const { register, getValues, reset } = useForm({
     defaultValues: {
       proposername: "",
       membername: "",
       displaymembershipno: "",
       claimno: "",
-      // mobileNo: "",
+      dateFrom: "",
+      dateUpto: "",
     },
   });
 
@@ -36,23 +38,27 @@ const Claims = ({ dashboard }) => {
     userDetails: store.userDetails,
   }));
 
+  let currentDate = new Date().toJSON().slice(0, 10);
+  //   console.log(currentDate);
+
   const [{ data: claimProcessData, refetch, isFetching }] = useQueries({
     queries: [
       {
-        queryKey: ["intermediateclaiminprocess"],
+        queryKey: ["intermediateawatingadmissionreport"],
         queryFn: () =>
-          IntermediateClaimInprocess(
-            getPayload("intermediateclaiminprocess", {
+          intermediateawatingadmissionreport(
+            getPayload("intermediateawatingadmissionreport", {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
-              proposerName: getValues()?.proposername,
-              memberName: getValues()?.membername,
-              displayMembershipNo: getValues()?.displaymembershipno,
-              claimNo: getValues()?.claimno,
               tokenID: userDetails?.tokenID,
-              // mobileNo: getValues()?.mobileNo,
+              dateFrom: getValues()?.dateFrom
+                ? dayjs(getValues()?.dateFrom).format("DD/MM/YYYY")
+                : dayjs(currentDate).format("DD/MM/YYYY"),
+              dateUpto: getValues()?.dateUpto
+                ? dayjs(getValues()?.dateUpto).format("DD/MM/YYYY")
+                : dayjs(currentDate).format("DD/MM/YYYY"),
             })
           ),
         select(data) {
@@ -65,8 +71,6 @@ const Claims = ({ dashboard }) => {
       },
     ],
   });
-
-  console.log(claimProcessData?.firstValue);
 
   const handlePaginationBehaviour = (pageNo) => {
     setPage(pageNo);
@@ -81,7 +85,7 @@ const Claims = ({ dashboard }) => {
 
   return !dashboard ? (
     <Container fluid>
-      <p className="font-16 section--name pl-5 pb-2">CLAIMS</p>
+      <p className="font-16 section--name pl-5 pb-2">ADMISSION REPORT</p>
 
       {/* <Row>
         <Card className="border-0 p-3">
@@ -97,7 +101,7 @@ const Claims = ({ dashboard }) => {
         <p className="font-16 section--name mb-2">Search By</p>
         <Card.Body style={{ padding: "0 0 1rem 0" }}>
           <Row>
-            <Col md={3}>
+            {/* <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
                 Claim Number
               </Form.Label>
@@ -121,30 +125,30 @@ const Claims = ({ dashboard }) => {
                 placeholder="Enter Proposer Name"
                 {...register("proposername")}
               />
-            </Col>
+            </Col> */}
 
             <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
-                Member Name
+                Start Date
               </Form.Label>
 
               <Form.Control
-                type="text"
+                type="date"
                 className="border-gray-400 rounded-xl"
                 placeholder="Enter Member Name"
-                {...register("membername")}
+                {...register("dateFrom")}
               />
             </Col>
             <Col md={3}>
               <Form.Label className="font-14 fw-bold text-muted">
-                Membership Number
+                End Date
               </Form.Label>
 
               <Form.Control
-                type="text"
+                type="date"
                 className="border-gray-400 rounded-xl"
                 placeholder="Enter Membership Number"
-                {...register("displaymembershipno")}
+                {...register("dateUpto")}
               />
             </Col>
             {/* <Col md={3}>
@@ -186,7 +190,7 @@ const Claims = ({ dashboard }) => {
         </Card.Body>
       </Card>
       <Row className="mt-4">
-        <p className="font-16  section--name">List of Claims</p>
+        <p className="font-16  section--name">List of Admission Reports</p>
         <Card className="border-0 p-3 mt-2 flex h-[480px]">
           {isFetching ? (
             <div className="flex justify-center align-middle mt-40">
@@ -197,7 +201,7 @@ const Claims = ({ dashboard }) => {
           ) : claimProcessData?.firstValue ? (
             <CustomisedTable
               Data={claimProcessData?.firstValue}
-              table="claim"
+              table="admissionReport"
             />
           ) : (
             <div className="flex justify-center align-middle mt-28">
@@ -246,4 +250,4 @@ const Claims = ({ dashboard }) => {
     </Container>
   );
 };
-export default Claims;
+export default AdmissionReport;

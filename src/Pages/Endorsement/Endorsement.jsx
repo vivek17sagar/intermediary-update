@@ -29,6 +29,7 @@ import { useState } from "react";
 
 import DataNotFound from "../CommonComponents/DataNotFound";
 import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
 // import ShimmeringTable from "../CommonComponents/Shimmer";
 // import {
 //   intermediateTotalRenewlCoutnonth,
@@ -56,6 +57,8 @@ const Endorsement = ({ dashboard = false }) => {
   } = useForm({
     defaultValues: {
       proposerName: "",
+      dateFrom: "",
+      dateUpto: "",
     },
     // resolver: yupResolver(schema),
   });
@@ -76,6 +79,12 @@ const Endorsement = ({ dashboard = false }) => {
               agencyCode: userDetails?.userCode,
               pageNo: page - 1,
               pageSize: 10,
+              dateFrom: getValues()?.dateFrom
+                ? dayjs(getValues()?.dateFrom).format("DD/MM/YYYY")
+                : "",
+              dateUpto: getValues()?.dateUpto
+                ? dayjs(getValues()?.dateUpto).format("DD/MM/YYYY")
+                : "",
               tokenID: userDetails?.tokenID,
               proposerName: getValues()?.proposerName,
             })
@@ -165,7 +174,7 @@ const Endorsement = ({ dashboard = false }) => {
                   {...register("proposerName")}
                 />
               </Col>
-              {/* <Col md={4}>
+              <Col md={4}>
                 <Form.Label className="font-14 fw-bold text-muted">
                   Start Date
                 </Form.Label>
@@ -174,7 +183,7 @@ const Endorsement = ({ dashboard = false }) => {
                   type="date"
                   placeholder="Date From"
                   className="border-gray-400 rounded-xl"
-                  {...register("datefrom")}
+                  {...register("dateFrom")}
                 />
               </Col>
               <Col md={4}>
@@ -186,9 +195,9 @@ const Endorsement = ({ dashboard = false }) => {
                   type="date"
                   placeholder="Date Upto"
                   className="border-gray-400 rounded-xl"
-                  {...register("dateupto")}
+                  {...register("dateUpto")}
                 />
-              </Col> */}
+              </Col>
             </Row>
             <Button
               type="button"
