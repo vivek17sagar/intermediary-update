@@ -196,7 +196,7 @@ const Login = () => {
             <div className="sign-in-header d-flex gap-2 justify-center flex flex-col">
               {/* Welcome to <EoxegenLogoColour /> */}
               <h2
-                className=" text-gray-600"
+                className="Login-title text-gray-600"
                 style={{
                   fontSize: "1.9rem",
                   height: "50px",
@@ -204,7 +204,7 @@ const Login = () => {
               >
                 Welcome to GA Insurance Intermediary Portal
               </h2>
-              <h4 className=" text-gray-600 text-2xl mt-4">
+              <h4 className="Login-title text-gray-600 text-2xl mt-4">
                 Please sign-in to your account
               </h4>
             </div>
