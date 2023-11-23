@@ -155,6 +155,15 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageSize: extraValues?.pageSize,
         tokenID: extraValues?.tokenID,
         proposerName: extraValues?.proposerName,
+        dateFrom: extraValues?.dateFrom,
+        dateUpto: extraValues?.dateUpto,
+      };
+    }
+    case "intermediateinvoiceexport": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: extraValues?.tokenID,
       };
     }
     case "intermediatelistcommision": {
@@ -165,6 +174,22 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         pageSize: extraValues?.pageSize,
         tokenID: extraValues?.tokenID,
         proposerName: extraValues?.proposerName,
+        dateFrom: extraValues?.dateFrom,
+        dateUpto: extraValues?.dateUpto,
+        // intermediateawatingadmissionreport
+      };
+    }
+    case "intermediateawatingadmissionreport": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        tokenID: extraValues?.tokenID,
+        proposerName: extraValues?.proposerName,
+        dateFrom: extraValues?.dateFrom,
+        dateUpto: extraValues?.dateUpto,
+        // intermediateawatingadmissionreport
       };
     }
     case "intermediatepolicycount": {
@@ -182,6 +207,14 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: extraValues?.tokenID,
       };
     }
+    case "intermediatetotalpaidclaimcount": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        tokenID: extraValues?.tokenID,
+        claimStatus: extraValues?.claimStatus,
+      };
+    }
     case "intermediateclaiminprocess": {
       return {
         agencyID: extraValues?.agencyID,
@@ -194,6 +227,21 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         claimNo: extraValues?.claimNo,
 
         tokenID: extraValues?.tokenID,
+      };
+    }
+    case "intermediatepaidclaim": {
+      return {
+        agencyID: extraValues?.agencyID,
+        agencyCode: extraValues?.agencyCode,
+        pageNo: extraValues?.pageNo,
+        pageSize: extraValues?.pageSize,
+        proposerName: extraValues?.proposerName,
+        memberName: extraValues?.memberName,
+        displayMembershipNo: extraValues?.displayMembershipNo,
+        claimNo: extraValues?.claimNo,
+
+        tokenID: extraValues?.tokenID,
+        claimStatus: extraValues?.claimStatus,
       };
     }
 
@@ -239,6 +287,8 @@ export const getPayload = (endpoint, extraValues = undefined) => {
         tokenID: sessionStorage.getItem("tokenID"),
         pageNo: extraValues?.pageNo,
         pageSize: extraValues?.pageSize,
+        dateFrom: extraValues?.dateFrom,
+        dateUpto: extraValues?.dateUpto,
         proposerName: extraValues?.proposerName,
       };
     }

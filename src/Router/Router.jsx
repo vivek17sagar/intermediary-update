@@ -8,6 +8,10 @@ const Home = lazy(() => import("../Pages/Home/Home"));
 const Customer = lazy(() => import("../Pages/Customer/Customer"));
 const Endorsement = lazy(() => import("../Pages/Endorsement/Endorsement"));
 const Claims = lazy(() => import("../Pages/Claims/Claims"));
+const AdmissionReport = lazy(() =>
+  import("../Pages/AdmissionReport/AdmissionReport")
+);
+// const PaidClaims = lazy(() => import("../Pages/PaidClaims/PaidClaims"));
 const Policies = lazy(() => import("../Pages/Policies/Policies"));
 const Invoice = lazy(() => import("../Pages/Invoice/Invoice"));
 const Quotation = lazy(() => import("../Pages/Quotation/Quotation"));
@@ -84,6 +88,30 @@ const Router = () => {
             <Layout>
               <Suspense fallback={<>Loading...</>}>
                 <Claims />
+              </Suspense>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      {/* <Route
+        path="/paidclaims"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Suspense fallback={<>Loading...</>}>
+                <PaidClaims />
+              </Suspense>
+            </Layout>
+          </ProtectedRoute>
+        }
+      /> */}
+      <Route
+        path="/report"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Suspense fallback={<>Loading...</>}>
+                <AdmissionReport />
               </Suspense>
             </Layout>
           </ProtectedRoute>

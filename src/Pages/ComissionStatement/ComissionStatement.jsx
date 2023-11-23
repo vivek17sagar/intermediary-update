@@ -17,6 +17,7 @@ import DataNotFound from "../CommonComponents/DataNotFound";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import { CommissionTable } from "./CommissionTable";
 import { commissionStatement } from "../../API/CommissionStatement/Commission.api";
+import dayjs from "dayjs";
 
 const ComissionStatement = () => {
   const [page, setPage] = useState(1);
@@ -37,6 +38,8 @@ const ComissionStatement = () => {
   } = useForm({
     defaultValues: {
       proposerName: "",
+      dateFrom: "",
+      dateUpto: "",
     },
     // resolver: yupResolver(schema),
   });
@@ -53,6 +56,12 @@ const ComissionStatement = () => {
               pageNo: page - 1,
               pageSize: 10,
               tokenID: userDetails?.tokenID,
+              dateFrom: getValues()?.dateFrom
+                ? dayjs(getValues()?.dateFrom).format("DD/MM/YYYY")
+                : "",
+              dateUpto: getValues()?.dateUpto
+                ? dayjs(getValues()?.dateUpto).format("DD/MM/YYYY")
+                : "",
               proposerName: getValues()?.proposerName,
             })
           ),
@@ -115,7 +124,7 @@ const ComissionStatement = () => {
                     {...register("proposerName")}
                   />
                 </Col>
-                {/* <Col md={4}>
+                <Col md={4}>
                   <Form.Label className="font-14 fw-bold text-muted">
                     Start Date
                   </Form.Label>
@@ -124,7 +133,7 @@ const ComissionStatement = () => {
                     type="date"
                     placeholder="Date From"
                     className="border-gray-400 rounded-xl"
-                    {...register("datefrom")}
+                    {...register("dateFrom")}
                   />
                 </Col>
                 <Col md={4}>
@@ -136,9 +145,9 @@ const ComissionStatement = () => {
                     type="date"
                     placeholder="Date Upto"
                     className="border-gray-400 rounded-xl"
-                    {...register("dateupto")}
+                    {...register("dateUpto")}
                   />
-                </Col> */}
+                </Col>
               </Row>
               <Button
                 type="button"

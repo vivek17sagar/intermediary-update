@@ -19,6 +19,7 @@ import {
   intermediateTotalRenewlListnonth,
   intermediatecustomersinfo,
   intermediatepolicycount,
+  intermediatetotalpaidclaimcount,
 } from "../../API/Home/Home.api";
 import { getResultFromData } from "../../Utils/Utils";
 import {
@@ -29,11 +30,16 @@ import { useState } from "react";
 import { getPoliciesData } from "../../API/Policies/policies.api";
 import { PaginationBasic } from "../CommonComponents/PaginationComponent";
 import DataNotFound from "../CommonComponents/DataNotFound";
+import { intermediatepaidclaim } from "../../API/PaidClaims/paidclaim.api";
 
 const Home = () => {
   const { userDetails } = useStore((store) => ({
     userDetails: store.userDetails,
   }));
+
+  console.log(userDetails);
+
+  // intermediatetotalpaidclaimcount
 
   const [table, setTable] = useState("renewal");
   const [page, setPage] = useState(1);
@@ -43,11 +49,13 @@ const Home = () => {
     { data: policyData, refetch: policyRefetch },
     { data: policyCount },
     { data: totalClaimInProcessCount },
+    { data: totalPaidClaimCount },
     { data: totalCustomerCount },
     { data: renewalCount, refetch: renewalRefetch },
     { data: renewalList, refetch: renewalListRefetch },
     { data: customerInfo, refetch: customerInfoRefetch },
     { data: claimData, refetch: claimDataReFetch },
+    { data: PaidclaimData, refetch: PaidclaimDataReFetch },
   ] = useQueries({
     queries: [
       {
@@ -94,6 +102,21 @@ const Home = () => {
               agencyID: userDetails?.userID,
               agencyCode: userDetails?.userCode,
               tokenID: userDetails?.tokenID,
+            })
+          ),
+        select(data) {
+          return getResultFromData(data);
+        },
+      },
+      {
+        queryKey: ["intermediatetotalpaidclaimcount"],
+        queryFn: () =>
+          intermediatetotalpaidclaimcount(
+            getPayload("intermediatetotalpaidclaimcount", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              tokenID: userDetails?.tokenID,
+              claimStatus: "P",
             })
           ),
         select(data) {
@@ -191,8 +214,34 @@ const Home = () => {
           };
         },
       },
+      {
+        queryKey: ["intermediatepaidclaim"],
+        queryFn: () =>
+          intermediatepaidclaim(
+            getPayload("intermediatepaidclaim", {
+              agencyID: userDetails?.userID,
+              agencyCode: userDetails?.userCode,
+              pageNo: page - 1,
+              pageSize: 10,
+              tokenID: userDetails?.tokenID,
+              claimStatus: "P",
+            })
+          ),
+        select(data) {
+          const endNumber = data?.data?.totalPages;
+
+          return {
+            firstValue: getResultFromData(data),
+            secondValue: endNumber,
+          };
+        },
+      },
     ],
   });
+
+  console.log(PaidclaimData);
+
+  console.log(totalPaidClaimCount);
 
   const handleClick = (param, clickBox) => {
     setTable(param);
@@ -210,6 +259,8 @@ const Home = () => {
         claimDataReFetch();
       } else if (table === "renewal") {
         renewalListRefetch();
+      } else if (table === "PaidClaim") {
+        PaidclaimDataReFetch();
       } else {
         return null;
       }
@@ -222,13 +273,13 @@ const Home = () => {
         <p className="font-16 section--name ml-2">DASHBOARD</p>
         <Row className="flex justify-center">
           <Col
-            md={3}
+            md={2}
             onClick={() => {
               setPage(1);
               setTimeout(() => renewalRefetch(), 0);
-              handleClick("renewal", [false, false, false, true]);
+              handleClick("renewal", [false, false, false, true, false]);
             }}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s w-[21rem]"
           >
             <Card className="border-0">
               <Card.Body
@@ -243,7 +294,9 @@ const Home = () => {
                 }
               >
                 <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Renewal Count</p>
+                  <p className="text-muted fw-medium">
+                    Renewal Count For This Month{" "}
+                  </p>
                   <h5 className="font-14 fw-bold mt-3">
                     {renewalCount?.totalRenewalCount}
                   </h5>
@@ -258,13 +311,13 @@ const Home = () => {
             </Card>
           </Col>
           <Col
-            md={3}
+            md={2}
             onClick={() => {
               setPage(1);
               setTimeout(() => policyRefetch(), 0);
-              handleClick("policies", [false, true, false, false]);
+              handleClick("policies", [false, true, false, false, false]);
             }}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s w-[21rem]"
           >
             <Card className="border-0">
               <Card.Body
@@ -278,14 +331,14 @@ const Home = () => {
                     : null
                 }
               >
-                <section className="flex-grow-1">
+                <section>
                   <p className="text-muted fw-medium">Total Policies Count</p>
                   <h5 className="font-14 fw-bold mt-3">
                     {policyCount?.totalPolicyCount}
                   </h5>
                 </section>
                 <section
-                  className="card--icon"
+                  className="card--icon ml-20"
                   style={{ backgroundColor: "#34c38f" }}
                 >
                   <FontAwesomeIcon icon={faIndianRupeeSign} size="xl" />
@@ -294,15 +347,15 @@ const Home = () => {
             </Card>
           </Col>
           <Col
-            md={3}
+            md={2}
             onClick={() => {
               setPage(1);
               setTimeout(() => {
                 customerInfoRefetch();
               }, 0);
-              handleClick("customer", [true, false, false, false]);
+              handleClick("customer", [true, false, false, false, false]);
             }}
-            className="block-1 mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="block-1 mt-3 cursor-pointer hover:scale-105 transition-all 0.2s w-[21rem]"
           >
             <Card className="border-0">
               <Card.Body
@@ -316,15 +369,15 @@ const Home = () => {
                     : null
                 }
               >
-                <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Total customers</p>
+                <section>
+                  <p className="text-muted fw-medium">Total customers Count</p>
                   <h5 className="font-14 fw-bold mt-3">
                     {" "}
                     {totalCustomerCount?.totalCustomerCount}
                   </h5>
                 </section>
                 <section
-                  className="card--icon"
+                  className="card--icon ml-20"
                   style={{ backgroundColor: "#556ee6" }}
                 >
                   <FontAwesomeIcon icon={faUser} size="xl" />
@@ -334,13 +387,13 @@ const Home = () => {
           </Col>
 
           <Col
-            md={3}
+            md={2}
             onClick={() => {
               setPage(1);
               setTimeout(() => claimDataReFetch(), 0);
-              handleClick("claim", [false, false, true, false]);
+              handleClick("claim", [false, false, true, false, false]);
             }}
-            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s"
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s w-[21rem]"
           >
             <Card className="border-0">
               <Card.Body
@@ -354,10 +407,51 @@ const Home = () => {
                     : null
                 }
               >
-                <section className="flex-grow-1">
-                  <p className="text-muted fw-medium">Claim In-Process</p>
+                <section>
+                  <p className="text-muted fw-medium">
+                    Reimbursement Claim <br />
+                    In-Process
+                  </p>
                   <h5 className="font-14 fw-bold mt-3">
                     {totalClaimInProcessCount?.totalClaimInProcessCount}
+                  </h5>
+                </section>
+                <section
+                  className="card--icon ml-9"
+                  style={{ backgroundColor: "#f46a6a" }}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} size="xl" />
+                </section>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col
+            md={2}
+            onClick={() => {
+              setPage(1);
+              setTimeout(() => PaidclaimDataReFetch(), 0);
+              handleClick("PaidClaim", [false, false, false, false, true]);
+            }}
+            className="mt-3 cursor-pointer hover:scale-105 transition-all 0.2s w-[21rem]"
+          >
+            <Card className="border-0">
+              <Card.Body
+                className="d-flex"
+                style={
+                  activeBox[4]
+                    ? {
+                        boxShadow: "0px 0px 1px 0.5px #556ee6",
+                        borderRadius: "10px",
+                      }
+                    : null
+                }
+              >
+                <section>
+                  <p className="text-muted fw-medium">
+                    Reimbursement Paid Claim
+                  </p>
+                  <h5 className="font-14 fw-bold mt-3">
+                    {totalPaidClaimCount?.totalClaimPaidCount}
                   </h5>
                 </section>
                 <section
@@ -403,6 +497,8 @@ const Home = () => {
                   ? "List of Customer"
                   : table == "claim"
                   ? "List of Claim"
+                  : table == "PaidClaim"
+                  ? "List Of Paid Claim"
                   : "List of Renewal"}
               </p>
 
@@ -410,6 +506,8 @@ const Home = () => {
               (table === "customer" &&
                 customerInfo?.firstValue === undefined) ||
               (table === "claim" && claimData?.firstValue === undefined) ||
+              (table === "PaidClaim" &&
+                PaidclaimData?.firstValue === undefined) ||
               (table === "renewal" && renewalList?.firstValue === undefined) ? (
                 <DataNotFound />
               ) : (
@@ -422,6 +520,8 @@ const Home = () => {
                         ? customerInfo?.firstValue
                         : table == "claim"
                         ? claimData?.firstValue
+                        : table == "PaidClaim"
+                        ? PaidclaimData?.firstValue
                         : renewalList?.firstValue
                     }
                     table={table}
@@ -441,6 +541,8 @@ const Home = () => {
                     ? customerInfo?.secondValue
                     : table == "claim"
                     ? claimData?.secondValue
+                    : table == "PaidClaim"
+                    ? PaidclaimData?.secondValue
                     : renewalList?.secondValue
                 }
               />
