@@ -429,9 +429,9 @@ const Invoice = () => {
                   tabIndex={0}
                 >
                   {waiting ? (
-                    <div className="mt-2 w-20  rounded-xl">
-                      <Spinner />
-                    </div>
+                    <div className="w-20 h-6  rounded-xl">
+                    <Spinner style={{width: "15px", height: "15px"}} />
+                  </div>
                   ) : (
                     "Export File"
                   )}
