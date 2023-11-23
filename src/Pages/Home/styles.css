@@ -20,3 +20,8 @@
 .graph::-webkit-scrollbar {
   display: none;
 }
+
+
+.dashboradTable{
+  overflow-x: scroll !important;
+}
