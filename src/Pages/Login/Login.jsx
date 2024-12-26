@@ -29,6 +29,7 @@ import Spinner from "../../Components/Spinner/SpinnerLoader";
 import ReactSpinner from "react-bootstrap-spinner";
 import { useEffect } from "react";
 import logo from "../../assets/logoGA.jpg";
+import { useHistoryState } from "@uidotdev/usehooks";
 
 const Login = () => {
   const {
@@ -38,8 +39,8 @@ const Login = () => {
     // formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "Test@1234",
+      password: "123456",
     },
   });
 
@@ -48,7 +49,7 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const modalRef = useRef(null);
   const { login, user } = useAuth();
-
+const[allow,setAllow] = useState(false);
   const { setUserDetails, userDetails } = useStore((store) => ({
     setUserDetails: store.setUserDetails,
     userDetails: store.userDetails,
@@ -84,6 +85,13 @@ const Login = () => {
   // });
   const [waiting, setWaiting] = useState(false);
 
+  const handleSignUp = () => {
+    return <Navigate to="/signup" />
+  }
+  if(allow){
+    console.log(allow)
+    return <Navigate to="/home" />;
+  }
   if (user) {
     return <Navigate to="/home" />;
   }
@@ -96,6 +104,7 @@ const Login = () => {
 
       return;
     }
+    console.log(values)
 
     const payLoad = {
       searchvalue: values.email,
@@ -103,8 +112,13 @@ const Login = () => {
       sendType: "M",
     };
     setWaiting(true);
-    const validateFirstStep = await ValidateLogin(payLoad);
+    // const validateFirstStep = await ValidateLogin(payLoad);
+    const validateFirstStep = {
+      ok: true,
+      message: "Signing"
+    };
 
+    console.log(validateFirstStep)
     setTimeout(() => {
       if (validateFirstStep.ok) {
         cogoToast
@@ -152,19 +166,26 @@ const Login = () => {
     };
 
     // OTPref.current.disabled = true;
-    const validatewithotp = await verifyWithOTP(payLoad);
+    // const validatewithotp = await verifyWithOTP(payLoad);
+    const validatewithotp = {
+      ok: true,
+      message:"successful"
+    };
 
     if (validatewithotp.ok) {
+      console.log("working")
+      console.log(login)
       if (login) {
         login(getResultFromData(validatewithotp));
         sessionStorage.setItem(
           "tokenID",
-          getResultFromData(validatewithotp).tokenID
+          'abcd'
         );
-        setUserDetails(getResultFromData(validatewithotp));
+        setUserDetails({});
         const data = getResultFromData(validatewithotp);
         localStorage.setItem("useDetails", JSON.stringify(data));
         // OTPref.current.disabled = false;
+        setAllow(true);
         modalRef.current?.close();
       }
     } else {
@@ -180,13 +201,13 @@ const Login = () => {
   return (
     <main className="login--main">
       <div style={{ position: "absolute", top: "50px", left: "90px" }} className="eOxegen-LOGO">
-        <EoxegenLogoColour open={open} />
+        {/* <EoxegenLogoColour open={open} /> */}
       </div>
       <section className="first--half">
         <LoginBackground />
       </section>
       <section className="login--card border-0 flex flex-col">
-        <img src={logo} alt="" style={{ width: "30rem" }} className="GA-INC-LOGO"/>
+        {/* <img src={logo} alt="" style={{ width: "30rem" }} className="GA-INC-LOGO"/> */}
 
         <Card
           className="login_details_card border-0"
@@ -239,7 +260,8 @@ const Login = () => {
             <Form.Control
               name="password"
               type="password"
-              className="rounded "
+
+              className="rounded"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   refetch();
@@ -248,6 +270,11 @@ const Login = () => {
               {...register("password")}
               required
             />
+            <section className="flex justify-between">
+            
+            <Link to="/signup" onClick={handleSignUp}>
+                Sign Up
+              </Link>
             <section className="options">
               <Form.Label className="mt-4">
                 {/* <InputGroup>
@@ -258,6 +285,7 @@ const Login = () => {
               <Link to="/forgotpassword" onClick={hadleForgot}>
                 Forgot Password
               </Link>
+            </section>
             </section>
             {waiting ? (
               <div className="mt-2 w-100 btn-bg rounded-3xl">

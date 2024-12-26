@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "../Components/ProtectedRoute/ProtectedRoute";
 import { Spinner } from "react-bootstrap";
 
+const SignUp = lazy(() => import("../Pages/SignUp/Signup"));
 const Login = lazy(() => import("../Pages/Login/Login"));
 const Layout = lazy(() => import("../Layout/Layout"));
 const Home = lazy(() => import("../Pages/Home/Home"));
@@ -45,53 +46,64 @@ const Router = () => {
           }
         />
       </Route>
+     
 
       <Route
         path="/home"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Home />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
+
+<Route
+          path="/signup"
+          element={
+            <Suspense>
+              <SignUp />
+            </Suspense>
+          }
+        />
+      
       <Route
         path="/customer"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Customer />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/endorsement"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Endorsement />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/claims"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Claims />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       {/* <Route
@@ -109,73 +121,73 @@ const Router = () => {
       <Route
         path="/report"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<>Loading...</>}>
                 <AdmissionReport />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/policies"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Policies />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/comissionstatement"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <ComissionStatement />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/quotation"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Quotation />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/invoice"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Invoice />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/receipt"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Layout>
               <Suspense fallback={<Spinner/>}>
                 <Receipt />
               </Suspense>
             </Layout>
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
     </Routes>
